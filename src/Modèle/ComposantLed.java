@@ -1,0 +1,39 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Modèle;
+
+import Controleur.Controleur;
+import java.awt.Color;
+import saveSystem.AccesXML;
+
+/**
+ *
+ * @author Utilisateur
+ */
+public class ComposantLed extends Composant {
+    
+    public ComposantLed(SimulateurArduino simulateur, Controleur ctrl)
+    {
+        super("led",simulateur, ctrl);
+        sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, simulateur));
+        ctrl.getAcces().setSlot(id, TypePin.Digital.toString(), Color.YELLOW.toString().substring(14), sesSlots.get(1).getPinConnectee().getNom());
+        
+        ctrl.ajouterAuSetup(new BlocInitialisationComp(this, ctrl.getAcces()));
+    }
+    
+        public ComposantLed(int id, Controleur ctrl)
+    {
+        super(id, "led", ctrl.getSimulateur());
+        sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
+         ctrl.ajouterAuSetup(new BlocInitialisationComp(id, this, ctrl.getAcces()));
+    }
+
+    @Override
+    public Pin getPin() {
+         return sesSlots.get(1).getPinConnectee();
+    }
+}
