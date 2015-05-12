@@ -450,10 +450,12 @@ public class AccesXML {
                             {
                                if(lesNoeuds2.item(i2) instanceof Element){
                                 Element e = (Element)lesNoeuds2.item(i2);
+                                if(e.getTagName().equals("bloc")){ //On vérifie que c'est un bloc
                                 Bloc bloc = convertirBloc(e, ctrl); //On récupère le bloc
                                         if(bloc!=null){ //si il n'est pas nul (il est reconnu)
                                             desBlocs.add(bloc); // on l'ajoute
                                         }
+                               }
                                }
                             }
                         }
