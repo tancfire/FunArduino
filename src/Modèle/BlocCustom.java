@@ -6,23 +6,24 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 import saveSystem.AccesXML;
 
 /**
- * Ce bloc permet de taper son propre code.
+ * Ce bloc permet de créer son propre code.
  * @author tancfire
  */
 public class BlocCustom extends Bloc{
     String code;
 
-    public BlocCustom(String code, AccesXML acces) {
-        super(Color.PINK, acces);
+    public BlocCustom(String code, Controleur ctrl) {
+        super(Color.PINK, ctrl);
         this.code = code;
     }
     
-        public BlocCustom(int id, String code, AccesXML acces) {
-        super(id, Color.PINK, acces);
+        public BlocCustom(int id, String code, Controleur ctrl) {
+        super(id, Color.PINK, ctrl);
         this.code = code;
     }
 

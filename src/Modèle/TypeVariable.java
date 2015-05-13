@@ -7,8 +7,8 @@
 package Modèle;
 
 /**
- *
- * @author Utilisateur
+ * C'est le type de la variable.
+ * @author tancfire
  */
 public enum TypeVariable {
     nombreEntier("int"), nombreAVirgule("float"), texte("String");

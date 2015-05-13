@@ -28,7 +28,7 @@ public class Variable {
         id= nbID;
         nbID++;
         
-        ctrl.ajouterAuInit(new BlocInitVariable(this, ctrl.getAcces()));
+        ctrl.ajouterAuInit(new BlocInitVariable(this, ctrl));
         ctrl.getAcces().creerVariable(id, typeParam.getType(), nom, valeurDepart);
     }
     

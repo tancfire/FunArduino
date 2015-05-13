@@ -6,18 +6,19 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Ce bloc est appelé en permanence tout au long du programme Arduino (représente
+ * le loop).
+ * @author tancfire
  */
 public class BlocUpdate extends Bloc {
     
-    public BlocUpdate(AccesXML acces)
+    public BlocUpdate(Controleur ctrl)
     {
-        super(Color.orange, acces); 
+        super(Color.orange, ctrl); 
     }
     
     

@@ -6,17 +6,17 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * C'est un bloc racine qui regroupe toutes les initialisations de variables globales.
+ * @author tancfire
  */
 public class BlocInit extends Bloc {
 
-    public BlocInit(AccesXML acces) {
-        super(Color.lightGray, acces);
+    public BlocInit(Controleur ctrl) {
+        super(Color.lightGray, ctrl);
     }
 
     @Override

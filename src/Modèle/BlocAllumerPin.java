@@ -6,28 +6,28 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Ce bloc permet d'allumer une Pin d'un composant.
+ * @author tancfire
  */
 public class BlocAllumerPin extends BlocComposant {
     private EtatPin etatPin;
     
-    public BlocAllumerPin(Composant composant, EtatPin etatPin, AccesXML acces)
+    public BlocAllumerPin(Composant composant, EtatPin etatPin, Controleur ctrl)
     {
-        super(Color.BLUE, composant, acces);
+        super(Color.BLUE, composant, ctrl);
         this.etatPin = etatPin;
         
         mettreAjourCode();
     }
     
     
-    public BlocAllumerPin(int id, Composant composant, EtatPin etatPin, AccesXML acces)
+    public BlocAllumerPin(int id, Composant composant, EtatPin etatPin, Controleur ctrl)
     {
-        super(id, Color.BLUE, composant, acces);
+        super(id, Color.BLUE, composant, ctrl);
         this.etatPin = etatPin;
         
         mettreAjourCode();

@@ -6,19 +6,19 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Permet de changer la valeur d'une variable (c'est une affectation).
+ * @author tancfire
  */
 public class BlocChangerVariable extends Bloc {
     Variable var;
     String valeur;
 
-    public BlocChangerVariable(Variable var, String valeur, AccesXML acces) {
-        super(Color.red, acces);
+    public BlocChangerVariable(Variable var, String valeur, Controleur ctrl) {
+        super(Color.red, ctrl);
         this.var = var;
         this.valeur = valeur;
        
@@ -26,8 +26,8 @@ public class BlocChangerVariable extends Bloc {
     }
     
     
-    public BlocChangerVariable(int id, Variable var, String valeur, AccesXML acces) {
-        super(id, Color.red, acces);
+    public BlocChangerVariable(int id, Variable var, String valeur, Controleur ctrl) {
+        super(id, Color.red, ctrl);
         this.var = var;
         this.valeur = valeur;
        

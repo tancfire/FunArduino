@@ -6,20 +6,20 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Permet d'ajouter des conditions (ex: si a>b).
+ * @author tancfire
  */
 public class BlocConditions extends Bloc{
     Object objet1;
     Object objet2;
     Comparateur comparateur;
 
-    public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, AccesXML acces) {
-        super(Color.PINK, acces);
+    public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
+        super(Color.PINK, ctrl);
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.comparateur = comparateur;
@@ -28,8 +28,8 @@ public class BlocConditions extends Bloc{
     }
     
     
-     public BlocConditions(int id, Object objet1, Object objet2, Comparateur comparateur, AccesXML acces) {
-        super(id, Color.PINK, acces);
+     public BlocConditions(int id, Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
+        super(id, Color.PINK, ctrl);
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.comparateur = comparateur;

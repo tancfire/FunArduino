@@ -7,8 +7,8 @@
 package Modèle;
 
 /**
- *
- * @author Utilisateur
+ * Représente l'état de la pin (donc HAUT ou BAS).
+ * @author tancfire
  */
 public enum EtatPin {
     HAUT, BAS;

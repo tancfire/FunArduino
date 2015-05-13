@@ -6,7 +6,9 @@
 
 package vue;
 
+import vue.BlocGraphique.BlocGraphique;
 import Controleur.Controleur;
+import Modèle.Bloc;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -83,9 +85,9 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     }
     
 
-    public void ajouterBlocGraphique()
+    public void ajouterBlocGraphique(BlocGraphique blocGraph)
     {
-        panelGraphique.add(new BlocGraphique(0,new ImageIcon("src/images/BlocStart_1.png")));
+        blocGraph.attacher(panelGraphique);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,22 +145,23 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         panelGraphiqueLayout.setHorizontalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraphiqueLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(27, 27, 27)
                 .addComponent(labelImgBlocUpdate)
-                .addGap(65, 65, 65)
-                .addComponent(labelImgArduino, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(476, Short.MAX_VALUE))
+                .addGap(137, 137, 137)
+                .addComponent(labelImgArduino, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(522, Short.MAX_VALUE))
         );
         panelGraphiqueLayout.setVerticalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraphiqueLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelGraphiqueLayout.createSequentialGroup()
                 .addGroup(panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelImgArduino)
                     .addGroup(panelGraphiqueLayout.createSequentialGroup()
-                        .addGap(163, 163, 163)
+                        .addGap(83, 83, 83)
+                        .addComponent(labelImgArduino))
+                    .addGroup(panelGraphiqueLayout.createSequentialGroup()
+                        .addGap(227, 227, 227)
                         .addComponent(labelImgBlocUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(491, 491, 491))
+                .addContainerGap(419, Short.MAX_VALUE))
         );
 
         scrollPanelGraphique.setViewportView(panelGraphique);

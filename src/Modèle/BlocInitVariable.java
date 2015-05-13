@@ -6,24 +6,24 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Permet d'initialiser une variable dans le code.
+ * @author tancfire
  */
 public class BlocInitVariable extends Bloc{
 
     private Variable var;
     
-    public BlocInitVariable(Variable var, AccesXML acces) {
-        super(Color.YELLOW, acces);
+    public BlocInitVariable(Variable var, Controleur ctrl) {
+        super(Color.YELLOW, ctrl);
         this.var = var;
     }
     
-        public BlocInitVariable(int id, Variable var, AccesXML acces) {
-        super(id, Color.YELLOW, acces);
+        public BlocInitVariable(int id, Variable var, Controleur ctrl) {
+        super(id, Color.YELLOW, ctrl);
         this.var = var;
         
     }

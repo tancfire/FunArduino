@@ -6,6 +6,7 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +27,13 @@ public abstract class Bloc {
     protected AccesXML acces;
     
     
-    
-    public Bloc(Color couleur, AccesXML acces)
+    /**
+     * C'est le constructeur qui permet de créer un Bloc et de le sauvegarder dans
+     * l'accès XML.
+     * @param couleur La couleur qui apparaitra dans le texte
+     * @param ctrl 
+     */
+    public Bloc(Color couleur, Controleur ctrl)
     {
         sesBlocs = new HashMap<Integer,Bloc>();
         this.couleur = couleur;
@@ -37,12 +43,17 @@ public abstract class Bloc {
         id = nbID;
         nbID++;
         
-        this.acces = acces;
+        this.acces = ctrl.getAcces();
         acces.creerBloc(id, getClass().getSimpleName()); //permet de sauvegarder le bloc directement
     }
     
     
-        public Bloc(int id, Color couleur, AccesXML acces)
+     /**
+     * C'est le constructeur qui permet de créer un Bloc à partir du fichier de sauvegarde.
+     * @param couleur
+     * @param ctrl 
+     */
+        public Bloc(int id, Color couleur, Controleur ctrl)
     {
         sesBlocs = new HashMap<Integer,Bloc>();
         this.couleur = couleur;
@@ -51,10 +62,15 @@ public abstract class Bloc {
         niveau = 0; // c'est le nombre de tabulation qu'il faudra faire.
         this.id = id;
 
-         this.acces = acces;
+        this.acces = ctrl.getAcces();
     }
     
-        
+    
+    /**
+     * Fait la même chose qu'ajotuerBlocALaFin, mais ne sauvegarde pas la parenté
+     * dans le fichier de sauvegarde (lorsque l'on charge, par exemple).
+     * @param unBloc 
+     */
     public void ajouterBlocALaFinSansSauvegarde(Bloc unBloc)
     {
         sesBlocs.put(sesBlocs.size(), unBloc);
@@ -62,7 +78,10 @@ public abstract class Bloc {
     }
     
     
-    
+    /**
+     * Permet d'ajouter un bloc fils. On l'ajoute à la fin de la file.
+     * @param unBloc c'est le bloc qui deviendra le fils de ce bloc courant.
+     */
     public void ajouterBlocALaFin(Bloc unBloc)
     {
         ajouterBlocALaFinSansSauvegarde(unBloc);
@@ -70,7 +89,11 @@ public abstract class Bloc {
         acces.setPositionToBloc(unBloc.getId(), sesBlocs.size());
     }
     
-    
+    /**
+     * Permet d'ajouter un bloc fils. 
+     * @param position la position à lauquelle on souhaite ajouter le fils
+     * @param unBloc le bloc fils que l'on souhaite ajouter
+     */
     public void ajouterBloc(int position, Bloc unBloc)
     {
         if(sesBlocs.containsKey(position)){ //si un bloc existe déjà sur cette position
@@ -89,22 +112,28 @@ public abstract class Bloc {
     }
     
     
-    
+    /**
+     * Permet de supprimer un bloc par rapport à sa position. Sera complété/remplacé
+     * prochainement.
+     * @param position est la position du bloc que l'on souhaite supprimer.
+     */
     public void supprimerBloc(int position)
     {
         sesBlocs.remove(position);
     }
     
-    public int getNombreBlocs()
-    {
-        return sesBlocs.size();
-    }
     
-    
+    /**
+     * Permet d'affecter les variables sonCodeDebut et sonCodeFin. Cette fonction
+     * est appelé à chaque fois que nous avons besoin de mettre à jour le code du bloc.
+     */
     public abstract void mettreAjourCode();
 
     
-    
+    /**
+     * Permet de récupérer le code arduino généré par le bloc.
+     * @return Le code arduino généré par le bloc.
+     */
     public String getCode()
     {
         mettreAjourCode();
@@ -123,12 +152,20 @@ public abstract class Bloc {
     }
     
     
+    /**
+     * Le niveau représente à quelle profondeur de parenté se trouve le bloc.
+     * @param niveau 
+     */
     public void setNiveau(int niveau)
     {
         this.niveau = niveau;
     }
     
     
+    /**
+     * Permet de générer le nombre bon nombre de tabulations.
+     * @return Les tabulations.
+     */
     protected String tab()
     {
         String tab = "";
@@ -149,6 +186,10 @@ public abstract class Bloc {
 
     public int getId() {
         return id;
+    }
+
+    public int getNiveau() {
+        return niveau;
     }
 
     public HashMap<Integer,Bloc> getSesFils()

@@ -381,7 +381,7 @@ public class AccesXML {
                     }
             }}
         }
-         BlocInitVariable bloc = new BlocInitVariable(id, var, this);
+         BlocInitVariable bloc = new BlocInitVariable(id, var, ctrl);
          
          return bloc;
      }
@@ -476,7 +476,7 @@ public class AccesXML {
            
            if(e.getAttribute("label").equals("BlocAttendre")){
                 Element param = getParamByNom(id, "delai");
-                bloc = new BlocAttendre(id,Integer.parseInt(param.getAttribute("valeur")),this);
+                bloc = new BlocAttendre(id,Integer.parseInt(param.getAttribute("valeur")), ctrl);
             
            }else if (e.getAttribute("label").equals("BlocAllumerPin")){
                  EtatPin etat = EtatPin.BAS;
@@ -487,7 +487,7 @@ public class AccesXML {
                     {
                         etat = EtatPin.HAUT;
                     }
-                 bloc = new BlocAllumerPin(id, ctrl.getComposantById(id2),  etat, this);
+                 bloc = new BlocAllumerPin(id, ctrl.getComposantById(id2),  etat, ctrl);
                  
            }else if (e.getAttribute("label").equals("BlocConditions")){
                  Element param1 = getParamByNom(id, "param1");
@@ -517,7 +517,7 @@ public class AccesXML {
                      o2 = ctrl.getComposantById(Integer.parseInt(param2.getAttribute("valeur")));
                  }
                  
-                 bloc = new BlocConditions(id, o1, o2, Comparateur.superieur, this);
+                 bloc = new BlocConditions(id, o1, o2, Comparateur.superieur, ctrl);
            }
            
            

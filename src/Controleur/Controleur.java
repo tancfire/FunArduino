@@ -29,13 +29,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocGraphique;
+import vue.BlocGraphique.BlocStartGraphique;
 import vue.KitArduinoFrame;
 
 /**
@@ -65,15 +63,17 @@ public class Controleur {
         composants = new ArrayList<Composant>();
         variables = new ArrayList<Variable>();
         
-        // ------- test --------
-        vue.ajouterBlocGraphique();
-        // ---------------------
         
         creerProjet(new File("./saves").getAbsolutePath(), "GenerateByFunArduino");
        
         
         //On initialise tout à zéro
         remettreAZero();
+        
+        // ------- test --------
+       // vue.ajouterBlocGraphique(new BlocStartGraphique(blocStart));
+        //vue.ajouterBlocGraphique(blocUpdate.getId(), blocUpdate.getNiveau());
+        // ---------------------
         
         ComposantLed led = new ComposantLed(simulateur,this);
         ajouterComposant(led);
@@ -86,12 +86,12 @@ public class Controleur {
        // BlocConditions conditions = new BlocConditions((Object)varEtat,(Object)0,Comparateur.egal);
       //  BlocConditions conditions2 = new BlocConditions((Object)varEtat,(Object)1,Comparateur.egal);
         
-        blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.HAUT,acces));
-        blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,acces));
-        blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.BAS,acces));
-        blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,acces));
+        blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.HAUT,this));
+        blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
+        blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.BAS,this));
+        blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         
-         blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, acces));
+         blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, this));
         
       //  conditions.ajouterBloc(0, new BlocAllumerPin(led, EtatPin.HAUT));
       //  conditions.ajouterBloc(1, new BlocChangerVariable(varEtat, "1"));
@@ -108,14 +108,16 @@ public class Controleur {
         vue.setCode(assemblage.getCode());
     }
     
-    
+    /**
+     * Cette méthode permet de (re)mettre à zéro tout ce qui est nécessaire.
+     */
     public void remettreAZero()
     {  
        simulateur = new SimulateurArduino();
         assemblage = new AssemblageBlocs(acces);
-        blocStart = new BlocStart(acces);
-        blocUpdate = new BlocUpdate(acces);
-        blocInit = new BlocInit(acces);
+        blocStart = new BlocStart(this);
+        blocUpdate = new BlocUpdate(this);
+        blocInit = new BlocInit(this);
         
         assemblage.ajouterBloc(0, blocInit);
         assemblage.ajouterBloc(1, blocStart);
@@ -125,8 +127,13 @@ public class Controleur {
     }
       
     
-
     
+    public void ajouterBlocGraphique(BlocGraphique blocGraph)
+    {
+        vue.ajouterBlocGraphique(blocGraph);
+    }
+    
+     
     public void ajouterVariable(Variable variable)
     {
         variables.add(variable);
@@ -182,7 +189,7 @@ public class Controleur {
     
     
     
-            /*===================================================================
+        /*===================================================================
         ---------------- SAUVEGARDES ET GESTION DE FICHIERS -----------------
         ===================================================================*/
         

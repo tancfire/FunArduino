@@ -8,11 +8,10 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Ce composant initialise une Led.
+ * @author tancfire
  */
 public class ComposantLed extends Composant {
     
@@ -22,14 +21,14 @@ public class ComposantLed extends Composant {
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, simulateur));
         ctrl.getAcces().setSlot(id, TypePin.Digital.toString(), Color.YELLOW.toString().substring(14), sesSlots.get(1).getPinConnectee().getNom());
         
-        ctrl.ajouterAuSetup(new BlocInitialisationComp(this, ctrl.getAcces()));
+        ctrl.ajouterAuSetup(new BlocInitialisationComp(this, ctrl));
     }
     
         public ComposantLed(int id, Controleur ctrl)
     {
         super(id, "led", ctrl.getSimulateur());
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
-         ctrl.ajouterAuSetup(new BlocInitialisationComp(id, this, ctrl.getAcces()));
+         ctrl.ajouterAuSetup(new BlocInitialisationComp(id, this, ctrl));
     }
 
     @Override

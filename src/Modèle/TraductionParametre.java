@@ -7,7 +7,7 @@
 package Modèle;
 
 /**
- * Permet de traduire des paramètres.
+ * Permet de traduire les paramètres d'une condition.
  * @author tancfire
  */
 public class TraductionParametre {

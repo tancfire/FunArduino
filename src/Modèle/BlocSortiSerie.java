@@ -6,25 +6,25 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Permet d'afficher du texte sur le port série.
+ * @author tancfire
  */
 public class BlocSortiSerie extends Bloc{
     String message;
     
-    public BlocSortiSerie(String message, AccesXML acces)
+    public BlocSortiSerie(String message, Controleur ctrl)
     {
-        super(Color.RED, acces);
+        super(Color.RED, ctrl);
         this.message = message;
     }
     
-        public BlocSortiSerie(int id, String message, AccesXML acces)
+        public BlocSortiSerie(int id, String message, Controleur ctrl)
     {
-        super(id, Color.RED, acces);
+        super(id, Color.RED, ctrl);
         this.message = message;
     }
 

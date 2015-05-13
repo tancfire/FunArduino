@@ -6,18 +6,21 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocStartGraphique;
 
 /**
- *
- * @author Utilisateur
+ * Permet de lancer du code au démarrage.
+ * @author tancfire
  */
 public class BlocStart extends Bloc{
     
-    public BlocStart(AccesXML acces)
+    public BlocStart(Controleur ctrl)
     {
-        super(Color.DARK_GRAY, acces);
+        super(Color.ORANGE, ctrl);
+        ctrl.ajouterBlocGraphique(new BlocStartGraphique(this));
     }
     
     

@@ -7,8 +7,9 @@
 package Modèle;
 
 /**
- *
- * @author Utilisateur
+ * Le comparateur est utilisé dans le bloc de condition. Il permet de comparer
+ * deux valeurs.
+ * @author tancfire
  */
 public enum Comparateur {
     egal("=="), inegal("!="), superieur(">"), inferieur("<"), superieurOuEgal(">="), inferieurOuEgal("<=");

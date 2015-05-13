@@ -6,27 +6,30 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- *
- * @author Utilisateur
+ * Ce bloc permet d'initialiser un composant.
+ * @author tancfire
  */
 public class BlocInitialisationComp extends BlocComposant{
 
     
-    public BlocInitialisationComp(Composant composant, AccesXML acces) {
-        super(Color.GREEN, composant, acces);
+    public BlocInitialisationComp(Composant composant, Controleur ctrl) {
+        super(Color.GREEN, composant, ctrl);
     }
     
-        public BlocInitialisationComp(int id, Composant composant,  AccesXML acces) {
-        super(id, Color.GREEN, composant, acces);
+        public BlocInitialisationComp(int id, Composant composant,  Controleur ctrl) {
+        super(id, Color.GREEN, composant, ctrl);
     }
     
     @Override
     public void mettreAjourCode()
     {
+        // On récupère la pin du composant lié à ce bloc.
+        //Pour l'instant, le composant à gérer ne peut être qu'en OUTPUT. Les prochaines
+        //màj règleront le problème.
         sonCodeDebut = tab()+"pinMode("+composant.getPin().getNom()+",OUTPUT);\n";
     }
  

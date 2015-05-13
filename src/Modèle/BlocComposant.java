@@ -6,24 +6,25 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
 
 /**
- * Le BlocComposant est un bloc lié à un composant.
+ * Le BlocComposant est un bloc lié à un composant. Cela permettra aux classes filles
+ * d'intéragir avec.
  * @author tancfire
  */
 public abstract class BlocComposant extends Bloc{
     protected Composant composant;
 
-    public BlocComposant(Color couleur, Composant composant, AccesXML acces) {
-        super(couleur, acces);
+    public BlocComposant(Color couleur, Composant composant, Controleur ctrl) {
+        super(couleur, ctrl);
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }
     
-        public BlocComposant(int id, Color couleur, Composant composant, AccesXML acces) {
-        super(id, couleur, acces);
+        public BlocComposant(int id, Color couleur, Composant composant, Controleur ctrl) {
+        super(id, couleur, ctrl);
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }

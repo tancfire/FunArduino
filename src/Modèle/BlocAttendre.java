@@ -6,29 +6,32 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocAllumerPinGraphique;
 
 /**
- *
- * @author Utilisateur
+ * Le bloc attendre permet de faire une pause dans le programme.
+ * @author tancfire
  */
 public class BlocAttendre extends Bloc {
     private int delai;
 
-    public BlocAttendre(int delai, AccesXML acces) {
-        super(Color.MAGENTA, acces);
+    public BlocAttendre(int delai, Controleur ctrl) {
+        super(Color.MAGENTA, ctrl);
         this.delai = delai;
         
         mettreAjourCode();
+        ctrl.ajouterBlocGraphique(new BlocAllumerPinGraphique(this));
     }
     
     
-    public BlocAttendre(int id, int delai, AccesXML acces) {
-        super(id, Color.MAGENTA, acces);
+    public BlocAttendre(int id, int delai, Controleur ctrl) {
+        super(id, Color.MAGENTA, ctrl);
         this.delai = delai;
         
         mettreAjourCode();
+        ctrl.ajouterBlocGraphique(new BlocAllumerPinGraphique(this));
     }
     
     

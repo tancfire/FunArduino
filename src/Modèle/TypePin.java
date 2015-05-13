@@ -7,10 +7,10 @@
 package Modèle;
 
 /**
- *
- * @author Utilisateur
+ * C'est le type de pin.
+ * @author tancfire
  */
 public enum TypePin {
-    Reset, v5, v33, GND, Vin, Analogic, Digital;
+    Reset, v5, v33/*(représente du 3.3v)*/, GND, Vin, Analogic, Digital;
     
 }
