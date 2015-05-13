@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocConditionsGraphique;
 
 /**
  * Permet d'ajouter des conditions (ex: si a>b).
@@ -25,6 +26,8 @@ public class BlocConditions extends Bloc{
         this.comparateur = comparateur;
         
         mettreAjourCode();
+        this.blocGraph = new BlocConditionsGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     
@@ -35,6 +38,8 @@ public class BlocConditions extends Bloc{
         this.comparateur = comparateur;
         
         mettreAjourCode();
+        this.blocGraph = new BlocConditionsGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
 
 

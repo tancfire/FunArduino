@@ -87,7 +87,7 @@ public class Controleur {
       //  BlocConditions conditions2 = new BlocConditions((Object)varEtat,(Object)1,Comparateur.egal);
         
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.HAUT,this));
-        blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
+       // blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.BAS,this));
         blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         

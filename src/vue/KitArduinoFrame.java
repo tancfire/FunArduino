@@ -27,8 +27,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
- *
- * @author Utilisateur
+ * 
+ * Prochaines améliorations: faire une liste des blocs graphiques et créer des
+ * méthodes pour pouvoir la gérer (Pour le positionnement en Y).
+ * @author tancfire
  */
 public class KitArduinoFrame extends javax.swing.JFrame {
     Controleur ctrl;
@@ -105,7 +107,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         labelImgArduino = new javax.swing.JLabel();
-        labelImgBlocUpdate = new javax.swing.JLabel();
         scrollEditCode = new javax.swing.JScrollPane();
         editCode = new javax.swing.JTextPane();
         scrollListeObjets = new javax.swing.JScrollPane();
@@ -138,29 +139,20 @@ public class KitArduinoFrame extends javax.swing.JFrame {
 
         labelImgArduino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LeonardoNoHeadersFront_2_450px.jpg"))); // NOI18N
 
-        labelImgBlocUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icone.png"))); // NOI18N
-
         javax.swing.GroupLayout panelGraphiqueLayout = new javax.swing.GroupLayout(panelGraphique);
         panelGraphique.setLayout(panelGraphiqueLayout);
         panelGraphiqueLayout.setHorizontalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraphiqueLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(labelImgBlocUpdate)
-                .addGap(137, 137, 137)
+                .addGap(214, 214, 214)
                 .addComponent(labelImgArduino, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(522, Short.MAX_VALUE))
         );
         panelGraphiqueLayout.setVerticalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGraphiqueLayout.createSequentialGroup()
-                .addGroup(panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelGraphiqueLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(labelImgArduino))
-                    .addGroup(panelGraphiqueLayout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(labelImgBlocUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(83, 83, 83)
+                .addComponent(labelImgArduino)
                 .addContainerGap(419, Short.MAX_VALUE))
         );
 
@@ -382,7 +374,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSauvegarderSous;
     private javax.swing.JRadioButtonMenuItem itemUno;
     private javax.swing.JLabel labelImgArduino;
-    private javax.swing.JLabel labelImgBlocUpdate;
     private javax.swing.JList listeObjets;
     private javax.swing.JMenuBar menuBarre;
     private javax.swing.JMenu menuChoixArduino;

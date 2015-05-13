@@ -9,6 +9,7 @@ package Modèle;
 import java.util.HashMap;
 import java.util.Map;
 import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocGraphique;
 
 /**
  * L'assemblage des blocs contient tout les blocs à la racine.
@@ -27,6 +28,7 @@ public class AssemblageBlocs {
     public void ajouterBloc(int position, Bloc unBloc)
     {
         sesBlocs.put(position, unBloc);
+        unBloc.getBlocGraphique().setPosition(position);
         acces.setPositionToBloc(unBloc.getId(), position);
     }
     

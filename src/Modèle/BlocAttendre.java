@@ -9,6 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import vue.BlocGraphique.BlocAllumerPinGraphique;
+import vue.BlocGraphique.BlocAttendreGraphique;
 
 /**
  * Le bloc attendre permet de faire une pause dans le programme.
@@ -22,7 +23,8 @@ public class BlocAttendre extends Bloc {
         this.delai = delai;
         
         mettreAjourCode();
-        ctrl.ajouterBlocGraphique(new BlocAllumerPinGraphique(this));
+        blocGraph= new BlocAttendreGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     
@@ -31,7 +33,8 @@ public class BlocAttendre extends Bloc {
         this.delai = delai;
         
         mettreAjourCode();
-        ctrl.ajouterBlocGraphique(new BlocAllumerPinGraphique(this));
+        blocGraph= new BlocAttendreGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     

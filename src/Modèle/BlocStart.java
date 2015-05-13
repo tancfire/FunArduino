@@ -9,6 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocAllumerPinGraphique;
 import vue.BlocGraphique.BlocStartGraphique;
 
 /**
@@ -20,7 +21,8 @@ public class BlocStart extends Bloc{
     public BlocStart(Controleur ctrl)
     {
         super(Color.ORANGE, ctrl);
-        ctrl.ajouterBlocGraphique(new BlocStartGraphique(this));
+        blocGraph= new BlocStartGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     

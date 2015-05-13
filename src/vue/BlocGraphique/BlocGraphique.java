@@ -18,21 +18,38 @@ import javax.swing.JPanel;
 public class BlocGraphique extends JLabel{
     private Bloc bloc;
     private JLabel label;
-    private static int position = 0;
+    private static int nbrPosition = -1;
+    private int position;
     
     public BlocGraphique(Bloc bloc, String texte, ImageIcon image)
     {
         super(image);
+        this.bloc = bloc;
         setSize(120,80);
         
         label = new JLabel(texte);
         label.setSize(120, 80);
         label.setHorizontalAlignment(CENTER);
         
-        setLocation(bloc.getNiveau()*20, position*45);
-        label.setLocation(bloc.getNiveau()*20, position*45);
+        // position "par défaut"
+        nbrPosition++;
+        position = nbrPosition;
         
-        position++;
+        mettreAjour();
+    }
+    
+    
+    public void setPosition(int position)
+    {
+        this.position = position;
+        mettreAjour();
+    }
+    
+    
+    public void mettreAjour()
+    {
+        setLocation(bloc.getNiveau()*40, position*45);
+        label.setLocation(bloc.getNiveau()*40, position*45);
     }
     
     
@@ -45,5 +62,9 @@ public class BlocGraphique extends JLabel{
     public int getId()
     {
         return bloc.getId();
+    }
+
+    public int getPosition() {
+        return position;
     }
 }

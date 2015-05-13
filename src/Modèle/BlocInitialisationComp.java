@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocInitialisationCompGraphique;
 
 /**
  * Ce bloc permet d'initialiser un composant.
@@ -18,10 +19,16 @@ public class BlocInitialisationComp extends BlocComposant{
     
     public BlocInitialisationComp(Composant composant, Controleur ctrl) {
         super(Color.GREEN, composant, ctrl);
+        
+        blocGraph = new BlocInitialisationCompGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
         public BlocInitialisationComp(int id, Composant composant,  Controleur ctrl) {
         super(id, Color.GREEN, composant, ctrl);
+        
+        blocGraph = new BlocInitialisationCompGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     @Override

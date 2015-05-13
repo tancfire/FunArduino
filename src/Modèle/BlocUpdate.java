@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocUpdateGraphique;
 
 /**
  * Ce bloc est appelé en permanence tout au long du programme Arduino (représente
@@ -19,6 +20,8 @@ public class BlocUpdate extends Bloc {
     public BlocUpdate(Controleur ctrl)
     {
         super(Color.orange, ctrl); 
+        blocGraph= new BlocUpdateGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     

@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocInitGraphique;
 
 /**
  * C'est un bloc racine qui regroupe toutes les initialisations de variables globales.
@@ -17,6 +18,8 @@ public class BlocInit extends Bloc {
 
     public BlocInit(Controleur ctrl) {
         super(Color.lightGray, ctrl);
+        this.blocGraph = new BlocInitGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
 
     @Override

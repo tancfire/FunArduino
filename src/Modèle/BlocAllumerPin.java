@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocAllumerPinGraphique;
 
 /**
  * Ce bloc permet d'allumer une Pin d'un composant.
@@ -22,6 +23,8 @@ public class BlocAllumerPin extends BlocComposant {
         this.etatPin = etatPin;
         
         mettreAjourCode();
+        blocGraph= new BlocAllumerPinGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     
@@ -31,6 +34,8 @@ public class BlocAllumerPin extends BlocComposant {
         this.etatPin = etatPin;
         
         mettreAjourCode();
+        blocGraph= new BlocAllumerPinGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     @Override

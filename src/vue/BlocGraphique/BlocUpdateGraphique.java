@@ -10,13 +10,13 @@ import Modèle.Bloc;
 import javax.swing.ImageIcon;
 
 /**
- * C'est le bloc graphique qui représentera le blocAllumerPin.
+ *
  * @author tancfire
  */
-public class BlocAllumerPinGraphique extends BlocGraphique {
+public class BlocUpdateGraphique extends BlocGraphique {
 
-    public BlocAllumerPinGraphique(Bloc bloc) {
-        super(bloc, "Pin", new ImageIcon("src/images/BlocStart.png"));
+    public BlocUpdateGraphique(Bloc bloc) {
+        super(bloc, "Update", new ImageIcon("src/images/BlocStart.png"));
     }
     
 }

@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocGraphique;
 
 /**
  * Le bloc est un bloc de code.
@@ -26,6 +27,7 @@ public abstract class Bloc {
     protected String sonCodeFin;
     protected AccesXML acces;
     
+    protected BlocGraphique blocGraph;
     
     /**
      * C'est le constructeur qui permet de créer un Bloc et de le sauvegarder dans
@@ -73,8 +75,16 @@ public abstract class Bloc {
      */
     public void ajouterBlocALaFinSansSauvegarde(Bloc unBloc)
     {
-        sesBlocs.put(sesBlocs.size(), unBloc);
+        int taille = sesBlocs.size();
+        sesBlocs.put(taille, unBloc);
         unBloc.setNiveau(niveau+1);
+        
+        //méthode temporaire
+        if(unBloc.getBlocGraphique()!=null){
+        unBloc.getBlocGraphique().setPosition(taille+this.getBlocGraphique().getPosition()+1);
+        //Utiliser le controleur pour décaler les blocs racines
+        //--> Faire une méthode dans le bloc: décaler() qui le décale de 1, ainsi que tout ses fils
+        }
     }
     
     
@@ -107,6 +117,9 @@ public abstract class Bloc {
         }
         // On ré-écrit par dessus la position courante, après décalage éventuel.
         sesBlocs.put(position, unBloc);
+        unBloc.getBlocGraphique().setPosition(position);
+        
+        //méthode temporaire
         acces.setPositionToBloc(id, position);
         unBloc.setNiveau(niveau+1);
     }
@@ -159,6 +172,8 @@ public abstract class Bloc {
     public void setNiveau(int niveau)
     {
         this.niveau = niveau;
+        if(blocGraph!=null)
+        blocGraph.mettreAjour();
     }
     
     
@@ -195,6 +210,13 @@ public abstract class Bloc {
     public HashMap<Integer,Bloc> getSesFils()
     {
         return this.sesBlocs;
+    }
+    
+    
+        
+    public BlocGraphique getBlocGraphique()
+    {
+        return this.blocGraph;
     }
     
 }
