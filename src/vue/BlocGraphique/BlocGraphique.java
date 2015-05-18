@@ -33,7 +33,7 @@ public class BlocGraphique extends JLabel{
         label.setHorizontalAlignment(CENTER);
         
         label2 = new JLabel(texte2);
-        label2.setSize(120, 80);
+        label2.setSize(100, 80);
         label2.setHorizontalAlignment(CENTER);
         
         // position "par défaut"
@@ -54,8 +54,8 @@ public class BlocGraphique extends JLabel{
     public void mettreAjour()
     {
         setLocation(bloc.getNiveau()*40, position*45);
-        label.setLocation(bloc.getNiveau()*40, (position*45)-10);
-        label2.setLocation(bloc.getNiveau()*40, (position*45)+10);
+        label.setLocation((bloc.getNiveau()*40), (position*45)-10);
+        label2.setLocation((bloc.getNiveau()*40)+10, (position*45)+10);
     }
     
     

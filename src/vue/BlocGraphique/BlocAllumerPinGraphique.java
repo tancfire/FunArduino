@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class BlocAllumerPinGraphique extends BlocGraphique {
 
     public BlocAllumerPinGraphique(BlocAllumerPin bloc) {
-        super(bloc, bloc.getEtatPin(), "", new ImageIcon("src/images/BlocStart.png"));
+        super(bloc, bloc.getEtatPin(), "", new ImageIcon("src/images/BlocAllumerPin.png"));
     }
     
 }

@@ -83,17 +83,18 @@ public class Controleur {
         
         //============================== ZONE DE TEST ============================== //
         
-       // BlocConditions conditions = new BlocConditions((Object)varEtat,(Object)0,Comparateur.egal);
+        BlocConditions conditions = new BlocConditions((Object)varEtat,(Object)42,Comparateur.egal,this);
       //  BlocConditions conditions2 = new BlocConditions((Object)varEtat,(Object)1,Comparateur.egal);
         
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.HAUT,this));
         blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.BAS,this));
         blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
+         blocUpdate.ajouterBlocALaFin(conditions);
         
-        blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, this));
+       // blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, this));
         
-      //  conditions.ajouterBloc(0, new BlocAllumerPin(led, EtatPin.HAUT));
+        conditions.ajouterBlocALaFin( new BlocAllumerPin(led, EtatPin.HAUT,this));
       //  conditions.ajouterBloc(1, new BlocChangerVariable(varEtat, "1"));
      //   conditions2.ajouterBloc(0, new BlocAllumerPin(led, EtatPin.BAS));
     //    conditions2.ajouterBloc(1, new BlocChangerVariable(varEtat, "0"));

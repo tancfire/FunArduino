@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class BlocUpdateGraphique extends BlocGraphique {
 
     public BlocUpdateGraphique(BlocUpdate bloc) {
-        super(bloc, "Update", "", new ImageIcon("src/images/BlocStart.png"));
+        super(bloc, "Update", "", new ImageIcon("src/images/BlocUpdate.png"));
     }
     
 }

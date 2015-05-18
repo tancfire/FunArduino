@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class BlocAttendreGraphique extends BlocGraphique{
 
     public BlocAttendreGraphique(BlocAttendre bloc) {
-        super(bloc, "Attendre",bloc.getDelai()+" ms", new ImageIcon("src/images/BlocStart.png"));
+        super(bloc, "Attendre",bloc.getDelai()+" ms", new ImageIcon("src/images/BlocAttendre.png"));
     }
     
 }

@@ -34,6 +34,9 @@ public class TraductionParametre {
         } else if(objet instanceof Variable){
             trad = ((Variable)objet).getNom();
             type = "variable";
+        }else if(objet instanceof String){
+            trad = objet.toString();
+            type = "string";
         }else {
             System.err.println("L'objet passé en paramètre n'est pas reconnu");
         }

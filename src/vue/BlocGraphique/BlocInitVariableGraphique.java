@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class BlocInitVariableGraphique extends BlocGraphique{
 
     public BlocInitVariableGraphique(BlocInitVariable bloc) {
-        super(bloc, "Variable:", bloc.getVariable().getNom()+" à "+bloc.getVariable().getValeurDepart(), new ImageIcon("src/images/BlocStart.png"));
+        super(bloc, "Variable:", bloc.getVariable().getNom()+" à "+bloc.getVariable().getValeurDepart(), new ImageIcon("src/images/BlocInitVariable.png"));
     }
     
 }

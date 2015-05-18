@@ -22,7 +22,7 @@ public class BlocConditions extends Bloc{
     String param2;
 
     public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
-        super(Color.PINK, ctrl);
+        super(Color.decode("#4D589A"), ctrl);
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.comparateur = comparateur;
@@ -36,10 +36,12 @@ public class BlocConditions extends Bloc{
     
     
      public BlocConditions(int id, Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
-        super(id, Color.PINK, ctrl);
+        super(id, Color.decode("#4D589A"), ctrl);
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.comparateur = comparateur;
+        param1 = "";
+        param2 = "";
         
         mettreAjourCode();
         this.blocGraph = new BlocConditionsGraphique(this);
@@ -79,8 +81,10 @@ public class BlocConditions extends Bloc{
             case "variable":
                 acces.setParametre(id, "variable", "param2", String.valueOf(((Variable)objet2).getId()));
                 break;
+            case "string":
+                 acces.setParametre(id, "string", "param2", objet2.toString());
+                break;
         }
-        
         
     }
 

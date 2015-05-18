@@ -71,6 +71,36 @@ public abstract class Bloc {
     }
     
     
+    private void decalerGraphiquement()
+    {
+        for(Map.Entry<Integer,Bloc> fils : sesBlocs.entrySet())
+        {
+            fils.getValue().getBlocGraphique().setPosition(fils.getValue().getBlocGraphique().getPosition()+1);
+            fils.getValue().decalerGraphiquement();
+        }
+    }
+    
+    private void insererGraphiquement(Bloc unBloc, int position)
+    {
+        //méthode temporaire (Prochaine étape: le rendre itératif)
+        if(unBloc.getBlocGraphique()!=null){
+        unBloc.getBlocGraphique().setPosition(position+1);
+        
+        boolean passe = false;
+            for(Map.Entry<Integer,Bloc> blocs : ctrl.getAssemblage().getSesBlocs().entrySet()) //Trié dans l'ordre des clés
+            {
+                if(passe ==true){
+                   blocs.getValue().getBlocGraphique().setPosition(blocs.getValue().getBlocGraphique().getPosition()+1);
+                   blocs.getValue().decalerGraphiquement();
+                }
+                if(blocs.getValue()==this) //si on trouve ce bloc dans les blocs racines
+                { 
+                    passe = true;
+                }
+            }
+        }
+    }
+    
     /**
      * Fait la même chose qu'ajotuerBlocALaFin, mais ne sauvegarde pas la parenté
      * dans le fichier de sauvegarde (lorsque l'on charge, par exemple).
@@ -81,29 +111,7 @@ public abstract class Bloc {
         int taille = sesBlocs.size();
         sesBlocs.put(taille, unBloc);
         unBloc.setNiveau(niveau+1);
-        
-        //méthode temporaire (Prochaine étape: le rendre itératif)
-        if(unBloc.getBlocGraphique()!=null){
-        unBloc.getBlocGraphique().setPosition(taille+this.getBlocGraphique().getPosition()+1);
-        //Utiliser le controleur pour décaler les blocs racines
-            for(Map.Entry<Integer,Bloc> blocs : ctrl.getAssemblage().getSesBlocs().entrySet()) //Trié dans l'ordre des clés
-            {
-                if(blocs.getValue()==this) //si on trouve ce bloc dans les blocs racines
-                {
-                     for(Map.Entry<Integer,Bloc> blocs2 : ctrl.getAssemblage().getSesBlocs().entrySet())
-                     {
-                         if(blocs2.getKey()>blocs.getKey())
-                         {
-                             blocs2.getValue().getBlocGraphique().setPosition( blocs2.getValue().getBlocGraphique().getPosition()+1);
-                             for(Map.Entry<Integer,Bloc> blocs3 : blocs2.getValue().getSesFils().entrySet())
-                            {
-                                blocs3.getValue().getBlocGraphique().setPosition(blocs3.getValue().getBlocGraphique().getPosition()+1);
-                             }
-                         }
-                     }
-                }
-            }
-        }
+        insererGraphiquement(unBloc, taille+this.getBlocGraphique().getPosition());
     }
     
     
@@ -136,7 +144,7 @@ public abstract class Bloc {
         }
         // On ré-écrit par dessus la position courante, après décalage éventuel.
         sesBlocs.put(position, unBloc);
-        unBloc.getBlocGraphique().setPosition(position);
+        insererGraphiquement(unBloc, this.getBlocGraphique().getPosition());
         
         //méthode temporaire
         acces.setPositionToBloc(id, position);
