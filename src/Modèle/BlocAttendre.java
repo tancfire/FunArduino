@@ -44,5 +44,11 @@ public class BlocAttendre extends Bloc {
         sonCodeDebut = tab()+"delay("+delai+");\n";
         acces.setParametre(id, "int", "delai", String.valueOf(delai));
     }
+
+    public int getDelai() {
+        return delai;
+    }
+    
+    
     
 }

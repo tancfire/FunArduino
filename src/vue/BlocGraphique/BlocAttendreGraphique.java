@@ -6,7 +6,7 @@
 
 package vue.BlocGraphique;
 
-import Modèle.Bloc;
+import Modèle.BlocAttendre;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocAttendreGraphique extends BlocGraphique{
 
-    public BlocAttendreGraphique(Bloc bloc) {
-        super(bloc, "Attendre", new ImageIcon("src/images/BlocStart.png"));
+    public BlocAttendreGraphique(BlocAttendre bloc) {
+        super(bloc, "Attendre",bloc.getDelai()+" ms", new ImageIcon("src/images/BlocStart.png"));
     }
     
 }

@@ -18,10 +18,11 @@ import javax.swing.JPanel;
 public class BlocGraphique extends JLabel{
     private Bloc bloc;
     private JLabel label;
-    private static int nbrPosition = -1;
+    private JLabel label2;
+    private static int nbrPosition = 0;
     private int position;
     
-    public BlocGraphique(Bloc bloc, String texte, ImageIcon image)
+    public BlocGraphique(Bloc bloc, String texte, String texte2, ImageIcon image)
     {
         super(image);
         this.bloc = bloc;
@@ -31,9 +32,13 @@ public class BlocGraphique extends JLabel{
         label.setSize(120, 80);
         label.setHorizontalAlignment(CENTER);
         
+        label2 = new JLabel(texte2);
+        label2.setSize(120, 80);
+        label2.setHorizontalAlignment(CENTER);
+        
         // position "par défaut"
-        nbrPosition++;
         position = nbrPosition;
+        nbrPosition++;
         
         mettreAjour();
     }
@@ -49,13 +54,15 @@ public class BlocGraphique extends JLabel{
     public void mettreAjour()
     {
         setLocation(bloc.getNiveau()*40, position*45);
-        label.setLocation(bloc.getNiveau()*40, position*45);
+        label.setLocation(bloc.getNiveau()*40, (position*45)-10);
+        label2.setLocation(bloc.getNiveau()*40, (position*45)+10);
     }
     
     
     public void attacher(JPanel panel)
     {
         panel.add(label);
+        panel.add(label2);
         panel.add(this);
     }
             

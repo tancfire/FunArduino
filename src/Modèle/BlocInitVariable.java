@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocInitVariableGraphique;
 
 /**
  * Permet d'initialiser une variable dans le code.
@@ -20,12 +21,17 @@ public class BlocInitVariable extends Bloc{
     public BlocInitVariable(Variable var, Controleur ctrl) {
         super(Color.YELLOW, ctrl);
         this.var = var;
+        
+        this.blocGraph = new BlocInitVariableGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
     
         public BlocInitVariable(int id, Variable var, Controleur ctrl) {
         super(id, Color.YELLOW, ctrl);
         this.var = var;
         
+        this.blocGraph = new BlocInitVariableGraphique(this);
+        ctrl.ajouterBlocGraphique(blocGraph);
     }
 
     
@@ -34,5 +40,11 @@ public class BlocInitVariable extends Bloc{
         sonCodeDebut = tab()+var.getTypeParam().getType()+" "+var.getNom()+"="+ var.getValeurDepart() + ";\n";
         acces.setParametre(id, "int", "idVariable", String.valueOf(var.getId()));
     }
+
+    public Variable getVariable() {
+        return var;
+    }
+    
+    
     
 }

@@ -87,11 +87,11 @@ public class Controleur {
       //  BlocConditions conditions2 = new BlocConditions((Object)varEtat,(Object)1,Comparateur.egal);
         
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.HAUT,this));
-       // blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
+        blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.BAS,this));
         blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         
-         blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, this));
+        blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, this));
         
       //  conditions.ajouterBloc(0, new BlocAllumerPin(led, EtatPin.HAUT));
       //  conditions.ajouterBloc(1, new BlocChangerVariable(varEtat, "1"));
@@ -348,6 +348,12 @@ public class Controleur {
     public String getNomProjet() {
         return nomProjet;
     }
+
+    public AssemblageBlocs getAssemblage() {
+        return assemblage;
+    }
+    
+    
 
     
     

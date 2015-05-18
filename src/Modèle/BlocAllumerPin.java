@@ -50,6 +50,15 @@ public class BlocAllumerPin extends BlocComposant {
         acces.setParametre(id, "etatPin", "etatPin", etatPin.toString());
     }
 
+    public String getEtatPin() {
+         if(etatPin == EtatPin.BAS)
+        {
+            return "Eteindre";
+        }else{
+            return "Allumer";
+        }
+    }
+
     
     
     

@@ -6,7 +6,7 @@
 
 package vue.BlocGraphique;
 
-import Modèle.Bloc;
+import Modèle.BlocInit;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocInitGraphique extends BlocGraphique{
 
-    public BlocInitGraphique(Bloc bloc) {
-        super(bloc, "Initialisation", new ImageIcon("src/images/BlocStart.png"));
+    public BlocInitGraphique(BlocInit bloc) {
+        super(bloc, "Initialisation", "", new ImageIcon("src/images/BlocStart.png"));
     }
     
 }

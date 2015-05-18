@@ -25,6 +25,7 @@ public abstract class Bloc {
     protected int niveau;
     protected String sonCodeDebut;
     protected String sonCodeFin;
+    protected Controleur ctrl;
     protected AccesXML acces;
     
     protected BlocGraphique blocGraph;
@@ -44,6 +45,7 @@ public abstract class Bloc {
         niveau = 0; // c'est le nombre de tabulation qu'il faudra faire.
         id = nbID;
         nbID++;
+        this.ctrl = ctrl;
         
         this.acces = ctrl.getAcces();
         acces.creerBloc(id, getClass().getSimpleName()); //permet de sauvegarder le bloc directement
@@ -63,6 +65,7 @@ public abstract class Bloc {
         sonCodeFin = "";
         niveau = 0; // c'est le nombre de tabulation qu'il faudra faire.
         this.id = id;
+        this.ctrl = ctrl;
 
         this.acces = ctrl.getAcces();
     }
@@ -79,11 +82,27 @@ public abstract class Bloc {
         sesBlocs.put(taille, unBloc);
         unBloc.setNiveau(niveau+1);
         
-        //méthode temporaire
+        //méthode temporaire (Prochaine étape: le rendre itératif)
         if(unBloc.getBlocGraphique()!=null){
         unBloc.getBlocGraphique().setPosition(taille+this.getBlocGraphique().getPosition()+1);
         //Utiliser le controleur pour décaler les blocs racines
-        //--> Faire une méthode dans le bloc: décaler() qui le décale de 1, ainsi que tout ses fils
+            for(Map.Entry<Integer,Bloc> blocs : ctrl.getAssemblage().getSesBlocs().entrySet()) //Trié dans l'ordre des clés
+            {
+                if(blocs.getValue()==this) //si on trouve ce bloc dans les blocs racines
+                {
+                     for(Map.Entry<Integer,Bloc> blocs2 : ctrl.getAssemblage().getSesBlocs().entrySet())
+                     {
+                         if(blocs2.getKey()>blocs.getKey())
+                         {
+                             blocs2.getValue().getBlocGraphique().setPosition( blocs2.getValue().getBlocGraphique().getPosition()+1);
+                             for(Map.Entry<Integer,Bloc> blocs3 : blocs2.getValue().getSesFils().entrySet())
+                            {
+                                blocs3.getValue().getBlocGraphique().setPosition(blocs3.getValue().getBlocGraphique().getPosition()+1);
+                             }
+                         }
+                     }
+                }
+            }
         }
     }
     

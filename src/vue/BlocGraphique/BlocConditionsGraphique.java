@@ -6,7 +6,7 @@
 
 package vue.BlocGraphique;
 
-import Modèle.Bloc;
+import Modèle.BlocConditions;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocConditionsGraphique extends BlocGraphique {
 
-    public BlocConditionsGraphique(Bloc bloc) {
-        super(bloc, "Si", new ImageIcon("src/images/BlocStart.png"));
+    public BlocConditionsGraphique(BlocConditions bloc) {
+        super(bloc, "Si "+bloc.getParam1(), bloc.getComparateur().getFormule()+" "+bloc.getParam2(), new ImageIcon("src/images/BlocStart.png"));
     }
     
 }

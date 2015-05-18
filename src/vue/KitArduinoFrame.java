@@ -144,7 +144,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         panelGraphiqueLayout.setHorizontalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraphiqueLayout.createSequentialGroup()
-                .addGap(214, 214, 214)
+                .addGap(242, 242, 242)
                 .addComponent(labelImgArduino, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(522, Short.MAX_VALUE))
         );

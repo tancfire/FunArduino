@@ -50,5 +50,11 @@ public class AssemblageBlocs {
         
         return code;
     }
+
+    public HashMap<Integer, Bloc> getSesBlocs() {
+        return sesBlocs;
+    }
+    
+    
     
 }

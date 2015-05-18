@@ -39,6 +39,11 @@ public class BlocInitialisationComp extends BlocComposant{
         //màj règleront le problème.
         sonCodeDebut = tab()+"pinMode("+composant.getPin().getNom()+",OUTPUT);\n";
     }
- 
+    
+    
+    public String getEntreeSortie()
+    {
+        return "sortie";
+    }
     
 }

@@ -18,12 +18,16 @@ public class BlocConditions extends Bloc{
     Object objet1;
     Object objet2;
     Comparateur comparateur;
+    String param1;
+    String param2;
 
     public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
         super(Color.PINK, ctrl);
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.comparateur = comparateur;
+        param1 = "";
+        param2 = "";
         
         mettreAjourCode();
         this.blocGraph = new BlocConditionsGraphique(this);
@@ -48,8 +52,8 @@ public class BlocConditions extends Bloc{
     public void mettreAjourCode(){
         TraductionParametre trad1 = new TraductionParametre(objet1);
         TraductionParametre trad2 = new TraductionParametre(objet2);
-        String param1 = trad1.traduire();
-        String param2 = trad2.traduire();
+        param1 = trad1.traduire();
+        param2 = trad2.traduire();
         
         sonCodeDebut = tab()+"if("+param1+comparateur+param2+"){\n";
         sonCodeFin = tab()+"}\n";
@@ -78,6 +82,18 @@ public class BlocConditions extends Bloc{
         }
         
         
+    }
+
+    public Object getParam1() {
+        return param1;
+    }
+
+    public Object getParam2() {
+        return param2;
+    }
+
+    public Comparateur getComparateur() {
+        return comparateur;
     }
     
     

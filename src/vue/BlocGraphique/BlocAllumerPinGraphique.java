@@ -6,7 +6,7 @@
 
 package vue.BlocGraphique;
 
-import Modèle.Bloc;
+import Modèle.BlocAllumerPin;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocAllumerPinGraphique extends BlocGraphique {
 
-    public BlocAllumerPinGraphique(Bloc bloc) {
-        super(bloc, "Pin", new ImageIcon("src/images/BlocStart.png"));
+    public BlocAllumerPinGraphique(BlocAllumerPin bloc) {
+        super(bloc, bloc.getEtatPin(), "", new ImageIcon("src/images/BlocStart.png"));
     }
     
 }
