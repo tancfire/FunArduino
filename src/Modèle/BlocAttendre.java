@@ -8,7 +8,6 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocAllumerPinGraphique;
 import vue.BlocGraphique.BlocAttendreGraphique;
 
 /**
@@ -19,7 +18,7 @@ public class BlocAttendre extends Bloc {
     private int delai;
 
     public BlocAttendre(int delai, Controleur ctrl) {
-        super(Color.MAGENTA, ctrl);
+        super(Color.gray, ctrl);
         this.delai = delai;
         
         mettreAjourCode();

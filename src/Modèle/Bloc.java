@@ -179,14 +179,18 @@ public abstract class Bloc {
         mettreAjourCode();
         String code="";
         
+        code+="[color r"+this.couleur.getRed()+" b"+this.couleur.getBlue()+" g"+this.couleur.getGreen() +"]";
         code+=(sonCodeDebut);
+        code+="[/color]";
         
             for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
             {
                 code+=blocs.getValue().getCode();
             }
         
+        code+="[color r"+this.couleur.getRed()+" b"+this.couleur.getBlue()+" g"+this.couleur.getGreen() +"]";
         code+=(sonCodeFin);
+        code+="[/color]";
         
         return code;
     }

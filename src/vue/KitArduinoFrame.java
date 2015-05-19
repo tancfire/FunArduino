@@ -9,21 +9,33 @@ package vue;
 import vue.BlocGraphique.BlocGraphique;
 import Controleur.Controleur;
 import Modèle.Bloc;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
+import vue.BlocGraphique.StockCouleurTexte;
 
 
 /**
@@ -83,8 +95,81 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     
     public void setCode(String code)
     {
-        editCode.setText(code);
+     ArrayList<StockCouleurTexte> stock = new ArrayList<StockCouleurTexte>();
+     String codeFinal="";
+     boolean bool = true;
+        
+     String txtP = "\\[color r\\d{1,3} b\\d{1,3} g\\d{1,3}\\](.|$|\\n)*?\\[/color\\]";
+     Pattern p = Pattern .compile(txtP);
+    String entree = code;
+     Matcher m = p.matcher(entree);
+     
+        while (m.find()){
+        if(bool==true)
+        {
+            codeFinal+= entree.substring(0,m.start());
+           // setJTextPaneFont(editCode, Color.BLACK, 0,m.start());
+            bool = false;
+        }
+      
+      String expression = entree.substring(m.start(), m.end());
+      System.out.println("-->"+expression);
+                 String patternBaliseE = "\\[color r\\d{1,3} b\\d{1,3} g\\d{1,3}\\]";
+                 Pattern p2 = Pattern .compile(patternBaliseE);
+                 Matcher m2 = p2.matcher(expression);
+                 if(m2.find())
+                 {
+                     String baliseE = expression.substring(m2.start(), m2.end());
+                     String txtCode= expression.substring(m2.end(),expression.length()-8);
+                     codeFinal+=txtCode;
+                     
+                      int c1 =  decoderCouleur(baliseE, "r");
+                      int c2 =  decoderCouleur(baliseE, "b");
+                      int c3 =  decoderCouleur(baliseE, "g");
+                     
+                     stock.add(new StockCouleurTexte(new Color(c1,c3,c2), codeFinal.length()-txtCode.length(), txtCode.length()));
+                 }
+        }
+          editCode.setText(codeFinal);
+          
+          for(int i=0; i<stock.size(); i++)
+          {
+              StockCouleurTexte stockI = stock.get(i);
+              setJTextPaneFont(editCode, stockI.getCouleur(), stockI.getDebut(), stockI.getLongueur());
+          }
     }
+    
+    /*============================================================================================
+    --------------------------------Pour la couleur dans le texte -------------------------------
+    ============================================================================================*/
+    
+    
+    private int decoderCouleur(String balise, String cCouleur)
+    {
+       int couleur=0; //entre 0 et 255
+       
+       String patternC1 = cCouleur+"\\d{1,3}";
+       Pattern p3 = Pattern.compile(patternC1);
+       Matcher m3 = p3.matcher(balise);
+       if(m3.find())
+       couleur = Integer.parseInt(balise.substring(m3.start()+1,m3.end()));
+        
+        return couleur;
+    }
+    
+    
+    private void setJTextPaneFont(JTextPane jtp, Color c, int from, int length) {
+            StyleContext sc = StyleContext.getDefaultStyleContext();
+
+            AttributeSet attrs = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+            StyledDocument doc = jtp.getStyledDocument();
+            doc.setCharacterAttributes(from, length, attrs, true);
+        }
+    
+    /*============================================================================================
+    -------------------------------Fin pour la couleur dans le texte------------------------------
+    ============================================================================================*/
     
 
     public void ajouterBlocGraphique(BlocGraphique blocGraph)
