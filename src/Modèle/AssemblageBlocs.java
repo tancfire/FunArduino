@@ -6,6 +6,7 @@
 
 package Modèle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import saveSystem.AccesXML;
@@ -28,7 +29,7 @@ public class AssemblageBlocs {
     public void ajouterBloc(int position, Bloc unBloc)
     {
         sesBlocs.put(position, unBloc);
-        unBloc.getBlocGraphique().setPosition(position);
+       // unBloc.getBlocGraphique().setPosition(position); //On donne la position au bloc graphique
         acces.setPositionToBloc(unBloc.getId(), position);
     }
     
@@ -55,6 +56,14 @@ public class AssemblageBlocs {
         return sesBlocs;
     }
     
-    
+    public ArrayList<BlocGraphique> getBlocsGraphiques()
+    {
+        ArrayList<BlocGraphique> blocsGraphs = new ArrayList<BlocGraphique>();
+        for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) //Trié dans l'ordre des clés
+            {
+               blocsGraphs.addAll(blocs.getValue().getToutLesBlocsGraphiques());
+            }
+        return blocsGraphs;
+    }
     
 }

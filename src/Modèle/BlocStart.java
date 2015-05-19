@@ -22,7 +22,7 @@ public class BlocStart extends Bloc{
     {
         super(Color.ORANGE, ctrl);
         blocGraph= new BlocStartGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+       // ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     

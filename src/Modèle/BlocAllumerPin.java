@@ -24,7 +24,7 @@ public class BlocAllumerPin extends BlocComposant {
         
         mettreAjourCode();
         blocGraph= new BlocAllumerPinGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+      //  ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     
@@ -35,7 +35,7 @@ public class BlocAllumerPin extends BlocComposant {
         
         mettreAjourCode();
         blocGraph= new BlocAllumerPinGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+      //  ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     @Override

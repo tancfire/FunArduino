@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import saveSystem.AccesXML;
@@ -69,37 +70,8 @@ public abstract class Bloc {
 
         this.acces = ctrl.getAcces();
     }
-    
-    
-    private void decalerGraphiquement()
-    {
-        for(Map.Entry<Integer,Bloc> fils : sesBlocs.entrySet())
-        {
-            fils.getValue().getBlocGraphique().setPosition(fils.getValue().getBlocGraphique().getPosition()+1);
-            fils.getValue().decalerGraphiquement();
-        }
-    }
-    
-    private void insererGraphiquement(Bloc unBloc, int position)
-    {
-        //méthode temporaire (Prochaine étape: le rendre itératif)
-        if(unBloc.getBlocGraphique()!=null){
-        unBloc.getBlocGraphique().setPosition(position+1);
         
-        boolean passe = false;
-            for(Map.Entry<Integer,Bloc> blocs : ctrl.getAssemblage().getSesBlocs().entrySet()) //Trié dans l'ordre des clés
-            {
-                if(passe ==true){
-                   blocs.getValue().getBlocGraphique().setPosition(blocs.getValue().getBlocGraphique().getPosition()+1);
-                   blocs.getValue().decalerGraphiquement();
-                }
-                if(blocs.getValue()==this) //si on trouve ce bloc dans les blocs racines
-                { 
-                    passe = true;
-                }
-            }
-        }
-    }
+
     
     /**
      * Fait la même chose qu'ajotuerBlocALaFin, mais ne sauvegarde pas la parenté
@@ -111,7 +83,7 @@ public abstract class Bloc {
         int taille = sesBlocs.size();
         sesBlocs.put(taille, unBloc);
         unBloc.setNiveau(niveau+1);
-        insererGraphiquement(unBloc, taille+this.getBlocGraphique().getPosition());
+        //insererGraphiquement(unBloc, taille+this.getBlocGraphique().getPosition());
     }
     
     
@@ -144,7 +116,6 @@ public abstract class Bloc {
         }
         // On ré-écrit par dessus la position courante, après décalage éventuel.
         sesBlocs.put(position, unBloc);
-        insererGraphiquement(unBloc, this.getBlocGraphique().getPosition());
         
         //méthode temporaire
         acces.setPositionToBloc(id, position);
@@ -195,6 +166,21 @@ public abstract class Bloc {
         return code;
     }
     
+        
+    public ArrayList<BlocGraphique> getToutLesBlocsGraphiques()
+    {
+        ArrayList<BlocGraphique> blocsGraphs = new ArrayList<BlocGraphique>();
+        
+        blocsGraphs.add(blocGraph);
+        for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
+            {
+                blocsGraphs.addAll(blocs.getValue().getToutLesBlocsGraphiques());
+            }
+        
+        return blocsGraphs;
+    }
+    
+    
     
     /**
      * Le niveau représente à quelle profondeur de parenté se trouve le bloc.
@@ -242,7 +228,6 @@ public abstract class Bloc {
     {
         return this.sesBlocs;
     }
-    
     
         
     public BlocGraphique getBlocGraphique()

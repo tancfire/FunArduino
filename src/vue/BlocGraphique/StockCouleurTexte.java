@@ -22,8 +22,6 @@ public class StockCouleurTexte {
         this.couleur = couleur;
         this.debut = debut;
         this.longueur = longueur;
-        
-        System.out.println("Couleur de "+debut+" à "+(debut+longueur));
     }
 
     public int getDebut() {

@@ -31,6 +31,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import saveSystem.AccesXML;
 import vue.BlocGraphique.BlocGraphique;
 import vue.BlocGraphique.BlocStartGraphique;
@@ -64,16 +66,11 @@ public class Controleur {
         variables = new ArrayList<Variable>();
         
         
-        creerProjet(new File("./saves").getAbsolutePath(), "GenerateByFunArduino");
+        creerProjet(new File("saves").getAbsolutePath(), "GenerateByFunArduino");
        
         
         //On initialise tout à zéro
         remettreAZero();
-        
-        // ------- test --------
-       // vue.ajouterBlocGraphique(new BlocStartGraphique(blocStart));
-        //vue.ajouterBlocGraphique(blocUpdate.getId(), blocUpdate.getNiveau());
-        // ---------------------
         
         ComposantLed led = new ComposantLed(simulateur,this);
         ajouterComposant(led);
@@ -87,10 +84,10 @@ public class Controleur {
       //  BlocConditions conditions2 = new BlocConditions((Object)varEtat,(Object)1,Comparateur.egal);
         
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.HAUT,this));
+        blocUpdate.ajouterBlocALaFin(conditions);
         blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
         blocUpdate.ajouterBlocALaFin(new BlocAllumerPin(led, EtatPin.BAS,this));
         blocUpdate.ajouterBlocALaFin(new BlocAttendre(500,this));
-         blocUpdate.ajouterBlocALaFin(conditions);
         
        // blocUpdate.ajouterBlocALaFin(new BlocConditions((Object)varEtat,(Object)5, Comparateur.egal, this));
         
@@ -107,6 +104,7 @@ public class Controleur {
     public void mettreAjourCode()
     {
         vue.setCode(assemblage.getCode());
+        vue.mettreAJourBlocsGraphiques(assemblage.getBlocsGraphiques());
     }
     
     /**
@@ -127,12 +125,7 @@ public class Controleur {
         mettreAjourCode();
     }
       
-    
-    
-    public void ajouterBlocGraphique(BlocGraphique blocGraph)
-    {
-        vue.ajouterBlocGraphique(blocGraph);
-    }
+
     
      
     public void ajouterVariable(Variable variable)
@@ -259,7 +252,7 @@ public class Controleur {
             out.close();
           
        //Compilation et Téléversement à partir de l'IDE Arduino
-            Process p1 = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Arduino\\arduino --board arduino:avr:"+arduino+" --port COM16 --upload "+chemin+nomProjet+"\\"+nomProjet+".ino");
+            Process p1 = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Arduino\\arduino --board arduino:avr:"+arduino+" --port COM12 --upload "+chemin+"\\"+nomProjet+"\\"+nomProjet+".ino");
             
             p1.waitFor();
             int v = p1.exitValue();
@@ -294,6 +287,7 @@ public class Controleur {
             acces.recupererVariables(this);
             acces.recupererComposants(this);
             
+            //On récupère tout les blocs à ajouter au BlocStart
             ArrayList<Bloc> blocs2 = acces.recupererFilsBlocs("BlocStart",this);
             for(int i=0; i<blocs2.size(); i++)
             {
@@ -302,6 +296,7 @@ public class Controleur {
 
             } 
              
+            //On récupère tout les blocs à ajouter au BlocUpdate
             ArrayList<Bloc> blocs = acces.recupererFilsBlocs("BlocUpdate",this);
             for(int i=0; i<blocs.size(); i++)
             {

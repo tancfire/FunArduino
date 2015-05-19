@@ -13,5 +13,7 @@ void loop(){
 	delay(500);
 	digitalWrite(3,LOW);
 	delay(500);
+	if(etat>42){
+	}
 }
 

@@ -19,7 +19,7 @@ public class BlocInit extends Bloc {
     public BlocInit(Controleur ctrl) {
         super(Color.lightGray, ctrl);
         this.blocGraph = new BlocInitGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+       // ctrl.ajouterBlocGraphique(blocGraph);
     }
 
     @Override

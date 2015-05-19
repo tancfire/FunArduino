@@ -21,14 +21,14 @@ public class BlocInitialisationComp extends BlocComposant{
         super(Color.red, composant, ctrl);
         
         blocGraph = new BlocInitialisationCompGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+       // ctrl.ajouterBlocGraphique(blocGraph);
     }
     
         public BlocInitialisationComp(int id, Composant composant,  Controleur ctrl) {
         super(id, Color.red, composant, ctrl);
         
         blocGraph = new BlocInitialisationCompGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+      //  ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     @Override

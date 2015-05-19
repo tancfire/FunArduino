@@ -7,6 +7,8 @@
 package vue.BlocGraphique;
 
 import Modèle.Bloc;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +24,7 @@ public class BlocGraphique extends JLabel{
     private static int nbrPosition = 0;
     private int position;
     
-    public BlocGraphique(Bloc bloc, String texte, String texte2, ImageIcon image)
+    public BlocGraphique(final Bloc bloc, String texte, String texte2, ImageIcon image)
     {
         super(image);
         this.bloc = bloc;
@@ -37,13 +39,47 @@ public class BlocGraphique extends JLabel{
         label2.setHorizontalAlignment(CENTER);
         
         // position "par défaut"
-        position = nbrPosition;
-        nbrPosition++;
+        position = 0;
         
         mettreAjour();
+        
+        
+        this.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               // System.out.println("coucou");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                //System.out.println("clic");
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if(e.getY()>=65){
+                    System.out.println("deplacement vers le bas");
+                }else if(e.getY()<=13)
+                {
+                    System.out.println("deplacement vers le haut");
+                }
+                System.out.println("relaché: "+e.getY());
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+              //  System.out.println("La souris rentre");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               //  System.out.println("La souris sort.");
+            }
+        }); 
     }
     
-    
+      
     public void setPosition(int position)
     {
         this.position = position;
@@ -64,6 +100,14 @@ public class BlocGraphique extends JLabel{
         panel.add(label);
         panel.add(label2);
         panel.add(this);
+    }
+    
+    
+     public void detacher(JPanel panel)
+    {
+        panel.remove(label);
+        panel.remove(label2);
+        panel.remove(this);
     }
             
     public int getId()

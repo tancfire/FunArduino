@@ -21,7 +21,7 @@ public class BlocUpdate extends Bloc {
     {
         super(Color.green, ctrl); 
         blocGraph= new BlocUpdateGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+       // ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     

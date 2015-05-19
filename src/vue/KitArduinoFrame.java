@@ -16,14 +16,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
@@ -45,7 +44,8 @@ import vue.BlocGraphique.StockCouleurTexte;
  * @author tancfire
  */
 public class KitArduinoFrame extends javax.swing.JFrame {
-    Controleur ctrl;
+    private Controleur ctrl;
+    private ArrayList<BlocGraphique> sesBlocsGraphs;
     
     /**
      * Creates new form KitArduinoFrame
@@ -79,12 +79,31 @@ public class KitArduinoFrame extends javax.swing.JFrame {
             });
             
             
-            
+            sesBlocsGraphs = new ArrayList<BlocGraphique>();
             ctrl = new Controleur(this);
             ctrl.mettreAjourCode();
             
+            
             actualiserTitre();
     }
+    
+    
+    public void mettreAJourBlocsGraphiques(ArrayList<BlocGraphique> blocsGraphs)
+    {
+        //effacer tout les anciens blocs graphiques
+        for(int i=0; i<sesBlocsGraphs.size();i++)
+        {
+            supprimerBlocGraphique(sesBlocsGraphs.get(i));
+        }
+        sesBlocsGraphs = blocsGraphs;
+        
+        for(int i=0; i<sesBlocsGraphs.size();i++)
+        {
+            sesBlocsGraphs.get(i).setPosition(i);
+            ajouterBlocGraphique(sesBlocsGraphs.get(i));
+        }
+    }
+    
     
     
     public void actualiserTitre()
@@ -92,50 +111,51 @@ public class KitArduinoFrame extends javax.swing.JFrame {
       this.setTitle("FunArduino ("+ctrl.getNomProjet()+")");
     }
     
-    
+    // A mettre dans le controleur
     public void setCode(String code)
     {
      ArrayList<StockCouleurTexte> stock = new ArrayList<StockCouleurTexte>();
      String codeFinal="";
      boolean bool = true;
         
+     //Avec cet algorithme, on cherche à trouver toutes les balises [color rXXX bXXX gXXX] et [/color]
      String txtP = "\\[color r\\d{1,3} b\\d{1,3} g\\d{1,3}\\](.|$|\\n)*?\\[/color\\]";
      Pattern p = Pattern .compile(txtP);
     String entree = code;
      Matcher m = p.matcher(entree);
      
-        while (m.find()){
+        while (m.find()){ //Lorsque l'on tombe sur une des balises
         if(bool==true)
         {
-            codeFinal+= entree.substring(0,m.start());
-           // setJTextPaneFont(editCode, Color.BLACK, 0,m.start());
+            codeFinal+= entree.substring(0,m.start()); // on ajoute tout ce qui se trouve avant le premier [color]
             bool = false;
         }
       
-      String expression = entree.substring(m.start(), m.end());
-      System.out.println("-->"+expression);
+      String expression = entree.substring(m.start(), m.end()); //On récupère l'expression [color ...] ... [/color]
+                //Cette fois, on regarde DANS la balise pour récupérer le code couleur
+                //Il y a surement possibilité de l'optimiser
                  String patternBaliseE = "\\[color r\\d{1,3} b\\d{1,3} g\\d{1,3}\\]";
                  Pattern p2 = Pattern .compile(patternBaliseE);
                  Matcher m2 = p2.matcher(expression);
-                 if(m2.find())
+                 if(m2.find()) //Si on tombe sur la balise (normalement, il ne devrait pas y avoir de problèmes ...)
                  {
-                     String baliseE = expression.substring(m2.start(), m2.end());
-                     String txtCode= expression.substring(m2.end(),expression.length()-8);
-                     codeFinal+=txtCode;
+                     String baliseE = expression.substring(m2.start(), m2.end()); //On récupère que la balise du début
+                     String txtCode= expression.substring(m2.end(),expression.length()-8);//On récupère l'expression entre les deux balises
+                     codeFinal+=txtCode; //On ajoute l'expression contenu entre les deux balises dans le code final.
                      
-                      int c1 =  decoderCouleur(baliseE, "r");
-                      int c2 =  decoderCouleur(baliseE, "b");
-                      int c3 =  decoderCouleur(baliseE, "g");
+                      int c1 =  decoderCouleur(baliseE, "r"); //on récupère la valeur du rouge pour le code couleur
+                      int c2 =  decoderCouleur(baliseE, "b"); //on récupère la valeur du bleu pour le code couleur
+                      int c3 =  decoderCouleur(baliseE, "g"); //on récupère la valeur du vert pour le code couleur
                      
-                     stock.add(new StockCouleurTexte(new Color(c1,c3,c2), codeFinal.length()-txtCode.length(), txtCode.length()));
+                     stock.add(new StockCouleurTexte(new Color(c1,c3,c2), codeFinal.length()-txtCode.length(), txtCode.length()));//On ajoute un nouveau StockCouleurTexte (qui stocke où se trouve les couleurs) dans le stock.
                  }
         }
-          editCode.setText(codeFinal);
+          editCode.setText(codeFinal); //On ajoute le code final au Panel.
           
-          for(int i=0; i<stock.size(); i++)
+          for(int i=0; i<stock.size(); i++) //On parcourt le stock (où sont sotcké les couleurs avec leurs positions).
           {
               StockCouleurTexte stockI = stock.get(i);
-              setJTextPaneFont(editCode, stockI.getCouleur(), stockI.getDebut(), stockI.getLongueur());
+              setJTextPaneFont(editCode, stockI.getCouleur(), stockI.getDebut(), stockI.getLongueur()); //On définit la couleur du stockI pour l'appliquer au panel.
           }
     }
     
@@ -172,10 +192,17 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     ============================================================================================*/
     
 
-    public void ajouterBlocGraphique(BlocGraphique blocGraph)
+    private void ajouterBlocGraphique(BlocGraphique blocGraph)
     {
         blocGraph.attacher(panelGraphique);
     }
+    
+    private void supprimerBlocGraphique(BlocGraphique blocGraph)
+    {
+        blocGraph.detacher(panelGraphique);
+       panelGraphique.repaint();
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,9 +221,10 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         labelImgArduino = new javax.swing.JLabel();
         scrollEditCode = new javax.swing.JScrollPane();
         editCode = new javax.swing.JTextPane();
-        scrollListeObjets = new javax.swing.JScrollPane();
-        listeObjets = new javax.swing.JList();
         btnTeleverser = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        scrollListeObjets = new javax.swing.JScrollPane();
+        listeBlocs = new javax.swing.JList();
         menuBarre = new javax.swing.JMenuBar();
         menuFichier = new javax.swing.JMenu();
         itemNouveau = new javax.swing.JMenuItem();
@@ -246,19 +274,21 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         editCode.setEditable(false);
         scrollEditCode.setViewportView(editCode);
 
-        listeObjets.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "LED", "Servomoteur" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollListeObjets.setViewportView(listeObjets);
-
         btnTeleverser.setText("téléverser");
         btnTeleverser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTeleverserActionPerformed(evt);
             }
         });
+
+        listeBlocs.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "BlocStart", "BlocCustom" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        scrollListeObjets.setViewportView(listeBlocs);
+
+        jTabbedPane1.addTab("Blocs", scrollListeObjets);
 
         menuFichier.setText("Fichier");
 
@@ -336,9 +366,8 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollListeObjets, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,8 +381,8 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrollEditCode)
-                    .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(scrollListeObjets, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
+                    .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
                 .addGap(18, 18, 18)
                 .addComponent(btnTeleverser)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -458,8 +487,9 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSauvegarder;
     private javax.swing.JMenuItem itemSauvegarderSous;
     private javax.swing.JRadioButtonMenuItem itemUno;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelImgArduino;
-    private javax.swing.JList listeObjets;
+    private javax.swing.JList listeBlocs;
     private javax.swing.JMenuBar menuBarre;
     private javax.swing.JMenu menuChoixArduino;
     private javax.swing.JMenu menuEdition;

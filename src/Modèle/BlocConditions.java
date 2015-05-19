@@ -31,7 +31,7 @@ public class BlocConditions extends Bloc{
         
         mettreAjourCode();
         this.blocGraph = new BlocConditionsGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+      //  ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     
@@ -45,7 +45,7 @@ public class BlocConditions extends Bloc{
         
         mettreAjourCode();
         this.blocGraph = new BlocConditionsGraphique(this);
-        ctrl.ajouterBlocGraphique(blocGraph);
+     //   ctrl.ajouterBlocGraphique(blocGraph);
     }
 
 
