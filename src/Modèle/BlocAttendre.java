@@ -23,7 +23,6 @@ public class BlocAttendre extends Bloc {
         
         mettreAjourCode();
         blocGraph= new BlocAttendreGraphique(this);
-      //  ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     
@@ -33,7 +32,6 @@ public class BlocAttendre extends Bloc {
         
         mettreAjourCode();
         blocGraph= new BlocAttendreGraphique(this);
-      //  ctrl.ajouterBlocGraphique(blocGraph);
     }
     
     

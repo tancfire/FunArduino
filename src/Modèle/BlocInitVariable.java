@@ -23,7 +23,6 @@ public class BlocInitVariable extends Bloc{
         this.var = var;
         
         this.blocGraph = new BlocInitVariableGraphique(this);
-     //   ctrl.ajouterBlocGraphique(blocGraph);
     }
     
         public BlocInitVariable(int id, Variable var, Controleur ctrl) {
@@ -31,7 +30,6 @@ public class BlocInitVariable extends Bloc{
         this.var = var;
         
         this.blocGraph = new BlocInitVariableGraphique(this);
-     //   ctrl.ajouterBlocGraphique(blocGraph);
     }
 
     
