@@ -28,14 +28,14 @@ public class BlocGraphique extends JLabel{
     {
         super(image);
         this.bloc = bloc;
-        setSize(120,80);
+        setSize(120,45);
         
         label = new JLabel(texte);
-        label.setSize(120, 80);
+        label.setSize(120, 45);
         label.setHorizontalAlignment(CENTER);
         
         label2 = new JLabel(texte2);
-        label2.setSize(100, 80);
+        label2.setSize(100, 45);
         label2.setHorizontalAlignment(CENTER);
         
         // position "par défaut"
@@ -58,13 +58,20 @@ public class BlocGraphique extends JLabel{
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(e.getY()>=65){
-                    System.out.println("deplacement vers le bas");
-                }else if(e.getY()<=13)
-                {
-                    System.out.println("deplacement vers le haut");
+                if(e.getX()>=0){
+                    if(e.getY()>=45){
+                        bloc.move((e.getY()/45));
+                        System.out.println("deplacement vers le bas");
+                     }else if(e.getY()<=0)
+                     {
+                       bloc.move((e.getY()/45)-1);
+                       System.out.println("deplacement vers le haut");
+                     }
+                }else{
+                    bloc.descendreNiveau();
+                    System.out.println("descendre d'un niveau");
                 }
-                System.out.println("relaché: "+e.getY());
+                System.out.println("relaché: "+e.getX()+","+e.getY());
             }
 
             @Override

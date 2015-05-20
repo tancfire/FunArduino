@@ -19,7 +19,7 @@ public class BlocUpdate extends Bloc {
     
     public BlocUpdate(Controleur ctrl)
     {
-        super(Color.green, ctrl); 
+        super(new Color(34,177,76), ctrl); 
         blocGraph= new BlocUpdateGraphique(this);
     }
     

@@ -28,6 +28,7 @@ public abstract class Bloc {
     protected String sonCodeFin;
     protected Controleur ctrl;
     protected AccesXML acces;
+    protected Bloc blocParent;
     
     protected BlocGraphique blocGraph;
     
@@ -47,6 +48,7 @@ public abstract class Bloc {
         id = nbID;
         nbID++;
         this.ctrl = ctrl;
+        this.blocParent = null;
         
         this.acces = ctrl.getAcces();
         acces.creerBloc(id, getClass().getSimpleName()); //permet de sauvegarder le bloc directement
@@ -67,12 +69,13 @@ public abstract class Bloc {
         niveau = 0; // c'est le nombre de tabulation qu'il faudra faire.
         this.id = id;
         this.ctrl = ctrl;
+        this.blocParent = null;
 
         this.acces = ctrl.getAcces();
     }
         
-
-    
+        
+  
     /**
      * Fait la même chose qu'ajotuerBlocALaFin, mais ne sauvegarde pas la parenté
      * dans le fichier de sauvegarde (lorsque l'on charge, par exemple).
@@ -83,7 +86,7 @@ public abstract class Bloc {
         int taille = sesBlocs.size();
         sesBlocs.put(taille, unBloc);
         unBloc.setNiveau(niveau+1);
-        //insererGraphiquement(unBloc, taille+this.getBlocGraphique().getPosition());
+        unBloc.setBlocParent(this);
     }
     
     
@@ -120,17 +123,21 @@ public abstract class Bloc {
         //méthode temporaire
         acces.setPositionToBloc(id, position);
         unBloc.setNiveau(niveau+1);
+        unBloc.setBlocParent(this);
     }
     
+
     
-    /**
-     * Permet de supprimer un bloc par rapport à sa position. Sera complété/remplacé
-     * prochainement.
-     * @param position est la position du bloc que l'on souhaite supprimer.
-     */
-    public void supprimerBloc(int position)
+    public void supprimerBloc(Bloc unBloc)
     {
-        sesBlocs.remove(position);
+        for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
+        {
+          if(blocs.getValue()==unBloc)
+          {
+              sesBlocs.remove(blocs.getKey());
+              unBloc.setNiveau(0);
+          }
+        }
     }
     
     
@@ -166,6 +173,23 @@ public abstract class Bloc {
         return code;
     }
     
+    
+        public ArrayList<Bloc> getToutSesFils()
+    {
+        ArrayList<Bloc> blocsFils = new ArrayList<Bloc>();
+        
+        for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
+            {
+                blocsFils.add(blocs.getValue());
+            }
+        for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
+            {
+                blocsFils.addAll(blocs.getValue().getToutSesFils());
+            }
+        return blocsFils;
+    }
+        
+        
         
     public ArrayList<BlocGraphique> getToutLesBlocsGraphiques()
     {
@@ -181,6 +205,115 @@ public abstract class Bloc {
     }
     
     
+    public void descendreNiveau()
+    {
+        if(getParent().getParent()!=null){
+            getParent().supprimerBloc(this);
+            getParent().getParent().ajouterBlocALaFin(this);
+            ctrl.mettreAjourCode();
+        }
+    }
+    
+    
+    
+    public void move(int distance)
+    {
+        if(distance >0){          
+           distance-=this.getSesFils().size();//on soustrait la distance à parcourir du nombre de fils que possède le bloc
+            
+            for(int i=0; i<distance;i++)
+            {
+                moveDown();
+            }
+        }else{
+            distance*=(-1); //On passe la distance en positif
+            
+            for(int i=0; i<(distance);i++)
+            {
+                if(getParent().getSesFils().get(getPosition()-i-1)!=null){
+                    distance-=getParent().getSesFils().get(getPosition()-i-1).getToutSesFils().size();
+                }
+                if(i<distance)
+                moveUp();
+            }
+        }
+    }
+    
+    
+    
+        public void moveUp()
+    {
+        if(getParent()!=null){
+         int taille = getParent().getSesFils().size();
+         for(int i=0; i<taille;i++)
+         {
+             if(getParent().getSesFils().get(i)==this && getParent().getSesFils().containsKey(i-1))
+             {
+                 Bloc unBloc = getParent().getSesFils().get(i-1);
+                getParent().getSesFils().put(i-1, this);
+                getParent().getSesFils().put(i, unBloc);
+                ctrl.mettreAjourCode();
+                break;
+             }
+         }
+        }
+    }
+    
+    
+    public void moveDown()
+    {
+        if(getParent()!=null){
+         int taille = getParent().getSesFils().size();
+         for(int i=0; i<taille;i++)
+         {
+             if(getParent().getSesFils().get(i)==this && getParent().getSesFils().containsKey(i+1))
+             {
+                 Bloc unBloc = getParent().getSesFils().get(i+1);
+                getParent().getSesFils().put(i+1, this);
+                getParent().getSesFils().put(i, unBloc);
+                ctrl.mettreAjourCode();
+                break;
+             }
+         }
+        }
+    }
+    
+    
+    public Bloc getParent()
+    {
+      //Fonction de debug:
+      /*  Bloc blocParent = null;
+        
+        for(Map.Entry<Integer,Bloc> blocs : ctrl.getAssemblage().getSesBlocs().entrySet()) 
+        {
+            if(blocs.getValue()==this)
+            {
+                break;
+            }else{
+                blocParent = filsParent(blocs.getValue());
+            }
+        }*/
+        return blocParent;
+    }
+    
+    //Pour la fonction de debug de getParent()
+    private Bloc filsParent(Bloc blocParent)
+    {
+       Bloc blocP = null;
+       for(Map.Entry<Integer,Bloc> blocs : blocParent.getSesFils().entrySet()) 
+        {
+            if(blocs.getValue()==this)
+            {
+                blocP = blocParent;
+                break;
+            }else{
+                blocP = blocs.getValue().filsParent(blocParent);
+            }
+        }
+       return blocP;
+    }
+    
+    
     
     /**
      * Le niveau représente à quelle profondeur de parenté se trouve le bloc.
@@ -192,6 +325,12 @@ public abstract class Bloc {
         if(blocGraph!=null)
         blocGraph.mettreAjour();
     }
+
+    
+    public void setBlocParent(Bloc blocParent) {
+        this.blocParent = blocParent;
+    }
+
     
     
     /**
@@ -218,6 +357,20 @@ public abstract class Bloc {
 
     public int getId() {
         return id;
+    }
+    
+    
+    public int getPosition()
+    {
+        int position = -1; //Erreur si -1
+       for(Map.Entry<Integer,Bloc> blocs : blocParent.getSesFils().entrySet()) 
+        {
+             if(blocs.getValue()==this)
+             {
+                position= blocs.getKey();
+             }
+         }
+        return position;
     }
 
     public int getNiveau() {
