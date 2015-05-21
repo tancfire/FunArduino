@@ -288,22 +288,33 @@ public class Controleur {
             acces.recupererComposants(this);
             
             //On récupère tout les blocs à ajouter au BlocStart
-            ArrayList<Bloc> blocs2 = acces.recupererFilsBlocs("BlocStart",this);
+            ArrayList<Bloc> blocs2 = acces.recupererFilsBlocsByLabel("BlocStart",this);
             for(int i=0; i<blocs2.size(); i++)
             {
                 this.ajouterAuSetupSansSauvegarde(blocs2.get(i));
-                System.out.println("ajout d'un bloc: "+blocs2.get(i).getClass().getSimpleName()+"( id: "+blocs2.get(i).getId()+")");
-
+                recupererFils(blocs2.get(i));
             } 
              
             //On récupère tout les blocs à ajouter au BlocUpdate
-            ArrayList<Bloc> blocs = acces.recupererFilsBlocs("BlocUpdate",this);
+            ArrayList<Bloc> blocs = acces.recupererFilsBlocsByLabel("BlocUpdate",this);
             for(int i=0; i<blocs.size(); i++)
             {
                  this.ajouterAuLoopSansSauvegarde(blocs.get(i));
-                System.out.println("ajout d'un bloc: "+blocs.get(i).getClass().getSimpleName()+"( id: "+blocs.get(i).getId()+")");
-
-            }   mettreAjourCode();
+                 recupererFils(blocs.get(i));
+            }   
+            mettreAjourCode();
+    }
+    
+    
+    
+    private void recupererFils(Bloc bloc)
+    {
+        ArrayList<Bloc> blocs = acces.recupererFilsBlocsById(bloc.getId(),this);
+            for(int i=0; i<blocs.size(); i++)
+            {
+                bloc.ajouterBloc(i, blocs.get(i));
+                recupererFils(blocs.get(i));
+            }
     }
         
     

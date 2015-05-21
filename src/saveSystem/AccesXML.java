@@ -428,30 +428,40 @@ public class AccesXML {
          return desComposants;
      }
      
+     
+     public ArrayList<Bloc> recupererFilsBlocsById(int id, Controleur ctrl)
+     {
+         return  recupererFilsBlocs("id", Integer.toString(id), ctrl);
+     }
+     
+     
+     public ArrayList<Bloc> recupererFilsBlocsByLabel(String label, Controleur ctrl)
+     {
+         return  recupererFilsBlocs("label", label, ctrl);
+     }
         
            
      
-     public ArrayList<Bloc> recupererFilsBlocs(String labelBloc, Controleur ctrl)
+     private ArrayList<Bloc> recupererFilsBlocs(String attribut, String valeur, Controleur ctrl)
      {
          ArrayList<Bloc> desBlocs = new ArrayList<Bloc>();
          
-         NodeList lesNoeuds = saSave.getDocumentElement().getChildNodes(); //On récupère tout les éléments racines
+         NodeList lesNoeuds = saSave.getElementsByTagName("bloc"); //On récupère tout les éléments blocs
          if(lesNoeuds != null){
             for(int i=0; i<lesNoeuds.getLength();i++)
             {
                 if(lesNoeuds.item(i) instanceof Element){
                 Element e3 = (Element)lesNoeuds.item(i);
                 
-                if(e3.getTagName().equals("bloc")){ // On s'assure que c'est un bloc (on a récupérer la liste de tout les éléments racines)
-                        if(e3.getAttribute("label").equals(labelBloc)){ //On sélectionne le bon bloc en fonction du label (à change pour ID)
+                        if(e3.getAttribute(attribut).equals(valeur)){ //On vérifie que l'élément correspond aux critères recherchés
                             NodeList lesNoeuds2 = e3.getChildNodes(); //On sélectionne tout les fils du bloc sélectionné
                             
                             for(int i2=0; i2<lesNoeuds2.getLength();i2++)
                             {
                                if(lesNoeuds2.item(i2) instanceof Element){
                                 Element e = (Element)lesNoeuds2.item(i2);
-                                if(e.getTagName().equals("bloc")){ //On vérifie que c'est un bloc
-                                Bloc bloc = convertirBloc(e, ctrl); //On récupère le bloc
+                                if(e.getTagName().equals("bloc")){ //On vérifie que l'élément récupéré un bloc
+                                Bloc bloc = convertirBloc(e, ctrl); //On récupère le bloc fils
                                         if(bloc!=null){ //si il n'est pas nul (il est reconnu)
                                             desBlocs.add(bloc); // on l'ajoute
                                         }
@@ -459,7 +469,6 @@ public class AccesXML {
                                }
                             }
                         }
-                }
                 }
             }
         }
