@@ -58,7 +58,7 @@ public class BlocGraphique extends JLabel{
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(e.getX()>=0){
+                if(e.getX()>=0 && e.getX()<=120){
                     if(e.getY()>=45){
                         bloc.move((e.getY()/45));
                         System.out.println("deplacement vers le bas");
@@ -67,9 +67,12 @@ public class BlocGraphique extends JLabel{
                        bloc.move((e.getY()/45)-1);
                        System.out.println("deplacement vers le haut");
                      }
-                }else{
+                }else if(e.getX()<0){
                     bloc.descendreNiveau();
                     System.out.println("descendre d'un niveau");
+                }else{
+                    bloc.monterNiveau();
+                    System.out.println("monter d'un niveau");
                 }
                 System.out.println("relaché: "+e.getX()+","+e.getY());
             }

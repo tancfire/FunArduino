@@ -84,9 +84,10 @@ public abstract class Bloc {
     public void ajouterBlocALaFinSansSauvegarde(Bloc unBloc)
     {
         int taille = sesBlocs.size();
-        sesBlocs.put(taille, unBloc);
+        sesBlocs.put(taille+1, unBloc);
         unBloc.setNiveau(niveau+1);
         unBloc.setBlocParent(this);
+        System.out.println("taille de "+getClass().getSimpleName()+": "+(taille+1));
     }
     
     
@@ -130,14 +131,28 @@ public abstract class Bloc {
     
     public void supprimerBloc(Bloc unBloc)
     {
+        int cle = -1;
         for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
         {
           if(blocs.getValue()==unBloc)
-          {
-              sesBlocs.remove(blocs.getKey());
-              unBloc.setNiveau(0);
-          }
+              cle = blocs.getKey();
         }
+            if(cle!=-1){
+           sesBlocs.remove(cle);
+           unBloc.setBlocParent(null);
+           unBloc.setNiveau(0);
+           
+           // On repositionne les blocs qui sont derrières
+           int taille = sesBlocs.size()+1;
+            for(int i=(cle+1); i<=taille; i++) 
+            {
+                System.out.println("bouge le: "+i);
+                    acces.setPositionToBloc(sesBlocs.get(i).getId(), i-1);//On enregistre la nouvelle position
+                    sesBlocs.put(i-1, sesBlocs.get(i));
+                    if(i==taille)
+                        sesBlocs.remove(taille);
+            }
+         }
     }
     
     
@@ -208,9 +223,24 @@ public abstract class Bloc {
     public void descendreNiveau()
     {
         if(getParent().getParent()!=null){
+            Bloc blocGrandPere = getParent().getParent();
             getParent().supprimerBloc(this);
-            getParent().getParent().ajouterBlocALaFin(this);
+            blocGrandPere.ajouterBlocALaFin(this);
             ctrl.mettreAjourCode();
+        }else{
+            System.out.println("grand-pere n'existe pas D:");
+        }
+    }
+    
+        public void monterNiveau()
+    {
+        if(getParent()!=null){
+            if(getParent().getSesFils().containsKey(getPosition()-1)){
+               Bloc blocFrere =getParent().getSesFils().get(getPosition()-1);
+               getParent().supprimerBloc(this);
+               blocFrere.ajouterBlocALaFin(this);
+               ctrl.mettreAjourCode();
+            }
         }
     }
     
@@ -244,8 +274,8 @@ public abstract class Bloc {
         public void moveUp()
     {
         if(getParent()!=null){
-         int taille = getParent().getSesFils().size();
-         for(int i=0; i<taille;i++)
+         int taille = getParent().getSesFils().size()+1;
+         for(int i=1; i<taille;i++)
          {
              if(getParent().getSesFils().get(i)==this && getParent().getSesFils().containsKey(i-1))
              {
@@ -266,8 +296,8 @@ public abstract class Bloc {
     public void moveDown()
     {
         if(getParent()!=null){
-         int taille = getParent().getSesFils().size();
-         for(int i=0; i<taille;i++)
+         int taille = getParent().getSesFils().size()+1;
+         for(int i=1; i<taille;i++)
          {
              if(getParent().getSesFils().get(i)==this && getParent().getSesFils().containsKey(i+1))
              {

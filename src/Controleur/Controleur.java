@@ -119,9 +119,9 @@ public class Controleur {
         blocUpdate = new BlocUpdate(this);
         blocInit = new BlocInit(this);
         
-        assemblage.ajouterBloc(0, blocInit);
-        assemblage.ajouterBloc(1, blocStart);
-        assemblage.ajouterBloc(2, blocUpdate);
+        assemblage.ajouterBloc(1, blocInit);
+        assemblage.ajouterBloc(2, blocStart);
+        assemblage.ajouterBloc(3, blocUpdate);
         
         mettreAjourCode();
     }

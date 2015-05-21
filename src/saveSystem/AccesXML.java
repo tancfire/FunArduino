@@ -464,6 +464,7 @@ public class AccesXML {
                                 if(e.getTagName().equals("bloc")){ //On vérifie que l'élément récupéré un bloc
                                 Bloc bloc = convertirBloc(e, ctrl); //On récupère le bloc fils
                                         if(bloc!=null){ //si il n'est pas nul (il est reconnu)
+                                            System.out.println("charge du bloc:"+Integer.parseInt(e.getAttribute("position"))+": "+bloc.getClass().getSimpleName());
                                             desBlocs.put(Integer.parseInt(e.getAttribute("position")),bloc); // on l'ajoute
                                         }
                                }
