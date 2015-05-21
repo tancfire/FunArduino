@@ -252,6 +252,9 @@ public abstract class Bloc {
                  Bloc unBloc = getParent().getSesFils().get(i-1);
                 getParent().getSesFils().put(i-1, this);
                 getParent().getSesFils().put(i, unBloc);
+                //On enregistre le déplacement
+                acces.setPositionToBloc(id, i); //(i-1)+1 <== Car la position commence à 1
+                acces.setPositionToBloc(unBloc.getId(), i+1);
                 ctrl.mettreAjourCode();
                 break;
              }
@@ -271,6 +274,9 @@ public abstract class Bloc {
                  Bloc unBloc = getParent().getSesFils().get(i+1);
                 getParent().getSesFils().put(i+1, this);
                 getParent().getSesFils().put(i, unBloc);
+                //On enregistre le déplacement
+                acces.setPositionToBloc(id, i+2);//(i+1)+1
+                acces.setPositionToBloc(unBloc.getId(), i+1);
                 ctrl.mettreAjourCode();
                 break;
              }

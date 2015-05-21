@@ -23,6 +23,7 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -429,22 +430,22 @@ public class AccesXML {
      }
      
      
-     public ArrayList<Bloc> recupererFilsBlocsById(int id, Controleur ctrl)
+     public HashMap<Integer,Bloc> recupererFilsBlocsById(int id, Controleur ctrl)
      {
          return  recupererFilsBlocs("id", Integer.toString(id), ctrl);
      }
      
      
-     public ArrayList<Bloc> recupererFilsBlocsByLabel(String label, Controleur ctrl)
+     public HashMap<Integer,Bloc> recupererFilsBlocsByLabel(String label, Controleur ctrl)
      {
          return  recupererFilsBlocs("label", label, ctrl);
      }
         
            
      
-     private ArrayList<Bloc> recupererFilsBlocs(String attribut, String valeur, Controleur ctrl)
+     private HashMap<Integer,Bloc> recupererFilsBlocs(String attribut, String valeur, Controleur ctrl)
      {
-         ArrayList<Bloc> desBlocs = new ArrayList<Bloc>();
+         HashMap<Integer,Bloc> desBlocs = new HashMap<Integer,Bloc>();
          
          NodeList lesNoeuds = saSave.getElementsByTagName("bloc"); //On récupère tout les éléments blocs
          if(lesNoeuds != null){
@@ -463,7 +464,7 @@ public class AccesXML {
                                 if(e.getTagName().equals("bloc")){ //On vérifie que l'élément récupéré un bloc
                                 Bloc bloc = convertirBloc(e, ctrl); //On récupère le bloc fils
                                         if(bloc!=null){ //si il n'est pas nul (il est reconnu)
-                                            desBlocs.add(bloc); // on l'ajoute
+                                            desBlocs.put(Integer.parseInt(e.getAttribute("position")),bloc); // on l'ajoute
                                         }
                                }
                                }
@@ -476,7 +477,7 @@ public class AccesXML {
      }
      
     
-     // /!\ OPTIMISATION A EFFECTUER
+     // /!\ OPTIMISATIONS et CORRECTIONS A EFFECTUER
         private Bloc convertirBloc(Element e, Controleur ctrl)
         {
            int id = Integer.parseInt(e.getAttribute("id"));
@@ -486,7 +487,6 @@ public class AccesXML {
            if(e.getAttribute("label").equals("BlocAttendre")){
                 Element param = getParamByNom(id, "delai");
                 bloc = new BlocAttendre(id,Integer.parseInt(param.getAttribute("valeur")), ctrl);
-            
            }else if (e.getAttribute("label").equals("BlocAllumerPin")){
                  EtatPin etat = EtatPin.BAS;
                  Element param = getParamByNom(id, "etatPin");

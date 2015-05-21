@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -288,19 +289,19 @@ public class Controleur {
             acces.recupererComposants(this);
             
             //On récupère tout les blocs à ajouter au BlocStart
-            ArrayList<Bloc> blocs2 = acces.recupererFilsBlocsByLabel("BlocStart",this);
-            for(int i=0; i<blocs2.size(); i++)
+            HashMap<Integer,Bloc> blocs2 = acces.recupererFilsBlocsByLabel("BlocStart",this);
+            for(Map.Entry<Integer,Bloc> unBloc : blocs2.entrySet()) 
             {
-                this.ajouterAuSetupSansSauvegarde(blocs2.get(i));
-                recupererFils(blocs2.get(i));
+                this.ajouterAuSetupSansSauvegarde(unBloc.getValue());
+                recupererFils(unBloc.getValue());
             } 
              
             //On récupère tout les blocs à ajouter au BlocUpdate
-            ArrayList<Bloc> blocs = acces.recupererFilsBlocsByLabel("BlocUpdate",this);
-            for(int i=0; i<blocs.size(); i++)
+            HashMap<Integer,Bloc> blocs = acces.recupererFilsBlocsByLabel("BlocUpdate",this);
+            for(Map.Entry<Integer,Bloc> unBloc : blocs.entrySet()) 
             {
-                 this.ajouterAuLoopSansSauvegarde(blocs.get(i));
-                 recupererFils(blocs.get(i));
+                 this.ajouterAuLoopSansSauvegarde(unBloc.getValue());
+                 recupererFils(unBloc.getValue());
             }   
             mettreAjourCode();
     }
@@ -309,11 +310,11 @@ public class Controleur {
     
     private void recupererFils(Bloc bloc)
     {
-        ArrayList<Bloc> blocs = acces.recupererFilsBlocsById(bloc.getId(),this);
-            for(int i=0; i<blocs.size(); i++)
+        HashMap<Integer,Bloc> blocs = acces.recupererFilsBlocsById(bloc.getId(),this);
+            for(Map.Entry<Integer,Bloc> unBloc : blocs.entrySet()) 
             {
-                bloc.ajouterBloc(i, blocs.get(i));
-                recupererFils(blocs.get(i));
+                bloc.ajouterBloc(unBloc.getKey(), unBloc.getValue());
+                recupererFils(unBloc.getValue()); //On récupère les fils du fils si y'en a
             }
     }
         
