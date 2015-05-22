@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilderFactory;
 import saveSystem.AccesXML;
 import vue.BlocGraphique.BlocGraphique;
 import vue.BlocGraphique.BlocStartGraphique;
@@ -59,13 +60,16 @@ public class Controleur {
     BlocStart blocStart;
     BlocUpdate blocUpdate;
     
+    private final DocumentBuilderFactory factory;
     
     public Controleur(KitArduinoFrame vue)
     {
         this.vue = vue;
         composants = new ArrayList<Composant>();
         variables = new ArrayList<Variable>();
+        factory = DocumentBuilderFactory.newInstance();
         
+        acces = new AccesXML();
         
         creerProjet(new File("saves").getAbsolutePath(), "GenerateByFunArduino");
        
@@ -204,7 +208,7 @@ public class Controleur {
         //On change le nom et le chemin à la fin
         this.nomProjet = nouveauNomProjet;
         this.chemin = nouveauChemin;
-        acces = new AccesXML(chemin+"/"+nomProjet+"/project.fun");
+        acces.setChemin(chemin+"/"+nomProjet+"/project.fun");
     }
     
     
@@ -235,7 +239,7 @@ public class Controleur {
         }
       
         //On initialise la classe d'accès sur le fichier qui vient d'être créé.
-        acces = new AccesXML(chemin+"/"+nomProjet+"/project.fun"); //--> saves/GenerateByArduino/GenerateByArduino.fun
+        acces.setChemin(chemin+"/"+nomProjet+"/project.fun"); //--> saves/GenerateByArduino/GenerateByArduino.fun
     }
         
        
@@ -281,7 +285,7 @@ public class Controleur {
             //on change le nom du projet et le chemin
             this.nomProjet = nomProjet;
             this.chemin = chemin;
-            acces = new AccesXML(chemin+"/"+nomProjet+"/project.fun");
+            acces.setChemin(chemin+"/"+nomProjet+"/project.fun");
             
             
             //charger le fichier .xml (.fun)
@@ -313,8 +317,9 @@ public class Controleur {
         HashMap<Integer,Bloc> blocs = acces.recupererFilsBlocsById(bloc.getId(),this);
             for(Map.Entry<Integer,Bloc> unBloc : blocs.entrySet()) 
             {
-                bloc.ajouterBloc(unBloc.getKey(), unBloc.getValue());
+                bloc.ajouterBlocSansSauvegarder(unBloc.getKey(), unBloc.getValue());
                 recupererFils(unBloc.getValue()); //On récupère les fils du fils si y'en a
+                System.out.println(bloc.getClass().getSimpleName()+": "+bloc.getPosition());
             }
     }
         

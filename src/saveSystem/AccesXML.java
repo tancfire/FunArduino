@@ -41,23 +41,26 @@ import org.w3c.dom.NodeList;
 public class AccesXML {
       private Document saSave;
       private String chemin;
+      private DocumentBuilderFactory factory;
      
-     /**
-      * @param cheminDuFichier le chemin du fichier de sauvegarde
-      */
-      public AccesXML(String cheminDuFichier){
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+      public AccesXML(){
+        this.factory = DocumentBuilderFactory.newInstance(); 
+    }
+      
+      public void setChemin(String cheminDuFichier)
+      {
         try{
         DocumentBuilder leDoc = factory.newDocumentBuilder();
-        chemin = cheminDuFichier;
+        this.chemin = cheminDuFichier;
         saSave = leDoc.parse(chemin);
         }catch(Exception e)
         {
             System.err.println("erreur d'accès XML: "+e.getMessage());
-        }  
-    }
+        } 
+      }
       
-      
+           
       /*========================================================================
       --------------- CREATION DES ELEMENTS DANS LE FICHIER --------------------
       ========================================================================*/
@@ -169,7 +172,8 @@ public class AccesXML {
      {
          if(blocExiste(id)){ //si le bloc existe
              Element bloc = getBlocById(id); //On récupère le bloc
-             bloc.setAttribute("position", String.valueOf(position)); //On lui donne sa position
+             bloc.setAttribute("position", Integer.toString(position)); //On lui donne sa position
+             System.out.println("Nvlle position: "+bloc.getAttribute("label")+":"+bloc.getAttribute("position"));
          }else{
              System.err.println("xml: impossible de définir une position pour le bloc "+id+", car il est inexistant.");
          }

@@ -87,7 +87,6 @@ public abstract class Bloc {
         sesBlocs.put(taille+1, unBloc);
         unBloc.setNiveau(niveau+1);
         unBloc.setBlocParent(this);
-        System.out.println("taille de "+getClass().getSimpleName()+": "+(taille+1));
     }
     
     
@@ -107,7 +106,25 @@ public abstract class Bloc {
      * @param position la position à lauquelle on souhaite ajouter le fils
      * @param unBloc le bloc fils que l'on souhaite ajouter
      */
-    public void ajouterBloc(int position, Bloc unBloc)
+    public void ajouterBlocSansSauvegarder(int position, Bloc unBloc)
+    {
+        if(sesBlocs.containsKey(position)){ //si un bloc existe déjà sur cette position
+             // on décale tout les blocs d'une position
+             int taille = sesBlocs.size()-1;
+              for(int i=taille; i>=position;i--)
+               {
+                   sesBlocs.put(i+1, sesBlocs.get(i));
+             }
+        }
+        // On ré-écrit par dessus la position courante, après décalage éventuel.
+        sesBlocs.put(position, unBloc);
+        
+        unBloc.setNiveau(niveau+1);
+        unBloc.setBlocParent(this);
+    }
+    
+    
+        public void ajouterBloc(int position, Bloc unBloc)
     {
         if(sesBlocs.containsKey(position)){ //si un bloc existe déjà sur cette position
              // on décale tout les blocs d'une position
@@ -126,7 +143,6 @@ public abstract class Bloc {
         unBloc.setNiveau(niveau+1);
         unBloc.setBlocParent(this);
     }
-    
 
     
     public void supprimerBloc(Bloc unBloc)
@@ -146,11 +162,13 @@ public abstract class Bloc {
            int taille = sesBlocs.size()+1;
             for(int i=(cle+1); i<=taille; i++) 
             {
-                System.out.println("bouge le: "+i);
+                System.out.println("bouge le "+i+" en "+(i-1));
                     acces.setPositionToBloc(sesBlocs.get(i).getId(), i-1);//On enregistre la nouvelle position
                     sesBlocs.put(i-1, sesBlocs.get(i));
-                    if(i==taille)
+                    if(i==taille){
                         sesBlocs.remove(taille);
+                      System.out.println("supprime le "+i);   
+                    }
             }
          }
     }
@@ -283,8 +301,8 @@ public abstract class Bloc {
                 getParent().getSesFils().put(i-1, this);
                 getParent().getSesFils().put(i, unBloc);
                 //On enregistre le déplacement
-                acces.setPositionToBloc(id, i); //(i-1)+1 <== Car la position commence à 1
-                acces.setPositionToBloc(unBloc.getId(), i+1);
+                acces.setPositionToBloc(id, i-1);
+                acces.setPositionToBloc(unBloc.getId(), i);
                 ctrl.mettreAjourCode();
                 break;
              }
@@ -305,8 +323,8 @@ public abstract class Bloc {
                 getParent().getSesFils().put(i+1, this);
                 getParent().getSesFils().put(i, unBloc);
                 //On enregistre le déplacement
-                acces.setPositionToBloc(id, i+2);//(i+1)+1
-                acces.setPositionToBloc(unBloc.getId(), i+1);
+                acces.setPositionToBloc(id, i+1);
+                acces.setPositionToBloc(unBloc.getId(), i);
                 ctrl.mettreAjourCode();
                 break;
              }
