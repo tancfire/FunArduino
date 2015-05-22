@@ -280,7 +280,7 @@ public abstract class Bloc {
                  {
                       moveDown();
                  }
-            }else{
+            }else if(getParent().getParent()==null){
                 int positionP = getParent().getPosition();
                 if(ctrl.getAssemblage().getSesBlocs().containsKey(positionP+1))
                 {
@@ -300,7 +300,7 @@ public abstract class Bloc {
                 if(i<distance)
                      moveUp();
              }
-             }else{  
+             }else if(getParent().getParent()==null){  
                 int positionP = getParent().getPosition();
                 if(ctrl.getAssemblage().getSesBlocs().containsKey(positionP-1))
                 {
