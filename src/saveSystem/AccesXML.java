@@ -173,7 +173,6 @@ public class AccesXML {
          if(blocExiste(id)){ //si le bloc existe
              Element bloc = getBlocById(id); //On récupère le bloc
              bloc.setAttribute("position", Integer.toString(position)); //On lui donne sa position
-             System.out.println("Nvlle position: "+bloc.getAttribute("label")+":"+bloc.getAttribute("position"));
          }else{
              System.err.println("xml: impossible de définir une position pour le bloc "+id+", car il est inexistant.");
          }

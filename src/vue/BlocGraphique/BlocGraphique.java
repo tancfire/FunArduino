@@ -21,6 +21,7 @@ public class BlocGraphique extends JLabel{
     private Bloc bloc;
     private JLabel label;
     private JLabel label2;
+    private JLabel labelCroix;
     private static int nbrPosition = 0;
     private int position;
     
@@ -38,6 +39,10 @@ public class BlocGraphique extends JLabel{
         label2.setSize(100, 45);
         label2.setHorizontalAlignment(CENTER);
         
+        labelCroix = new JLabel(new ImageIcon("src/images/croix.png"));
+        labelCroix.setSize(20, 20);
+        labelCroix.setVisible(false);
+        
         // position "par défaut"
         position = 0;
         
@@ -48,45 +53,74 @@ public class BlocGraphique extends JLabel{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-               // System.out.println("coucou");
+                //clic de souris
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                //System.out.println("clic");
+                //clic maintenu
+                 labelCroix.setVisible(false);
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) { // clic relâché
                 if(e.getX()>=0 && e.getX()<=120){
-                    if(e.getY()>=45){
+                    
+                    if(e.getY()>=45){ //déplacement vers le bas
                         bloc.move((e.getY()/45));
-                      //  System.out.println("deplacement vers le bas");
-                     }else if(e.getY()<=0)
+                     }else if(e.getY()<=0) //déplacement vers le haut
                      {
                        bloc.move((e.getY()/45)-1);
-                    //   System.out.println("deplacement vers le haut");
                      }
-                }else if(e.getX()<0){
+                }else if(e.getX()<0){ //déplacement vers la gauche
                     bloc.descendreNiveau();
-                 //   System.out.println("descendre d'un niveau");
-                }else{
+                }else{ // déplacement vers la droite
                     bloc.monterNiveau();
-                  //  System.out.println("monter d'un niveau");
                 }
-              //  System.out.println("relaché: "+e.getX()+","+e.getY());
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-              //  System.out.println("La souris rentre");
+              // si le curseur rentre dans le bloc
+              labelCroix.setVisible(true);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               //  System.out.println("La souris sort.");
+               //si le curseur sort du bloc
+                if(e.getX()>=120||e.getX()<=0||e.getY()<=0||e.getY()>=45)
+                labelCroix.setVisible(false);
             }
         }); 
+        
+        
+        labelCroix.addMouseListener(new MouseListener(){
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    bloc.delete();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelCroix.setVisible(false);
+            }
+        });
     }
     
       
@@ -102,6 +136,7 @@ public class BlocGraphique extends JLabel{
         setLocation(bloc.getNiveau()*40, position*45);
         label.setLocation((bloc.getNiveau()*40), (position*45)-10);
         label2.setLocation((bloc.getNiveau()*40)+10, (position*45)+10);
+        labelCroix.setLocation((bloc.getNiveau()*40)+90, (position*45)+3);
     }
     
     
@@ -109,6 +144,7 @@ public class BlocGraphique extends JLabel{
     {
         panel.add(label);
         panel.add(label2);
+        panel.add(labelCroix);
         panel.add(this);
     }
     
@@ -117,6 +153,7 @@ public class BlocGraphique extends JLabel{
     {
         panel.remove(label);
         panel.remove(label2);
+        panel.remove(labelCroix);
         panel.remove(this);
     }
             
