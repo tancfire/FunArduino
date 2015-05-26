@@ -229,6 +229,9 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         btnAjouterBloc = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listeBlocsAAjouter = new javax.swing.JList();
+        modifierBloc = new javax.swing.JDialog();
+        editDelais = new javax.swing.JTextField();
+        btnValiderModifierBloc = new javax.swing.JButton();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         labelImgArduino = new javax.swing.JLabel();
@@ -299,6 +302,43 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAjouterBloc)
                 .addContainerGap())
+        );
+
+        modifierBloc.setTitle("Choisir un Bloc");
+        modifierBloc.setAlwaysOnTop(true);
+        modifierBloc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        modifierBloc.setMinimumSize(new java.awt.Dimension(480, 180));
+
+        editDelais.setText("délais");
+
+        btnValiderModifierBloc.setText("valider");
+        btnValiderModifierBloc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValiderModifierBlocActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout modifierBlocLayout = new javax.swing.GroupLayout(modifierBloc.getContentPane());
+        modifierBloc.getContentPane().setLayout(modifierBlocLayout);
+        modifierBlocLayout.setHorizontalGroup(
+            modifierBlocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(editDelais, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifierBlocLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnValiderModifierBloc)
+                .addContainerGap())
+        );
+        modifierBlocLayout.setVerticalGroup(
+            modifierBlocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(editDelais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnValiderModifierBloc)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -484,19 +524,21 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     
     private void btnAjouterBlocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterBlocActionPerformed
         // TODO add your handling code here:
-        if(blocCaller!=null){
-            Bloc blocAAjouter= null;
-            
-            if(listeBlocsAAjouter.getSelectedValue().equals("Attendre"))
-            {
-                blocAAjouter = new BlocAttendre(300, ctrl);
-            }
-            
-            if(blocAAjouter!=null)
-            ctrl.ajouterBloc(blocCaller, blocAAjouter);
-        }
-        choixBlocsAAjouter.setVisible(false);
+        if(blocCaller!=null){ 
+            String selection = (String) listeBlocsAAjouter.getSelectedValue();
+            choixBlocsAAjouter.setVisible(false);
+            if(selection.equals("Attendre"))
+              {
+                     modifierBloc.setVisible(true);
+              }
+             }
     }//GEN-LAST:event_btnAjouterBlocActionPerformed
+
+    private void btnValiderModifierBlocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValiderModifierBlocActionPerformed
+        // TODO add your handling code here:
+         ctrl.ajouterBloc(blocCaller, new BlocAttendre(Integer.parseInt(editDelais.getText()), ctrl));
+         modifierBloc.setVisible(false);
+    }//GEN-LAST:event_btnValiderModifierBlocActionPerformed
 
     
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -550,9 +592,11 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAjouterBloc;
     private javax.swing.JButton btnTeleverser;
+    private javax.swing.JButton btnValiderModifierBloc;
     private javax.swing.ButtonGroup choixArduinoGroupe;
     private javax.swing.JDialog choixBlocsAAjouter;
     private javax.swing.JTextPane editCode;
+    private javax.swing.JTextField editDelais;
     private javax.swing.JFileChooser enregistrerFichier;
     private javax.swing.JRadioButtonMenuItem itemLeonardo;
     private javax.swing.JMenuItem itemNouveau;
@@ -570,6 +614,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuEdition;
     private javax.swing.JMenu menuFichier;
     private javax.swing.JMenu menuOutils;
+    private javax.swing.JDialog modifierBloc;
     private javax.swing.JFileChooser nouveauFichier;
     private javax.swing.JFileChooser ouvrirFichier;
     private javax.swing.JTabbedPane paneHistorique;
