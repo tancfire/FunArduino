@@ -130,7 +130,20 @@ public class Controleur {
         mettreAjourCode();
     }
       
+    
+    
+    public void ouvrirChoixBlocsAAjouter(Bloc blocCaller)
+    {
+        vue.ouvrirChoixBlocsAAjouter(blocCaller);
+    }
 
+    
+    
+    public void ajouterBloc(Bloc blocParent, Bloc blocFils)
+    {
+        blocParent.ajouterBlocALaFin(blocFils);
+        mettreAjourCode();
+    }
     
      
     public void ajouterVariable(Variable variable)

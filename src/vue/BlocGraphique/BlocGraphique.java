@@ -7,6 +7,7 @@
 package vue.BlocGraphique;
 
 import Modèle.Bloc;
+import Modèle.BlocAttendre;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
@@ -22,6 +23,7 @@ public class BlocGraphique extends JLabel{
     private JLabel label;
     private JLabel label2;
     private JLabel labelCroix;
+    private JLabel labelCroixAjout;
     private static int nbrPosition = 0;
     private int position;
     
@@ -43,11 +45,21 @@ public class BlocGraphique extends JLabel{
         labelCroix.setSize(20, 20);
         labelCroix.setVisible(false);
         
+        labelCroixAjout = new JLabel(new ImageIcon("src/images/croixAjout.png"));
+        labelCroixAjout.setSize(20, 20);
+        
         // position "par défaut"
         position = 0;
         
         mettreAjour();
         
+        
+        
+        /*
+        ========================================================================
+        ------------------------- Actions du bloc ------------------------------
+        ========================================================================
+        */
         
         this.addMouseListener(new MouseListener() {
 
@@ -94,6 +106,12 @@ public class BlocGraphique extends JLabel{
         }); 
         
         
+        /*
+        ========================================================================
+        -------------------- Actions du bouton supprimmer ----------------------
+        ========================================================================
+        */
+        
         labelCroix.addMouseListener(new MouseListener(){
 
             @Override
@@ -121,7 +139,45 @@ public class BlocGraphique extends JLabel{
                 labelCroix.setVisible(false);
             }
         });
+        
+        
+        
+        
+                /*
+        ========================================================================
+        ---------------------- Actions du bouton ajouter -----------------------
+        ========================================================================
+        */
+        
+        labelCroixAjout.addMouseListener(new MouseListener(){
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                 bloc.ouvrirChoixBlocAjout();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                 labelCroix.setVisible(false);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
+    
     
       
     public void setPosition(int position)
@@ -137,6 +193,7 @@ public class BlocGraphique extends JLabel{
         label.setLocation((bloc.getNiveau()*40), (position*45)-10);
         label2.setLocation((bloc.getNiveau()*40)+10, (position*45)+10);
         labelCroix.setLocation((bloc.getNiveau()*40)+90, (position*45)+3);
+        labelCroixAjout.setLocation((bloc.getNiveau()*40)+115, (position*45)+15);
     }
     
     
@@ -145,6 +202,7 @@ public class BlocGraphique extends JLabel{
         panel.add(label);
         panel.add(label2);
         panel.add(labelCroix);
+        panel.add(labelCroixAjout);
         panel.add(this);
     }
     
@@ -154,6 +212,7 @@ public class BlocGraphique extends JLabel{
         panel.remove(label);
         panel.remove(label2);
         panel.remove(labelCroix);
+        panel.remove(labelCroixAjout);
         panel.remove(this);
     }
             

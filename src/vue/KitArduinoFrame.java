@@ -9,6 +9,7 @@ package vue;
 import vue.BlocGraphique.BlocGraphique;
 import Controleur.Controleur;
 import Modèle.Bloc;
+import Modèle.BlocAttendre;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,6 +47,7 @@ import vue.BlocGraphique.StockCouleurTexte;
 public class KitArduinoFrame extends javax.swing.JFrame {
     private Controleur ctrl;
     private ArrayList<BlocGraphique> sesBlocsGraphs;
+    private Bloc blocCaller;
     
     /**
      * Creates new form KitArduinoFrame
@@ -202,6 +204,13 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         blocGraph.detacher(panelGraphique);
        panelGraphique.repaint();
     }
+    
+    
+    public void ouvrirChoixBlocsAAjouter(Bloc blocCaller)
+    {
+        choixBlocsAAjouter.setVisible(true);
+        this.blocCaller = blocCaller;
+    }
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -216,15 +225,19 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         nouveauFichier = new javax.swing.JFileChooser();
         enregistrerFichier = new javax.swing.JFileChooser();
         ouvrirFichier = new javax.swing.JFileChooser();
+        choixBlocsAAjouter = new javax.swing.JDialog();
+        btnAjouterBloc = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listeBlocsAAjouter = new javax.swing.JList();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         labelImgArduino = new javax.swing.JLabel();
         scrollEditCode = new javax.swing.JScrollPane();
         editCode = new javax.swing.JTextPane();
         btnTeleverser = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        paneHistorique = new javax.swing.JTabbedPane();
         scrollListeObjets = new javax.swing.JScrollPane();
-        listeBlocs = new javax.swing.JList();
+        listeHistorique = new javax.swing.JList();
         menuBarre = new javax.swing.JMenuBar();
         menuFichier = new javax.swing.JMenu();
         itemNouveau = new javax.swing.JMenuItem();
@@ -243,6 +256,50 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         enregistrerFichier.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
 
         ouvrirFichier.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+
+        choixBlocsAAjouter.setTitle("Choisir un Bloc");
+        choixBlocsAAjouter.setAlwaysOnTop(true);
+        choixBlocsAAjouter.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        choixBlocsAAjouter.setMinimumSize(new java.awt.Dimension(480, 180));
+
+        btnAjouterBloc.setText("Ajouter");
+        btnAjouterBloc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjouterBlocActionPerformed(evt);
+            }
+        });
+
+        listeBlocsAAjouter.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Attendre" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        listeBlocsAAjouter.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listeBlocsAAjouter.setSelectedIndex(0);
+        jScrollPane1.setViewportView(listeBlocsAAjouter);
+
+        javax.swing.GroupLayout choixBlocsAAjouterLayout = new javax.swing.GroupLayout(choixBlocsAAjouter.getContentPane());
+        choixBlocsAAjouter.getContentPane().setLayout(choixBlocsAAjouterLayout);
+        choixBlocsAAjouterLayout.setHorizontalGroup(
+            choixBlocsAAjouterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(choixBlocsAAjouterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, choixBlocsAAjouterLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAjouterBloc)
+                .addContainerGap())
+        );
+        choixBlocsAAjouterLayout.setVerticalGroup(
+            choixBlocsAAjouterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, choixBlocsAAjouterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAjouterBloc)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FunArduino Project");
@@ -281,14 +338,10 @@ public class KitArduinoFrame extends javax.swing.JFrame {
             }
         });
 
-        listeBlocs.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "BlocStart", "BlocCustom" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollListeObjets.setViewportView(listeBlocs);
+        listeHistorique.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scrollListeObjets.setViewportView(listeHistorique);
 
-        jTabbedPane1.addTab("Blocs", scrollListeObjets);
+        paneHistorique.addTab("Historique", scrollListeObjets);
 
         menuFichier.setText("Fichier");
 
@@ -366,7 +419,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(paneHistorique, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
@@ -382,7 +435,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrollEditCode)
                     .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1))
+                    .addComponent(paneHistorique))
                 .addGap(18, 18, 18)
                 .addComponent(btnTeleverser)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -425,6 +478,25 @@ public class KitArduinoFrame extends javax.swing.JFrame {
        nouveauFichier.setCurrentDirectory(new File("./saves")); 
        nouveauFichier.showSaveDialog(this);
     }//GEN-LAST:event_itemNouveauActionPerformed
+
+    
+    
+    
+    private void btnAjouterBlocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterBlocActionPerformed
+        // TODO add your handling code here:
+        if(blocCaller!=null){
+            Bloc blocAAjouter= null;
+            
+            if(listeBlocsAAjouter.getSelectedValue().equals("Attendre"))
+            {
+                blocAAjouter = new BlocAttendre(300, ctrl);
+            }
+            
+            if(blocAAjouter!=null)
+            ctrl.ajouterBloc(blocCaller, blocAAjouter);
+        }
+        choixBlocsAAjouter.setVisible(false);
+    }//GEN-LAST:event_btnAjouterBlocActionPerformed
 
     
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -476,8 +548,10 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAjouterBloc;
     private javax.swing.JButton btnTeleverser;
     private javax.swing.ButtonGroup choixArduinoGroupe;
+    private javax.swing.JDialog choixBlocsAAjouter;
     private javax.swing.JTextPane editCode;
     private javax.swing.JFileChooser enregistrerFichier;
     private javax.swing.JRadioButtonMenuItem itemLeonardo;
@@ -487,9 +561,10 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSauvegarder;
     private javax.swing.JMenuItem itemSauvegarderSous;
     private javax.swing.JRadioButtonMenuItem itemUno;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelImgArduino;
-    private javax.swing.JList listeBlocs;
+    private javax.swing.JList listeBlocsAAjouter;
+    private javax.swing.JList listeHistorique;
     private javax.swing.JMenuBar menuBarre;
     private javax.swing.JMenu menuChoixArduino;
     private javax.swing.JMenu menuEdition;
@@ -497,6 +572,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuOutils;
     private javax.swing.JFileChooser nouveauFichier;
     private javax.swing.JFileChooser ouvrirFichier;
+    private javax.swing.JTabbedPane paneHistorique;
     private javax.swing.JPanel panelGraphique;
     private javax.swing.JScrollPane scrollEditCode;
     private javax.swing.JScrollPane scrollListeObjets;

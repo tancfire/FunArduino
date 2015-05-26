@@ -413,6 +413,12 @@ public abstract class Bloc {
 
     
     
+    public void ouvrirChoixBlocAjout()
+    {
+        ctrl.ouvrirChoixBlocsAAjouter(this);
+    }
+    
+    
     /**
      * Permet de générer le nombre bon nombre de tabulations.
      * @return Les tabulations.
