@@ -417,6 +417,11 @@ public class Controleur {
     }
     
     
+    public ArrayList<Variable> getVariables()
+    {
+        return variables;
+    }
+    
         public Variable getVariableById(int id)
     {
         Variable var = null;

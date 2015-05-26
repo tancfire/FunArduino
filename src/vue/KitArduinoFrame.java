@@ -10,6 +10,7 @@ import vue.BlocGraphique.BlocGraphique;
 import Controleur.Controleur;
 import Modèle.Bloc;
 import Modèle.BlocAttendre;
+import Modèle.BlocChangerVariable;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,7 +55,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
      */
     public KitArduinoFrame() {
             initComponents();
-            
+                       
             nouveauFichier.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -229,9 +230,16 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         btnAjouterBloc = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listeBlocsAAjouter = new javax.swing.JList();
-        modifierBloc = new javax.swing.JDialog();
-        editDelais = new javax.swing.JTextField();
-        btnValiderModifierBloc = new javax.swing.JButton();
+        modifierBlocAttendre = new javax.swing.JDialog();
+        btnBlocAttendre = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        editDelais = new javax.swing.JSpinner();
+        modifierBlocChangerVariable = new javax.swing.JDialog();
+        btnBlocChangerVar = new javax.swing.JButton();
+        listeVariablesBlocChangerVar = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        editValeurChangerVar = new javax.swing.JTextField();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         labelImgArduino = new javax.swing.JLabel();
@@ -273,7 +281,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         });
 
         listeBlocsAAjouter.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Attendre" };
+            String[] strings = { "Attendre", "Changer la valeur d'une variable" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -304,41 +312,105 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        modifierBloc.setTitle("Choisir un Bloc");
-        modifierBloc.setAlwaysOnTop(true);
-        modifierBloc.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        modifierBloc.setMinimumSize(new java.awt.Dimension(480, 180));
-
-        editDelais.setText("délais");
-
-        btnValiderModifierBloc.setText("valider");
-        btnValiderModifierBloc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValiderModifierBlocActionPerformed(evt);
+        modifierBlocAttendre.setTitle("Choisir un Bloc");
+        modifierBlocAttendre.setAlwaysOnTop(true);
+        modifierBlocAttendre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        modifierBlocAttendre.setMinimumSize(new java.awt.Dimension(480, 180));
+        modifierBlocAttendre.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                modifierBlocAttendreWindowOpened(evt);
             }
         });
 
-        javax.swing.GroupLayout modifierBlocLayout = new javax.swing.GroupLayout(modifierBloc.getContentPane());
-        modifierBloc.getContentPane().setLayout(modifierBlocLayout);
-        modifierBlocLayout.setHorizontalGroup(
-            modifierBlocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modifierBlocLayout.createSequentialGroup()
+        btnBlocAttendre.setText("valider");
+        btnBlocAttendre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBlocAttendreActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Delais:");
+
+        javax.swing.GroupLayout modifierBlocAttendreLayout = new javax.swing.GroupLayout(modifierBlocAttendre.getContentPane());
+        modifierBlocAttendre.getContentPane().setLayout(modifierBlocAttendreLayout);
+        modifierBlocAttendreLayout.setHorizontalGroup(
+            modifierBlocAttendreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, modifierBlocAttendreLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(editDelais, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifierBlocLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnValiderModifierBloc)
-                .addContainerGap())
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(modifierBlocAttendreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modifierBlocAttendreLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBlocAttendre)
+                        .addContainerGap())
+                    .addGroup(modifierBlocAttendreLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editDelais, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(163, Short.MAX_VALUE))))
         );
-        modifierBlocLayout.setVerticalGroup(
-            modifierBlocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modifierBlocLayout.createSequentialGroup()
+        modifierBlocAttendreLayout.setVerticalGroup(
+            modifierBlocAttendreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocAttendreLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(editDelais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(modifierBlocAttendreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(editDelais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBlocAttendre)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        modifierBlocChangerVariable.setTitle("Choisir un Bloc");
+        modifierBlocChangerVariable.setAlwaysOnTop(true);
+        modifierBlocChangerVariable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        modifierBlocChangerVariable.setMinimumSize(new java.awt.Dimension(480, 180));
+
+        btnBlocChangerVar.setText("valider");
+        btnBlocChangerVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBlocChangerVarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Variable:");
+
+        jLabel3.setText("Valeur:");
+
+        javax.swing.GroupLayout modifierBlocChangerVariableLayout = new javax.swing.GroupLayout(modifierBlocChangerVariable.getContentPane());
+        modifierBlocChangerVariable.getContentPane().setLayout(modifierBlocChangerVariableLayout);
+        modifierBlocChangerVariableLayout.setHorizontalGroup(
+            modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocChangerVariableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifierBlocChangerVariableLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBlocChangerVar)
+                        .addContainerGap())
+                    .addGroup(modifierBlocChangerVariableLayout.createSequentialGroup()
+                        .addGroup(modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listeVariablesBlocChangerVar, 0, 135, Short.MAX_VALUE)
+                            .addComponent(editValeurChangerVar))
+                        .addGap(91, 91, 91))))
+        );
+        modifierBlocChangerVariableLayout.setVerticalGroup(
+            modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocChangerVariableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listeVariablesBlocChangerVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(btnValiderModifierBloc)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(modifierBlocChangerVariableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(editValeurChangerVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBlocChangerVar)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -527,18 +599,39 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         if(blocCaller!=null){ 
             String selection = (String) listeBlocsAAjouter.getSelectedValue();
             choixBlocsAAjouter.setVisible(false);
-            if(selection.equals("Attendre"))
-              {
-                     modifierBloc.setVisible(true);
-              }
+            switch (selection) {
+                case "Attendre":
+                    modifierBlocAttendre.setVisible(true);
+                    break;
+                case "Changer la valeur d'une variable":
+                    listeVariablesBlocChangerVar.removeAllItems();
+                     for(int i=0; i<ctrl.getVariables().size();i++)
+                     {
+                          listeVariablesBlocChangerVar.addItem(ctrl.getVariables().get(i).getNom());
+                    }
+                    modifierBlocChangerVariable.setVisible(true);
+                    break;
+            }
              }
     }//GEN-LAST:event_btnAjouterBlocActionPerformed
 
-    private void btnValiderModifierBlocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValiderModifierBlocActionPerformed
+    
+    private void btnBlocChangerVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocChangerVarActionPerformed
         // TODO add your handling code here:
-         ctrl.ajouterBloc(blocCaller, new BlocAttendre(Integer.parseInt(editDelais.getText()), ctrl));
-         modifierBloc.setVisible(false);
-    }//GEN-LAST:event_btnValiderModifierBlocActionPerformed
+        ctrl.ajouterBloc(blocCaller, new BlocChangerVariable(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()), editValeurChangerVar.getText(), ctrl));
+        modifierBlocChangerVariable.setVisible(false);
+    }//GEN-LAST:event_btnBlocChangerVarActionPerformed
+
+    private void btnBlocAttendreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocAttendreActionPerformed
+        // TODO add your handling code here:
+        ctrl.ajouterBloc(blocCaller, new BlocAttendre((Integer) editDelais.getValue(), ctrl));
+        modifierBlocAttendre.setVisible(false);
+    }//GEN-LAST:event_btnBlocAttendreActionPerformed
+
+    private void modifierBlocAttendreWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_modifierBlocAttendreWindowOpened
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_modifierBlocAttendreWindowOpened
 
     
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -591,12 +684,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAjouterBloc;
+    private javax.swing.JButton btnBlocAttendre;
+    private javax.swing.JButton btnBlocChangerVar;
     private javax.swing.JButton btnTeleverser;
-    private javax.swing.JButton btnValiderModifierBloc;
     private javax.swing.ButtonGroup choixArduinoGroupe;
     private javax.swing.JDialog choixBlocsAAjouter;
     private javax.swing.JTextPane editCode;
-    private javax.swing.JTextField editDelais;
+    private javax.swing.JSpinner editDelais;
+    private javax.swing.JTextField editValeurChangerVar;
     private javax.swing.JFileChooser enregistrerFichier;
     private javax.swing.JRadioButtonMenuItem itemLeonardo;
     private javax.swing.JMenuItem itemNouveau;
@@ -605,16 +700,21 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSauvegarder;
     private javax.swing.JMenuItem itemSauvegarderSous;
     private javax.swing.JRadioButtonMenuItem itemUno;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelImgArduino;
     private javax.swing.JList listeBlocsAAjouter;
     private javax.swing.JList listeHistorique;
+    private javax.swing.JComboBox listeVariablesBlocChangerVar;
     private javax.swing.JMenuBar menuBarre;
     private javax.swing.JMenu menuChoixArduino;
     private javax.swing.JMenu menuEdition;
     private javax.swing.JMenu menuFichier;
     private javax.swing.JMenu menuOutils;
-    private javax.swing.JDialog modifierBloc;
+    private javax.swing.JDialog modifierBlocAttendre;
+    private javax.swing.JDialog modifierBlocChangerVariable;
     private javax.swing.JFileChooser nouveauFichier;
     private javax.swing.JFileChooser ouvrirFichier;
     private javax.swing.JTabbedPane paneHistorique;

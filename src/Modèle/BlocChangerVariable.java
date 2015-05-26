@@ -8,6 +8,8 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocChangerVariableGraphique;
+import vue.BlocGraphique.BlocInitVariableGraphique;
 
 /**
  * Permet de changer la valeur d'une variable (c'est une affectation).
@@ -21,6 +23,8 @@ public class BlocChangerVariable extends Bloc {
         super(Color.red, ctrl);
         this.var = var;
         this.valeur = valeur;
+        
+        this.blocGraph = new BlocChangerVariableGraphique(this, valeur);
        
         mettreAjourCode();
     }
@@ -31,6 +35,8 @@ public class BlocChangerVariable extends Bloc {
         this.var = var;
         this.valeur = valeur;
        
+        this.blocGraph = new BlocChangerVariableGraphique(this, valeur);
+        
         mettreAjourCode();
     }
 
@@ -40,5 +46,11 @@ public class BlocChangerVariable extends Bloc {
          acces.setParametre(id, "variable", "id", String.valueOf(var.getId()));
          acces.setParametre(id, "String", "valeur", valeur);
     }
+
+    public Variable getVariable() {
+        return var;
+    }
+    
+    
     
 }
