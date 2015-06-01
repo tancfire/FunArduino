@@ -10,11 +10,8 @@ import Modèle.AssemblageBlocs;
 import Modèle.Bloc;
 import Modèle.BlocAllumerPin;
 import Modèle.BlocAttendre;
-import Modèle.BlocChangerVariable;
 import Modèle.BlocConditions;
 import Modèle.BlocInit;
-import Modèle.BlocInitVariable;
-import Modèle.BlocSortiSerie;
 import Modèle.BlocStart;
 import Modèle.BlocUpdate;
 import Modèle.Comparateur;
@@ -32,12 +29,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilderFactory;
 import saveSystem.AccesXML;
-import vue.BlocGraphique.BlocGraphique;
-import vue.BlocGraphique.BlocStartGraphique;
 import vue.KitArduinoFrame;
 
 /**
@@ -65,8 +58,8 @@ public class Controleur {
     public Controleur(KitArduinoFrame vue)
     {
         this.vue = vue;
-        composants = new ArrayList<Composant>();
-        variables = new ArrayList<Variable>();
+        composants = new ArrayList<>();
+        variables = new ArrayList<>();
         factory = DocumentBuilderFactory.newInstance();
         
         acces = new AccesXML();
@@ -130,6 +123,11 @@ public class Controleur {
         mettreAjourCode();
     }
       
+    
+    public void ouvrirMenuModifier(Bloc blocCaller, int x, int y)
+    {
+        vue.ouvrirMenuModifier(blocCaller,x,y);
+    }
     
     
     public void ouvrirChoixBlocsAAjouter(Bloc blocCaller)

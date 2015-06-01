@@ -18,13 +18,15 @@ public class BlocInitialisationComp extends BlocComposant{
 
     
     public BlocInitialisationComp(Composant composant, Controleur ctrl) {
-        super(Color.red, composant, ctrl);
+        super(TypeBloc.initStart, Color.red, composant, ctrl);
+        this.setSupprimable(false);
         
         blocGraph = new BlocInitialisationCompGraphique(this);
     }
     
         public BlocInitialisationComp(int id, Composant composant,  Controleur ctrl) {
-        super(id, Color.red, composant, ctrl);
+        super(id, TypeBloc.initStart, Color.red, composant, ctrl);
+        this.setSupprimable(false);
         
         blocGraph = new BlocInitialisationCompGraphique(this);
     }

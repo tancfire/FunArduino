@@ -12,12 +12,17 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author tgeant
+ * @author tancfire
  */
 public class BlocChangerVariableGraphique extends BlocGraphique {
 
-    public BlocChangerVariableGraphique(BlocChangerVariable bloc, String valeur) {
-        super(bloc, bloc.getVariable().getNom()+":", valeur, new ImageIcon("src/images/BlocChangerVariable.png"));
+    public BlocChangerVariableGraphique(BlocChangerVariable bloc) {
+        super(bloc, bloc.getVariable().getNom()+":", bloc.getValeur(), new ImageIcon("src/images/BlocChangerVariable.png"));
+    }
+    
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte(((BlocChangerVariable)bloc).getVariable().getNom()+":", ((BlocChangerVariable)bloc).getValeur());
     }
     
 }

@@ -19,4 +19,9 @@ public class BlocConditionsGraphique extends BlocGraphique {
         super(bloc, "Si "+bloc.getParam1(), bloc.getComparateur().getFormule()+" "+bloc.getParam2(), new ImageIcon("src/images/BlocConditions.png"));
     }
     
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte("Si "+((BlocConditions)bloc).getParam1(), ((BlocConditions)bloc).getComparateur().getFormule()+" "+((BlocConditions)bloc).getParam2());
+    }
+    
 }

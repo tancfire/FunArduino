@@ -19,7 +19,10 @@ public class BlocUpdate extends Bloc {
     
     public BlocUpdate(Controleur ctrl)
     {
-        super(new Color(34,177,76), ctrl); 
+        super(TypeBloc.programmation, new Color(34,177,76), ctrl); 
+        setSupprimable(false);
+        setAutoriserFils(true);
+        
         blocGraph= new BlocUpdateGraphique(this);
     }
     

@@ -18,28 +18,37 @@ public class BlocAttendre extends Bloc {
     private int delai;
 
     public BlocAttendre(int delai, Controleur ctrl) {
-        super(Color.gray, ctrl);
-        this.delai = delai;
-        
-        mettreAjourCode();
-        blocGraph= new BlocAttendreGraphique(this);
+        super(TypeBloc.programmation, Color.gray, ctrl);
+        init(delai);
     }
     
     
     public BlocAttendre(int id, int delai, Controleur ctrl) {
-        super(id, Color.MAGENTA, ctrl);
+        super(id, TypeBloc.programmation, Color.MAGENTA, ctrl);
+        init(delai);
+    }
+    
+    
+    
+    private void init(int delai)
+    {
         this.delai = delai;
         
         mettreAjourCode();
         blocGraph= new BlocAttendreGraphique(this);
     }
-    
+
     
 
     @Override
     public void mettreAjourCode() {
         sonCodeDebut = tab()+"delay("+delai+");\n";
         acces.setParametre(id, "int", "delai", String.valueOf(delai));
+    }
+    
+    
+    public void setDelai(int delai) {
+        this.delai = delai;
     }
 
     public int getDelai() {

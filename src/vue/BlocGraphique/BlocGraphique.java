@@ -7,8 +7,9 @@
 package vue.BlocGraphique;
 
 import Modèle.Bloc;
-import Modèle.BlocAttendre;
 import java.awt.event.MouseEvent;
+import static java.awt.event.MouseEvent.BUTTON1;
+import static java.awt.event.MouseEvent.BUTTON3;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,19 +19,21 @@ import javax.swing.JPanel;
  * En phase de test. Représentera le bloc sur la partie graphique.
  * @author tancfire
  */
-public class BlocGraphique extends JLabel{
-    private Bloc bloc;
+public abstract class BlocGraphique extends JLabel{
+    protected Bloc bloc;
     private JLabel label;
     private JLabel label2;
     private JLabel labelCroix;
     private JLabel labelCroixAjout;
     private static int nbrPosition = 0;
     private int position;
+    private JPanel panel;
     
     public BlocGraphique(final Bloc bloc, String texte, String texte2, ImageIcon image)
     {
         super(image);
         this.bloc = bloc;
+        this.panel = panel;
         setSize(120,45);
         
         label = new JLabel(texte);
@@ -47,6 +50,12 @@ public class BlocGraphique extends JLabel{
         
         labelCroixAjout = new JLabel(new ImageIcon("src/images/croixAjout.png"));
         labelCroixAjout.setSize(20, 20);
+        if(bloc.autoriseLesFils()){
+            labelCroixAjout.setVisible(true);
+        }else{
+            labelCroixAjout.setVisible(false);
+        }
+
         
         // position "par défaut"
         position = 0;
@@ -72,10 +81,15 @@ public class BlocGraphique extends JLabel{
             public void mousePressed(MouseEvent e) {
                 //clic maintenu
                  labelCroix.setVisible(false);
+                 if(e.getButton()==BUTTON3)
+                 {
+                     bloc.ouvrirMenuModifier(getX()+e.getX()+120,getY()+e.getY()+45);
+                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) { // clic relâché
+                if(e.getButton()==BUTTON1){ //si c'est un clic gauche
                 if(e.getX()>=0 && e.getX()<=120){
                     
                     if(e.getY()>=45){ //déplacement vers le bas
@@ -89,12 +103,15 @@ public class BlocGraphique extends JLabel{
                 }else{ // déplacement vers la droite
                     bloc.monterNiveau();
                 }
+                }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
               // si le curseur rentre dans le bloc
+               if(bloc.estSupprimable()){
               labelCroix.setVisible(true);
+               }
             }
 
             @Override
@@ -189,11 +206,20 @@ public class BlocGraphique extends JLabel{
     
     public void mettreAjour()
     {
+        mettreAjourTexte();
         setLocation(bloc.getNiveau()*40, position*45);
         label.setLocation((bloc.getNiveau()*40), (position*45)-10);
         label2.setLocation((bloc.getNiveau()*40)+10, (position*45)+10);
         labelCroix.setLocation((bloc.getNiveau()*40)+90, (position*45)+3);
         labelCroixAjout.setLocation((bloc.getNiveau()*40)+115, (position*45)+15);
+    }
+    
+    protected abstract void mettreAjourTexte();
+    
+    protected void setTexte(String txt1, String txt2)
+    {
+        this.label.setText(txt1);
+        this.label2.setText(txt2);
     }
     
     

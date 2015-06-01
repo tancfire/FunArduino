@@ -20,22 +20,22 @@ public class BlocChangerVariable extends Bloc {
     String valeur;
 
     public BlocChangerVariable(Variable var, String valeur, Controleur ctrl) {
-        super(Color.red, ctrl);
+        super(TypeBloc.programmation, new Color(197,1,1), ctrl);
         this.var = var;
         this.valeur = valeur;
         
-        this.blocGraph = new BlocChangerVariableGraphique(this, valeur);
+        this.blocGraph = new BlocChangerVariableGraphique(this);
        
         mettreAjourCode();
     }
     
     
     public BlocChangerVariable(int id, Variable var, String valeur, Controleur ctrl) {
-        super(id, Color.red, ctrl);
+        super(id, TypeBloc.programmation, new Color(197,1,1), ctrl);
         this.var = var;
         this.valeur = valeur;
        
-        this.blocGraph = new BlocChangerVariableGraphique(this, valeur);
+        this.blocGraph = new BlocChangerVariableGraphique(this);
         
         mettreAjourCode();
     }
@@ -51,6 +51,10 @@ public class BlocChangerVariable extends Bloc {
         return var;
     }
     
+    public String getValeur()
+    {
+        return valeur;
+    }
     
     
 }

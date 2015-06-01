@@ -11,12 +11,17 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Utilisateur
+ * @author tancfire
  */
 public class BlocInitialisationCompGraphique extends BlocGraphique {
 
     public BlocInitialisationCompGraphique(BlocInitialisationComp bloc) {
         super(bloc, "Composant", bloc.getEntreeSortie(), new ImageIcon("src/images/BlocInitComp.png"));
+    }
+    
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte("Composant", ((BlocInitialisationComp)bloc).getEntreeSortie());
     }
     
 }

@@ -22,30 +22,31 @@ public class BlocConditions extends Bloc{
     String param2;
 
     public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
-        super(Color.decode("#4D589A"), ctrl);
-        this.objet1 = objet1;
-        this.objet2 = objet2;
-        this.comparateur = comparateur;
-        param1 = "";
-        param2 = "";
-        
-        mettreAjourCode();
-        this.blocGraph = new BlocConditionsGraphique(this);
+        super(TypeBloc.programmation, Color.decode("#4D589A"), ctrl);
+        init(objet1, objet2, comparateur);
     }
     
     
      public BlocConditions(int id, Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
-        super(id, Color.decode("#4D589A"), ctrl);
+        super(id, TypeBloc.programmation, Color.decode("#4D589A"), ctrl);
+        init(objet1, objet2, comparateur);
+    }
+     
+     
+     private void init(Object objet1, Object objet2, Comparateur comparateur)
+     {
         this.objet1 = objet1;
         this.objet2 = objet2;
         this.comparateur = comparateur;
         param1 = "";
         param2 = "";
         
+        this.setAutoriserFils(true);
         mettreAjourCode();
         this.blocGraph = new BlocConditionsGraphique(this);
-    }
+     }
 
+     
 
 
     @Override
@@ -58,6 +59,7 @@ public class BlocConditions extends Bloc{
         sonCodeDebut = tab()+"if("+param1+comparateur+param2+"){\n";
         sonCodeFin = tab()+"}\n";
        
+        if(objet1!=null && objet2!=null){
         switch (trad1.getType()) {
             case "composant":
                 acces.setParametre(id, "composant", "param1", String.valueOf(((Composant)objet1).getId()));
@@ -82,6 +84,9 @@ public class BlocConditions extends Bloc{
             case "string":
                  acces.setParametre(id, "string", "param2", objet2.toString());
                 break;
+        }
+        }else{
+            delete();
         }
         
     }

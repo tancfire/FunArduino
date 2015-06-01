@@ -19,4 +19,9 @@ public class BlocInitGraphique extends BlocGraphique{
         super(bloc, "Initialisation", "", new ImageIcon("src/images/BlocInit.png"));
     }
     
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte("Initialisation", "");
+    }
+    
 }

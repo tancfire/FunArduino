@@ -18,5 +18,10 @@ public class BlocAllumerPinGraphique extends BlocGraphique {
     public BlocAllumerPinGraphique(BlocAllumerPin bloc) {
         super(bloc, bloc.getEtatPin(), "", new ImageIcon("src/images/BlocAllumerPin.png"));
     }
+
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte(((BlocAllumerPin)bloc).getEtatPin(), "");
+    }
     
 }

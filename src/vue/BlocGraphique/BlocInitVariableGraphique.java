@@ -19,4 +19,8 @@ public class BlocInitVariableGraphique extends BlocGraphique{
         super(bloc, "Variable:", bloc.getVariable().getNom()+" à "+bloc.getVariable().getValeurDepart(), new ImageIcon("src/images/BlocInitVariable.png"));
     }
     
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte("Variable:", ((BlocInitVariable)bloc).getVariable().getNom()+" à "+((BlocInitVariable)bloc).getVariable().getValeurDepart());
+    }
 }

@@ -17,14 +17,14 @@ import java.awt.Color;
 public abstract class BlocComposant extends Bloc{
     protected Composant composant;
 
-    public BlocComposant(Color couleur, Composant composant, Controleur ctrl) {
-        super(couleur, ctrl);
+    public BlocComposant(TypeBloc typeBloc, Color couleur, Composant composant, Controleur ctrl) {
+        super(typeBloc, couleur, ctrl);
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }
     
-        public BlocComposant(int id, Color couleur, Composant composant, Controleur ctrl) {
-        super(id, couleur, ctrl);
+        public BlocComposant(int id, TypeBloc typeBloc, Color couleur, Composant composant, Controleur ctrl) {
+        super(id, typeBloc, couleur, ctrl);
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }

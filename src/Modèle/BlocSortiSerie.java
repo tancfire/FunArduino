@@ -18,13 +18,13 @@ public class BlocSortiSerie extends Bloc{
     
     public BlocSortiSerie(String message, Controleur ctrl)
     {
-        super(Color.RED, ctrl);
+        super(TypeBloc.programmation, Color.RED, ctrl);
         this.message = message;
     }
     
         public BlocSortiSerie(int id, String message, Controleur ctrl)
     {
-        super(id, Color.RED, ctrl);
+        super(id, TypeBloc.programmation, Color.RED, ctrl);
         this.message = message;
     }
 

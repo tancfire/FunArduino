@@ -19,4 +19,9 @@ public class BlocUpdateGraphique extends BlocGraphique {
         super(bloc, "Update", "", new ImageIcon("src/images/BlocUpdate.png"));
     }
     
+    @Override
+    protected void mettreAjourTexte() {
+        this.setTexte("Update", "");
+    }
+    
 }

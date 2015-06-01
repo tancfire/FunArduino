@@ -11,6 +11,7 @@ import Controleur.Controleur;
 import Modèle.Bloc;
 import Modèle.BlocAttendre;
 import Modèle.BlocChangerVariable;
+import Modèle.TypeVariable;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,12 +50,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private Controleur ctrl;
     private ArrayList<BlocGraphique> sesBlocsGraphs;
     private Bloc blocCaller;
+    private boolean modifier;
     
     /**
      * Creates new form KitArduinoFrame
      */
     public KitArduinoFrame() {
             initComponents();
+            modifier = true;
                        
             nouveauFichier.addActionListener(new ActionListener(){
                 @Override
@@ -207,6 +210,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     }
     
     
+    public void ouvrirMenuModifier(Bloc blocCaller, int x, int y)
+    {
+        menuModifier.setLocation(x-scrollPanelGraphique.getHorizontalScrollBar().getValue()+this.getX(), y-scrollPanelGraphique.getVerticalScrollBar().getValue()+this.getY());
+        menuModifier.setVisible(true);
+        this.blocCaller = blocCaller;
+    }
+    
+    
     public void ouvrirChoixBlocsAAjouter(Bloc blocCaller)
     {
         choixBlocsAAjouter.setVisible(true);
@@ -240,6 +251,8 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         editValeurChangerVar = new javax.swing.JTextField();
+        menuModifier = new javax.swing.JPopupMenu();
+        itemModifier = new javax.swing.JMenuItem();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         labelImgArduino = new javax.swing.JLabel();
@@ -413,9 +426,18 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        itemModifier.setText("Modifier");
+        itemModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemModifierActionPerformed(evt);
+            }
+        });
+        menuModifier.add(itemModifier);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FunArduino Project");
-        setMinimumSize(new java.awt.Dimension(1024, 576));
+        setMinimumSize(new java.awt.Dimension(1024, 600));
+        setPreferredSize(new java.awt.Dimension(1028, 600));
 
         panelGraphique.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -597,6 +619,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private void btnAjouterBlocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterBlocActionPerformed
         // TODO add your handling code here:
         if(blocCaller!=null){ 
+            modifier = false;
             String selection = (String) listeBlocsAAjouter.getSelectedValue();
             choixBlocsAAjouter.setVisible(false);
             switch (selection) {
@@ -618,20 +641,59 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     
     private void btnBlocChangerVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocChangerVarActionPerformed
         // TODO add your handling code here:
+        if((ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeParam()== TypeVariable.texte) ||(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeParam()== TypeVariable.nombreEntier && isInteger(editValeurChangerVar.getText()))){
         ctrl.ajouterBloc(blocCaller, new BlocChangerVariable(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()), editValeurChangerVar.getText(), ctrl));
         modifierBlocChangerVariable.setVisible(false);
+        blocCaller = null;
+        }
     }//GEN-LAST:event_btnBlocChangerVarActionPerformed
 
+    
+    private static boolean isInteger(String s) {
+    return isInteger(s,10);
+    }
+
+    private static boolean isInteger(String s, int radix) {
+    if(s.isEmpty()) return false;
+    for(int i = 0; i < s.length(); i++) {
+        if(i == 0 && s.charAt(i) == '-') {
+            if(s.length() == 1) return false;
+            else continue;
+        }
+        if(Character.digit(s.charAt(i),radix) < 0) return false;
+    }
+        return true;
+    }
+    
+    
     private void btnBlocAttendreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocAttendreActionPerformed
         // TODO add your handling code here:
-        ctrl.ajouterBloc(blocCaller, new BlocAttendre((Integer) editDelais.getValue(), ctrl));
+        if(blocCaller!=null){ 
+            if(modifier==false){
+                ctrl.ajouterBloc(blocCaller, new BlocAttendre((Integer) editDelais.getValue(), ctrl));
+            }else{
+                ((BlocAttendre)blocCaller).setDelai((Integer) editDelais.getValue());
+                ctrl.mettreAjourCode();
+            }
         modifierBlocAttendre.setVisible(false);
+        blocCaller = null;
+        }
     }//GEN-LAST:event_btnBlocAttendreActionPerformed
 
     private void modifierBlocAttendreWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_modifierBlocAttendreWindowOpened
         // TODO add your handling code here:
 
     }//GEN-LAST:event_modifierBlocAttendreWindowOpened
+
+    private void itemModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemModifierActionPerformed
+        // TODO add your handling code here:
+        modifier = true;
+        menuModifier.setVisible(false);
+        if(blocCaller instanceof BlocAttendre)
+        {
+             modifierBlocAttendre.setVisible(true);
+        }
+    }//GEN-LAST:event_itemModifierActionPerformed
 
     
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -694,6 +756,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JTextField editValeurChangerVar;
     private javax.swing.JFileChooser enregistrerFichier;
     private javax.swing.JRadioButtonMenuItem itemLeonardo;
+    private javax.swing.JMenuItem itemModifier;
     private javax.swing.JMenuItem itemNouveau;
     private javax.swing.JMenuItem itemOuvrir;
     private javax.swing.JMenuItem itemQuitter;
@@ -712,6 +775,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuChoixArduino;
     private javax.swing.JMenu menuEdition;
     private javax.swing.JMenu menuFichier;
+    private javax.swing.JPopupMenu menuModifier;
     private javax.swing.JMenu menuOutils;
     private javax.swing.JDialog modifierBlocAttendre;
     private javax.swing.JDialog modifierBlocChangerVariable;

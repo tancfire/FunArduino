@@ -17,9 +17,11 @@ import vue.BlocGraphique.BlocInitGraphique;
 public class BlocInit extends Bloc {
 
     public BlocInit(Controleur ctrl) {
-        super(Color.lightGray, ctrl);
+        super(TypeBloc.programmation, Color.lightGray, ctrl);
+        setSupprimable(false);
+        setAutoriserFils(true);
+        
         this.blocGraph = new BlocInitGraphique(this);
-       // ctrl.ajouterBlocGraphique(blocGraph);
     }
 
     @Override

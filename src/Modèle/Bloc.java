@@ -19,9 +19,10 @@ import vue.BlocGraphique.BlocGraphique;
  * @author tancfire
  */
 public abstract class Bloc {
+    private final TypeBloc typeBloc;
     private final Color couleur;
     private HashMap<Integer,Bloc> sesBlocs;
-    private static int nbID=0;
+    private static int nbID=-1;
     protected final int id;
     protected int niveau;
     protected String sonCodeDebut;
@@ -32,37 +33,33 @@ public abstract class Bloc {
     
     protected BlocGraphique blocGraph;
     
+    private boolean supprimable;
+    private boolean arborecence;
+    
     /**
      * C'est le constructeur qui permet de créer un Bloc et de le sauvegarder dans
      * l'accès XML.
+     * @param typeBloc
      * @param couleur La couleur qui apparaitra dans le texte
      * @param ctrl 
      */
-    public Bloc(Color couleur, Controleur ctrl)
+    public Bloc(TypeBloc typeBloc, Color couleur, Controleur ctrl)
     {
-        sesBlocs = new HashMap<Integer,Bloc>();
-        this.couleur = couleur;
-        sonCodeDebut = "";
-        sonCodeFin = "";
-        niveau = 0; // c'est le nombre de tabulation qu'il faudra faire.
-        id = nbID;
-        nbID++;
-        this.ctrl = ctrl;
-        this.blocParent = null;
-        
-        this.acces = ctrl.getAcces();
+        this(nbID++, typeBloc, couleur, ctrl);
         acces.creerBloc(id, getClass().getSimpleName()); //permet de sauvegarder le bloc directement
     }
     
     
      /**
      * C'est le constructeur qui permet de créer un Bloc à partir du fichier de sauvegarde.
+     * @param id
+     * @param typeBloc
      * @param couleur
      * @param ctrl 
      */
-        public Bloc(int id, Color couleur, Controleur ctrl)
+        public Bloc(int id, TypeBloc typeBloc, Color couleur, Controleur ctrl)
     {
-        sesBlocs = new HashMap<Integer,Bloc>();
+        sesBlocs = new HashMap<>();
         this.couleur = couleur;
         sonCodeDebut = "";
         sonCodeFin = "";
@@ -70,9 +67,15 @@ public abstract class Bloc {
         this.id = id;
         this.ctrl = ctrl;
         this.blocParent = null;
+        this.arborecence = false;
+        this.supprimable = true;
+        this.typeBloc = typeBloc;
 
         this.acces = ctrl.getAcces();
     }
+        
+        
+       // public abstract void init();
         
         
   
@@ -207,7 +210,7 @@ public abstract class Bloc {
     
         public ArrayList<Bloc> getToutSesFils()
     {
-        ArrayList<Bloc> blocsFils = new ArrayList<Bloc>();
+        ArrayList<Bloc> blocsFils = new ArrayList<>();
         
         for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
             {
@@ -224,7 +227,7 @@ public abstract class Bloc {
         
     public ArrayList<BlocGraphique> getToutLesBlocsGraphiques()
     {
-        ArrayList<BlocGraphique> blocsGraphs = new ArrayList<BlocGraphique>();
+        ArrayList<BlocGraphique> blocsGraphs = new ArrayList<>();
         
         blocsGraphs.add(blocGraph);
         for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
@@ -253,9 +256,13 @@ public abstract class Bloc {
         if(getParent()!=null){
             if(getParent().getSesFils().containsKey(getPosition()-1)){
                Bloc blocFrere =getParent().getSesFils().get(getPosition()-1);
-               getParent().supprimerBloc(this);
-               blocFrere.ajouterBlocALaFin(this);
-               ctrl.mettreAjourCode();
+               if(blocFrere.autoriseLesFils()){ //si le frère autorise les fils, alors on peut le lui en ajouter
+                    getParent().supprimerBloc(this);
+                    blocFrere.ajouterBlocALaFin(this);
+                    ctrl.mettreAjourCode();
+               }else{
+                   System.out.println("Ce bloc ne peut pas avoir de fils !");
+               }
             }
         }
     }
@@ -274,24 +281,34 @@ public abstract class Bloc {
     {
         if(distance >0){ 
             distance-=this.getSesFils().size();//on soustrait la distance à parcourir du nombre de fils que possède le bloc
-            if(distance<(getParent().getSesFils().size()-getPosition())+2){
+            if(distance<(getParent().getSesFils().size()-getPosition())+2){ //si on reste dans le même bloc racine
 
                  for(int i=0; i<distance;i++)
                  {
                       moveDown();
                  }
-            }else if(getParent().getParent()==null){
+            }else if(getParent().getParent()==null){ //si on passe dans un autre bloc racine
                 int positionP = getParent().getPosition();
                 if(ctrl.getAssemblage().getSesBlocs().containsKey(positionP+1))
                 {
-                    getParent().supprimerBloc(this);
-                    ctrl.getAssemblage().getSesBlocs().get(positionP+1).ajouterBlocALaFin(this);
-                    ctrl.mettreAjourCode();
-                }  
+                    Bloc blocPapa = ctrl.getAssemblage().getSesBlocs().get(positionP+1);
+                    if((this.typeBloc == TypeBloc.programmation
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(2) //Bloc start
+                            || blocPapa == ctrl.getAssemblage().getSesBlocs().get(3))) //Bloc update
+                       ||(this.typeBloc == TypeBloc.initialisation
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(1))) //Bloc init
+                       ||(this.typeBloc == TypeBloc.initStart
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(2))) //Bloc start
+                            ){
+                        getParent().supprimerBloc(this);
+                        blocPapa.ajouterBlocALaFin(this);
+                        ctrl.mettreAjourCode();  
+                    }
+                }
             }
         }else{
             distance*=(-1); //On passe la distance en positif
-            if(distance<getPosition()+1){
+            if(distance<getPosition()+1){ //si on reste dans le même bloc racine
             for(int i=0; i<(distance);i++)
             {
                 if(getParent().getSesFils().get(getPosition()-i-1)!=null){
@@ -300,13 +317,24 @@ public abstract class Bloc {
                 if(i<distance)
                      moveUp();
              }
-             }else if(getParent().getParent()==null){  
+             }else if(getParent().getParent()==null){ //si on passe dans un autre bloc racine
                 int positionP = getParent().getPosition();
                 if(ctrl.getAssemblage().getSesBlocs().containsKey(positionP-1))
                 {
-                    getParent().supprimerBloc(this);
-                    ctrl.getAssemblage().getSesBlocs().get(positionP-1).ajouterBlocALaFin(this);
-                    ctrl.mettreAjourCode();
+
+                    Bloc blocPapa = ctrl.getAssemblage().getSesBlocs().get(positionP-1);
+                    if((this.typeBloc == TypeBloc.programmation
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(2) //Bloc start
+                            || blocPapa == ctrl.getAssemblage().getSesBlocs().get(3))) //Bloc update
+                       ||(this.typeBloc == TypeBloc.initialisation
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(1))) //Bloc init
+                       ||(this.typeBloc == TypeBloc.initStart
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(2))) //Bloc start
+                            ){
+                            getParent().supprimerBloc(this);
+                            blocPapa.ajouterBlocALaFin(this);
+                            ctrl.mettreAjourCode();
+                            }
                 }
             }
         }
@@ -361,18 +389,6 @@ public abstract class Bloc {
     
     public Bloc getParent()
     {
-      //Fonction de debug:
-      /*  Bloc blocParent = null;
-        
-        for(Map.Entry<Integer,Bloc> blocs : ctrl.getAssemblage().getSesBlocs().entrySet()) 
-        {
-            if(blocs.getValue()==this)
-            {
-                break;
-            }else{
-                blocParent = filsParent(blocs.getValue());
-            }
-        }*/
         return blocParent;
     }
     
@@ -412,11 +428,27 @@ public abstract class Bloc {
     }
 
     
+    public void ouvrirMenuModifier(int x, int y)
+    {
+        ctrl.ouvrirMenuModifier(this,x,y);
+    }
+    
     
     public void ouvrirChoixBlocAjout()
     {
         ctrl.ouvrirChoixBlocsAAjouter(this);
     }
+    
+    
+
+    public void setSupprimable(boolean supprimable) {
+        this.supprimable = supprimable;
+    }
+
+    public void setAutoriserFils(boolean arborecence) {
+        this.arborecence = arborecence;
+    }
+ 
     
     
     /**
@@ -434,8 +466,17 @@ public abstract class Bloc {
         
         return tab;
     }
+
     
     
+    public boolean estSupprimable() {
+        return supprimable;
+    }
+
+    public boolean autoriseLesFils() {
+        return arborecence;
+    }
+
     public Color getCouleur()
     {
         return couleur;
@@ -449,7 +490,7 @@ public abstract class Bloc {
     public int getPosition()
     {
         int position = -1; //Erreur si -1
-        HashMap<Integer,Bloc> liste = new HashMap<Integer,Bloc>();
+        HashMap<Integer,Bloc> liste = new HashMap<>();
        if(blocParent!=null){
            liste = blocParent.getSesFils();
        }else{

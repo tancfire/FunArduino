@@ -18,12 +18,12 @@ public class BlocCustom extends Bloc{
     String code;
 
     public BlocCustom(String code, Controleur ctrl) {
-        super(Color.PINK, ctrl);
+        super(TypeBloc.programmation, Color.PINK, ctrl);
         this.code = code;
     }
     
         public BlocCustom(int id, String code, Controleur ctrl) {
-        super(id, Color.PINK, ctrl);
+        super(id, TypeBloc.programmation, Color.PINK, ctrl);
         this.code = code;
     }
 

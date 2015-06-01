@@ -19,20 +19,22 @@ public class BlocInitVariable extends Bloc{
     private Variable var;
     
     public BlocInitVariable(Variable var, Controleur ctrl) {
-        super(new Color(255,242,0), ctrl);
+        super(TypeBloc.initialisation, new Color(255,242,0), ctrl);
         this.var = var;
+        this.setSupprimable(false);
         
         this.blocGraph = new BlocInitVariableGraphique(this);
     }
     
         public BlocInitVariable(int id, Variable var, Controleur ctrl) {
-        super(id, new Color(255,242,0), ctrl);
+        super(id, TypeBloc.initialisation, new Color(255,242,0), ctrl);
         this.var = var;
+        this.setSupprimable(false);
         
         this.blocGraph = new BlocInitVariableGraphique(this);
     }
 
-    
+          
     @Override
     public void mettreAjourCode() {
         sonCodeDebut = tab()+var.getTypeParam().getType()+" "+var.getNom()+"="+ var.getValeurDepart() + ";\n";
