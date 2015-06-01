@@ -37,6 +37,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
+import vue.BlocGraphique.ComposantGraphique;
+import vue.BlocGraphique.SimulateurGraphique;
 import vue.BlocGraphique.StockCouleurTexte;
 
 
@@ -197,10 +199,17 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     -------------------------------Fin pour la couleur dans le texte------------------------------
     ============================================================================================*/
     
-
+    public void ajouterComposantGraphique(ComposantGraphique compGraph)
+    {
+        compGraph.attacher(panelGraphique);
+        panelGraphique.repaint();
+    }
+    
+    
     private void ajouterBlocGraphique(BlocGraphique blocGraph)
     {
         blocGraph.attacher(panelGraphique);
+        panelGraphique.repaint();
     }
     
     private void supprimerBlocGraphique(BlocGraphique blocGraph)
@@ -255,7 +264,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         itemModifier = new javax.swing.JMenuItem();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
-        labelImgArduino = new javax.swing.JLabel();
         scrollEditCode = new javax.swing.JScrollPane();
         editCode = new javax.swing.JTextPane();
         btnTeleverser = new javax.swing.JButton();
@@ -441,23 +449,15 @@ public class KitArduinoFrame extends javax.swing.JFrame {
 
         panelGraphique.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelImgArduino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LeonardoNoHeadersFront_2_450px.jpg"))); // NOI18N
-
         javax.swing.GroupLayout panelGraphiqueLayout = new javax.swing.GroupLayout(panelGraphique);
         panelGraphique.setLayout(panelGraphiqueLayout);
         panelGraphiqueLayout.setHorizontalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraphiqueLayout.createSequentialGroup()
-                .addGap(242, 242, 242)
-                .addComponent(labelImgArduino, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(522, Short.MAX_VALUE))
+            .addGap(0, 1111, Short.MAX_VALUE)
         );
         panelGraphiqueLayout.setVerticalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGraphiqueLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(labelImgArduino)
-                .addContainerGap(419, Short.MAX_VALUE))
+            .addGap(0, 699, Short.MAX_VALUE)
         );
 
         scrollPanelGraphique.setViewportView(panelGraphique);
@@ -767,7 +767,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelImgArduino;
     private javax.swing.JList listeBlocsAAjouter;
     private javax.swing.JList listeHistorique;
     private javax.swing.JComboBox listeVariablesBlocChangerVar;
@@ -787,4 +786,8 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollListeObjets;
     private javax.swing.JScrollPane scrollPanelGraphique;
     // End of variables declaration//GEN-END:variables
+
+    public void ajouterSimulateur(SimulateurGraphique simuGraph) {
+       this.panelGraphique.add(simuGraph);
+    }
 }

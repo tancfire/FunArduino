@@ -27,13 +27,12 @@ public abstract class BlocGraphique extends JLabel{
     private JLabel labelCroixAjout;
     private static int nbrPosition = 0;
     private int position;
-    private JPanel panel;
+ //   private JPanel panel;
     
     public BlocGraphique(final Bloc bloc, String texte, String texte2, ImageIcon image)
     {
         super(image);
         this.bloc = bloc;
-        this.panel = panel;
         setSize(120,45);
         
         label = new JLabel(texte);

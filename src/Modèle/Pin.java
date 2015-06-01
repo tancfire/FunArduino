@@ -11,15 +11,19 @@ package Modèle;
  * @author tancfire
  */
 public class Pin {
-    private String nom;
-    private TypePin typePin;
+    private final String nom;
+    private final TypePin typePin;
     private boolean occupee;
+    private final int x;
+    private final int y;
     
-    public Pin(String nom, TypePin typePin)
+    public Pin(String nom, TypePin typePin, int x, int y)
     {
         this.nom = nom;
         this.typePin = typePin;
         occupee = false;
+        this.x = x;
+        this.y = y;
     }
     
 
@@ -41,6 +45,14 @@ public class Pin {
         return occupee;
     }
     
+    public int getX()
+    {
+        return x;
+    }
     
+    public int getY()
+    {
+        return y;
+    }
     
 }

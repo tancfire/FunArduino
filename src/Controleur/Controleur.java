@@ -70,7 +70,7 @@ public class Controleur {
         //On initialise tout à zéro
         remettreAZero();
         
-        ComposantLed led = new ComposantLed(simulateur,this);
+        ComposantLed led = new ComposantLed(this);
         ajouterComposant(led);
         
         Variable varEtat = new Variable(TypeVariable.nombreEntier, "etat", "0", this);
@@ -111,6 +111,8 @@ public class Controleur {
     public void remettreAZero()
     {  
        simulateur = new SimulateurArduino();
+       vue.ajouterSimulateur(this.simulateur.getSimuGraph());
+       
         assemblage = new AssemblageBlocs(acces);
         blocStart = new BlocStart(this);
         blocUpdate = new BlocUpdate(this);
@@ -154,6 +156,7 @@ public class Controleur {
     public void ajouterComposant(Composant composant)
     {
         composants.add(composant);
+        vue.ajouterComposantGraphique(composant.getCompGraph());
     }
     
     

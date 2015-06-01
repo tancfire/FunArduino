@@ -7,6 +7,8 @@
 package Modèle;
 
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import vue.BlocGraphique.SimulateurGraphique;
 
 /**
  *Représente une simulation de l'Arduino, en prenant en compte les branchements
@@ -14,16 +16,24 @@ import java.util.ArrayList;
  */
 public class SimulateurArduino {
     protected ArrayList<Pin> sesPins;
+    private SimulateurGraphique simuGraph;
     
     public SimulateurArduino()
     {
         sesPins = new ArrayList<Pin>();
+        sesPins.add(new Pin("3", TypePin.Digital, 240,0));
         
-        sesPins.add(new Pin("3", TypePin.Digital));
+        simuGraph = new SimulateurGraphique(new ImageIcon("src/images/Leonardo.png"), 250,80);
     }
     
     public ArrayList<Pin> getSesPins()
     {
         return sesPins;
     }
+
+    public SimulateurGraphique getSimuGraph() {
+        return simuGraph;
+    }
+    
+    
 }

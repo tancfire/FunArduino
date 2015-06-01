@@ -9,6 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
+import vue.BlocGraphique.ComposantGraphique;
 
 /**
  * Le Composant est tout le matériel que l'on pourra brancher sur le kit.
@@ -19,14 +20,11 @@ public abstract class Composant {
     private String nom;
     protected final int id;
     private static int nbID=0;
+    protected ComposantGraphique compGraph;
     
     public Composant(String nom, SimulateurArduino simulateur, Controleur ctrl)
     {
-        sesSlots = new ArrayList<Slot>();
-        sesSlots.add(new Slot(TypePin.GND, Color.BLACK, simulateur)); // on ajoute la masse
-        this.nom = nom;
-        
-        id = nbID;
+        this(nbID,nom,simulateur);
         nbID++;
         
         ctrl.getAcces().creerComposant(id, nom);
@@ -52,6 +50,10 @@ public abstract class Composant {
 
     public int getId() {
         return id;
+    }
+
+    public ComposantGraphique getCompGraph() {
+        return compGraph;
     }
 
     
