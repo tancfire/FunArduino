@@ -15,6 +15,10 @@ import Modèle.TypeVariable;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import static java.awt.event.MouseEvent.BUTTON1;
+import static java.awt.event.MouseEvent.BUTTON3;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,25 +68,62 @@ public class KitArduinoFrame extends javax.swing.JFrame {
             nouveauFichier.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 ctrl.creerProjet(nouveauFichier.getSelectedFile().getPath().substring(0, nouveauFichier.getSelectedFile().getPath().length()-nouveauFichier.getSelectedFile().getName().length()), nouveauFichier.getSelectedFile().getName());
-                 actualiserTitre();
-                 ctrl.remettreAZero();
+                   if(nouveauFichier.getSelectedFile()!=null){
+                    ctrl.creerProjet(nouveauFichier.getSelectedFile().getPath().substring(0, nouveauFichier.getSelectedFile().getPath().length()-nouveauFichier.getSelectedFile().getName().length()), nouveauFichier.getSelectedFile().getName());
+                    actualiserTitre();
+                    ctrl.remettreAZero();
+                   }
                 }
             });
             
             enregistrerFichier.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 ctrl.changerSauvegardeProjet(enregistrerFichier.getSelectedFile().getPath().substring(0, enregistrerFichier.getSelectedFile().getPath().length()-enregistrerFichier.getSelectedFile().getName().length()), enregistrerFichier.getSelectedFile().getName());
-                 actualiserTitre();
+                  if(enregistrerFichier.getSelectedFile()!=null){ 
+                    ctrl.changerSauvegardeProjet(enregistrerFichier.getSelectedFile().getPath().substring(0, enregistrerFichier.getSelectedFile().getPath().length()-enregistrerFichier.getSelectedFile().getName().length()), enregistrerFichier.getSelectedFile().getName());
+                    actualiserTitre();
+                  }
                 }
             });
             
             ouvrirFichier.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 ctrl.charger(ouvrirFichier.getSelectedFile().getPath().substring(0, ouvrirFichier.getSelectedFile().getPath().length()-ouvrirFichier.getSelectedFile().getName().length()), ouvrirFichier.getSelectedFile().getName());
-                 actualiserTitre();
+                 if(ouvrirFichier.getSelectedFile()!=null){
+                    ctrl.charger(ouvrirFichier.getSelectedFile().getPath().substring(0, ouvrirFichier.getSelectedFile().getPath().length()-ouvrirFichier.getSelectedFile().getName().length()), ouvrirFichier.getSelectedFile().getName());
+                    actualiserTitre();
+                 }
+                }
+            });
+            
+             this.panelGraphique.addMouseListener(new MouseListener() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                  
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                     if(e.getButton()==BUTTON1)
+                 {
+                   menuModifier.setVisible(false);
+                 }
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                   
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    
                 }
             });
             
