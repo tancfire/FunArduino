@@ -31,7 +31,13 @@ public abstract class BlocComposant extends Bloc{
 
 
     @Override
-    public abstract void mettreAjourCode();
+    public void mettreAjourCode()
+    {
+        if(ctrl.getComposantById(composant.getId())==null)
+            {
+                this.delete();
+            }
+    }
     
 
     

@@ -20,7 +20,7 @@ public class ComposantLed extends Composant {
     
     public ComposantLed(Controleur ctrl)
     {
-        super("led",ctrl.getSimulateur(), ctrl);
+        super("led", ctrl);
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
         ctrl.getAcces().setSlot(id, TypePin.Digital.toString(), Color.YELLOW.toString().substring(14), sesSlots.get(1).getPinConnectee().getNom());
         
@@ -31,7 +31,7 @@ public class ComposantLed extends Composant {
     
         public ComposantLed(int id, Controleur ctrl)
     {
-        super(id, "led", ctrl.getSimulateur());
+        super(id, "led", ctrl);
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
         ctrl.ajouterAuSetup(new BlocInitialisationComp(id, this, ctrl));
          

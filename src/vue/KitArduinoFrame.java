@@ -258,6 +258,12 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         panelGraphique.repaint();
     }
     
+        public void supprimerComposantGraphique(ComposantGraphique compGraph)
+    {
+        compGraph.detacher(panelGraphique);
+        panelGraphique.repaint();
+    }
+    
     
     private void ajouterBlocGraphique(BlocGraphique blocGraph)
     {
@@ -1015,6 +1021,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterSimulateur(SimulateurGraphique simuGraph) {
-       this.panelGraphique.add(simuGraph);
+       panelGraphique.add(simuGraph);
+       panelGraphique.repaint();
+    }
+
+    public void mettreAJourBranchements(ArrayList<Composant> listeComp) {
+        for(int i=0; i<listeComp.size();i++)
+        {
+            listeComp.get(i).getCompGraph().mettreAJour();
+        }
     }
 }

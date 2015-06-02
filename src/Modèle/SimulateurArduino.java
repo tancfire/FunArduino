@@ -6,6 +6,7 @@
 
 package Modèle;
 
+import Controleur.Controleur;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import vue.BlocGraphique.SimulateurGraphique;
@@ -17,14 +18,17 @@ import vue.BlocGraphique.SimulateurGraphique;
 public class SimulateurArduino {
     protected ArrayList<Pin> sesPins;
     private SimulateurGraphique simuGraph;
+    private Controleur ctrl;
     
-    public SimulateurArduino()
+    public SimulateurArduino(Controleur ctrl)
     {
         sesPins = new ArrayList<Pin>();
+        this.ctrl = ctrl;
         sesPins.add(new Pin("2", TypePin.Digital, 251,0));
         sesPins.add(new Pin("3", TypePin.Digital, 241,0));
+        sesPins.add(new Pin("4", TypePin.Digital, 231,0));
         
-        simuGraph = new SimulateurGraphique(new ImageIcon("src/images/Leonardo.png"), 250,80);
+        simuGraph = new SimulateurGraphique(new ImageIcon("src/images/Leonardo.png"), 250,80, this);
     }
     
     public ArrayList<Pin> getSesPins()
@@ -35,6 +39,9 @@ public class SimulateurArduino {
     public SimulateurGraphique getSimuGraph() {
         return simuGraph;
     }
-    
+
+    public void mettreAJourBranchements() {
+        ctrl.mettreAJourBranchements();
+    }
     
 }

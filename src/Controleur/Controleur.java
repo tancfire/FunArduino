@@ -49,6 +49,7 @@ public class Controleur {
     AssemblageBlocs assemblage;
     SimulateurArduino simulateur;
     
+    
     BlocInit blocInit;
     BlocStart blocStart;
     BlocUpdate blocUpdate;
@@ -110,7 +111,7 @@ public class Controleur {
      */
     public void remettreAZero()
     {  
-       simulateur = new SimulateurArduino();
+       simulateur = new SimulateurArduino(this);
        vue.ajouterSimulateur(this.simulateur.getSimuGraph());
        
         assemblage = new AssemblageBlocs(acces);
@@ -137,6 +138,10 @@ public class Controleur {
         vue.ouvrirChoixBlocsAAjouter(blocCaller);
     }
 
+    public void mettreAJourBranchements()
+    {
+        vue.mettreAJourBranchements(composants);
+    }
     
     
     public void ajouterBloc(Bloc blocParent, Bloc blocFils)
@@ -159,6 +164,15 @@ public class Controleur {
         composants.add(composant);
         vue.ajouterComposantGraphique(composant.getCompGraph());
     }
+    
+    
+    public void supprimerComposant(Composant composant)
+    {
+        composants.remove(composant);
+        vue.supprimerComposantGraphique(composant.getCompGraph());
+        mettreAjourCode();
+    }
+    
     
     
     
@@ -435,6 +449,10 @@ public class Controleur {
           }
           
         return var;
+    }
+
+    public void supprimerVariable(Variable var) {
+        variables.remove(var);
     }
         
 }

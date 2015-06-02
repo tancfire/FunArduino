@@ -14,13 +14,11 @@ import vue.BlocGraphique.BlocChangerVariableGraphique;
  * Permet de changer la valeur d'une variable (c'est une affectation).
  * @author tancfire
  */
-public class BlocChangerVariable extends Bloc {
-    Variable var;
+public class BlocChangerVariable extends BlocVariable {
     String valeur;
 
     public BlocChangerVariable(Variable var, String valeur, Controleur ctrl) {
-        super(TypeBloc.programmation, new Color(197,1,1), ctrl);
-        this.var = var;
+        super(TypeBloc.programmation, new Color(197,1,1), var, ctrl);
         this.valeur = valeur;
         
         this.blocGraph = new BlocChangerVariableGraphique(this);
@@ -30,8 +28,7 @@ public class BlocChangerVariable extends Bloc {
     
     
     public BlocChangerVariable(int id, Variable var, String valeur, Controleur ctrl) {
-        super(id, TypeBloc.programmation, new Color(197,1,1), ctrl);
-        this.var = var;
+        super(id, TypeBloc.programmation, new Color(197,1,1), var, ctrl);
         this.valeur = valeur;
        
         this.blocGraph = new BlocChangerVariableGraphique(this);
@@ -41,13 +38,9 @@ public class BlocChangerVariable extends Bloc {
 
     @Override
     public void mettreAjourCode() {
-        sonCodeDebut= tab()+var.getNom()+"="+valeur+";\n";
-         acces.setParametre(id, "variable", "id", String.valueOf(var.getId()));
+        sonCodeDebut= tab()+getVariable().getNom()+"="+valeur+";\n";
+         acces.setParametre(id, "variable", "id", String.valueOf(getVariable().getId()));
          acces.setParametre(id, "String", "valeur", valeur);
-    }
-
-    public Variable getVariable() {
-        return var;
     }
     
     public String getValeur()

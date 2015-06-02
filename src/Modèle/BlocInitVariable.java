@@ -14,21 +14,17 @@ import vue.BlocGraphique.BlocInitVariableGraphique;
  * Permet d'initialiser une variable dans le code.
  * @author tancfire
  */
-public class BlocInitVariable extends Bloc{
+public class BlocInitVariable extends BlocVariable{
 
-    private Variable var;
     
     public BlocInitVariable(Variable var, Controleur ctrl) {
-        super(TypeBloc.initialisation, new Color(255,242,0), ctrl);
-        this.var = var;
-        this.setSupprimable(false);
+        super(TypeBloc.initialisation, new Color(255,242,0), var, ctrl);
         
         this.blocGraph = new BlocInitVariableGraphique(this);
     }
     
         public BlocInitVariable(int id, Variable var, Controleur ctrl) {
-        super(id, TypeBloc.initialisation, new Color(255,242,0), ctrl);
-        this.var = var;
+        super(id, TypeBloc.initialisation, new Color(255,242,0), var, ctrl);
         this.setSupprimable(false);
         
         this.blocGraph = new BlocInitVariableGraphique(this);
@@ -37,18 +33,20 @@ public class BlocInitVariable extends Bloc{
           
     @Override
     public void mettreAjourCode() {
-        if(var.getTypeVariable()== TypeVariable.texte){
-        sonCodeDebut = tab()+var.getTypeVariable().getType()+" "+var.getNom()+"=\""+ var.getValeurDepart() + "\";\n";
+        if(getVariable().getTypeVariable()== TypeVariable.texte){
+        sonCodeDebut = tab()+getVariable().getTypeVariable().getType()+" "+getVariable().getNom()+"=\""+ getVariable().getValeurDepart() + "\";\n";
         }else{
-        sonCodeDebut = tab()+var.getTypeVariable().getType()+" "+var.getNom()+"="+ var.getValeurDepart() + ";\n";
+        sonCodeDebut = tab()+getVariable().getTypeVariable().getType()+" "+getVariable().getNom()+"="+ getVariable().getValeurDepart() + ";\n";
         }
-        acces.setParametre(id, "int", "idVariable", String.valueOf(var.getId()));
+        acces.setParametre(id, "int", "idVariable", String.valueOf(getVariable().getId()));
     }
 
-    public Variable getVariable() {
-        return var;
+    
+    @Override
+    public void delete()
+    {
+        super.delete();
+        getVariable().delete();
     }
-    
-    
     
 }

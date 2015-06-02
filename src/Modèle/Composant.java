@@ -21,26 +21,39 @@ public abstract class Composant {
     protected final int id;
     private static int nbID=0;
     protected ComposantGraphique compGraph;
+    private Controleur ctrl;
     
-    public Composant(String nom, SimulateurArduino simulateur, Controleur ctrl)
+    public Composant(String nom, Controleur ctrl)
     {
-        this(nbID,nom,simulateur);
+        this(nbID,nom, ctrl);
         nbID++;
         
         ctrl.getAcces().creerComposant(id, nom);
     }
     
     
-        public Composant(int id, String nom, SimulateurArduino simulateur) //Lorsque le composant est chargé à partir du xml
+        public Composant(int id, String nom, Controleur ctrl) //Lorsque le composant est chargé à partir du xml
     {
         sesSlots = new ArrayList<Slot>();
-        sesSlots.add(new Slot(TypePin.GND, Color.BLACK, simulateur)); // on ajoute la masse
+        sesSlots.add(new Slot(TypePin.GND, Color.BLACK, ctrl.getSimulateur())); // on ajoute la masse
         this.nom = nom;
         this.id = id;
+        this.ctrl = ctrl;
     }
     
     
     public abstract Pin getPin();
+    
+    
+    public void delete()
+    {
+        for(int i=0; i<sesSlots.size();i++)
+        {
+            if(sesSlots.get(i).getPinConnectee()!=null)
+            sesSlots.get(i).getPinConnectee().setOccupee(false);
+        }
+        ctrl.supprimerComposant(this);
+    }
     
     
     public String getNom()

@@ -50,6 +50,7 @@ public class BlocAllumerPin extends BlocComposant {
             sonCodeDebut = tab()+"digitalWrite("+composant.getPin().getNom()+",HIGH);\n";
         }
         acces.setParametre(id, "etatPin", "etatPin", etatPin.toString());
+        super.mettreAjourCode();
     }
 
     public String getEtatPin() {

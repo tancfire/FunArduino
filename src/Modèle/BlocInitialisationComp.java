@@ -33,11 +33,12 @@ public class BlocInitialisationComp extends BlocComposant{
     
     @Override
     public void mettreAjourCode()
-    {
+    {       
         // On récupère la pin du composant lié à ce bloc.
         //Pour l'instant, le composant à gérer ne peut être qu'en OUTPUT. Les prochaines
         //màj règleront le problème.
         sonCodeDebut = tab()+"pinMode("+composant.getPin().getNom()+",OUTPUT);\n";
+        super.mettreAjourCode();
     }
     
     

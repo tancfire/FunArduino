@@ -19,11 +19,13 @@ public class Variable {
     private String valeurDepart;
     private static int nbID=0;
     protected final int id;
+    private Controleur ctrl;
 
     public Variable(TypeVariable typeParam, String nom, String valeurDepart, Controleur ctrl) {
         this.type = typeParam;
         this.nom = nom;
         this.valeurDepart = valeurDepart;
+        this.ctrl = ctrl;
         
         id= nbID;
         nbID++;
@@ -37,6 +39,7 @@ public class Variable {
         this.type = type;
         this.nom = nom;
         this.valeurDepart = valeurDepart;
+        this.ctrl = ctrl;
         
         this.id= id;
         ctrl.ajouterAuInitSansSauvegarde(ctrl.getAcces().recupererBlocInitVariable(this, ctrl));
@@ -62,7 +65,9 @@ public class Variable {
     public int getId() {
         return id;
     }
-    
-    
-    
+
+    void delete() {
+        ctrl.supprimerVariable(this);
+    }
+      
 }
