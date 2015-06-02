@@ -37,7 +37,11 @@ public class BlocInitVariable extends Bloc{
           
     @Override
     public void mettreAjourCode() {
-        sonCodeDebut = tab()+var.getTypeParam().getType()+" "+var.getNom()+"="+ var.getValeurDepart() + ";\n";
+        if(var.getTypeVariable()== TypeVariable.texte){
+        sonCodeDebut = tab()+var.getTypeVariable().getType()+" "+var.getNom()+"=\""+ var.getValeurDepart() + "\";\n";
+        }else{
+        sonCodeDebut = tab()+var.getTypeVariable().getType()+" "+var.getNom()+"="+ var.getValeurDepart() + ";\n";
+        }
         acces.setParametre(id, "int", "idVariable", String.valueOf(var.getId()));
     }
 

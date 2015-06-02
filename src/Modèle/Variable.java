@@ -14,14 +14,14 @@ import Controleur.Controleur;
  */
 public class Variable {
     
-    private TypeVariable typeParam;
+    private TypeVariable type;
     private String nom;
     private String valeurDepart;
     private static int nbID=0;
     protected final int id;
 
     public Variable(TypeVariable typeParam, String nom, String valeurDepart, Controleur ctrl) {
-        this.typeParam = typeParam;
+        this.type = typeParam;
         this.nom = nom;
         this.valeurDepart = valeurDepart;
         
@@ -33,8 +33,8 @@ public class Variable {
     }
     
     
-     public Variable(int id, TypeVariable typeParam, String nom, String valeurDepart, Controleur ctrl) {
-        this.typeParam = typeParam;
+     public Variable(int id, TypeVariable type, String nom, String valeurDepart, Controleur ctrl) {
+        this.type = type;
         this.nom = nom;
         this.valeurDepart = valeurDepart;
         
@@ -47,8 +47,8 @@ public class Variable {
      
     
 
-    public TypeVariable getTypeParam() {
-        return typeParam;
+    public TypeVariable getTypeVariable() {
+        return type;
     }
 
     public String getNom() {

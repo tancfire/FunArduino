@@ -149,6 +149,7 @@ public class Controleur {
     public void ajouterVariable(Variable variable)
     {
         variables.add(variable);
+        mettreAjourCode();
     }
         
     

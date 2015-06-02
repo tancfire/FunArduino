@@ -21,7 +21,8 @@ public class SimulateurArduino {
     public SimulateurArduino()
     {
         sesPins = new ArrayList<Pin>();
-        sesPins.add(new Pin("3", TypePin.Digital, 240,0));
+        sesPins.add(new Pin("2", TypePin.Digital, 251,0));
+        sesPins.add(new Pin("3", TypePin.Digital, 241,0));
         
         simuGraph = new SimulateurGraphique(new ImageIcon("src/images/Leonardo.png"), 250,80);
     }
