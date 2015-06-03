@@ -23,19 +23,19 @@ public class BlocConditions extends Bloc{
 
     public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
         super(TypeBloc.programmation, Color.decode("#4D589A"), new BlocConditionsGraphique(), ctrl);
-        init(objet1, objet2, comparateur);
+        initialisation(objet1, objet2, comparateur);
         init();
     }
     
     
      public BlocConditions(int id, Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
         super(id, TypeBloc.programmation, Color.decode("#4D589A"), new BlocConditionsGraphique(), ctrl);
-        init(objet1, objet2, comparateur);
+        initialisation(objet1, objet2, comparateur);
         init();
     }
      
      
-     private void init(Object objet1, Object objet2, Comparateur comparateur)
+     private void initialisation(Object objet1, Object objet2, Comparateur comparateur)
      {
         this.objet1 = objet1;
         this.objet2 = objet2;

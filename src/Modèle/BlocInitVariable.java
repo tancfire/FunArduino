@@ -22,13 +22,12 @@ public class BlocInitVariable extends BlocVariable{
         init();
     }
     
-        public BlocInitVariable(int id, Variable var, Controleur ctrl) {
+    public BlocInitVariable(int id, Variable var, Controleur ctrl) {
         super(id, TypeBloc.initialisation, new Color(255,242,0),  new BlocInitVariableGraphique(), var, ctrl);
-        this.setSupprimable(false);
         init();
     }
-
-          
+        
+           
     @Override
     public void mettreAjourCode() {
         if(getVariable().getTypeVariable()== TypeVariable.texte){

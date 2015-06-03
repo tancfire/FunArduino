@@ -83,6 +83,8 @@ public abstract class Bloc {
         }
         
         
+        
+        
   
     /**
      * Fait la même chose qu'ajotuerBlocALaFin, mais ne sauvegarde pas la parenté

@@ -19,16 +19,20 @@ public class BlocLibrairies extends Bloc{
     
     public BlocLibrairies(Controleur ctrl) {
         super(TypeBloc.programmation, Color.pink, new BlocLibrairiesGraphique(), ctrl);
-        setSupprimable(false);
+        initialisation();
         init();
     }
 
     public BlocLibrairies(int id, Controleur ctrl) {
         super(id, TypeBloc.programmation, Color.pink, new BlocLibrairiesGraphique(), ctrl);
-        setSupprimable(false);
+        initialisation();
         init();
     }
     
+    private void initialisation()
+    {
+        setSupprimable(false);
+    }
     
 
     @Override

@@ -19,14 +19,19 @@ public class BlocCustom extends Bloc{
 
     public BlocCustom(String code, Controleur ctrl) {
         super(TypeBloc.programmation, Color.PINK, new BlocCustomGraphique(), ctrl);
-        this.code = code;
+        initialisation(code);
         init();
     }
     
         public BlocCustom(int id, String code, Controleur ctrl) {
         super(id, TypeBloc.programmation, Color.PINK, new BlocCustomGraphique(), ctrl);
-        this.code = code;
+        initialisation(code);
         init();
+    }
+        
+    private void initialisation(String code)
+    {
+        this.code = code;
     }
 
     @Override

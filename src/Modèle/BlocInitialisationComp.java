@@ -19,15 +19,22 @@ public class BlocInitialisationComp extends BlocComposant{
     
     public BlocInitialisationComp(Composant composant, Controleur ctrl) {
         super(TypeBloc.initStart, Color.red, new BlocInitialisationCompGraphique(), composant, ctrl);
-        this.setSupprimable(false);
+        initialisation();
         init();
     }
     
-        public BlocInitialisationComp(int id, Composant composant,  Controleur ctrl) {
+    public BlocInitialisationComp(int id, Composant composant,  Controleur ctrl) {
         super(id, TypeBloc.initStart, Color.red, new BlocInitialisationCompGraphique(), composant, ctrl);
-        this.setSupprimable(false);
+        initialisation();
         init();
     }
+        
+    
+    private void initialisation()
+    {
+        this.setSupprimable(false);
+    }
+        
     
     @Override
     public void mettreAjourCode()

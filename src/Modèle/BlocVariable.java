@@ -14,16 +14,21 @@ import vue.BlocGraphique.BlocGraphique;
  *
  * @author tancfire
  */
-public class BlocVariable extends Bloc{
+public abstract class BlocVariable extends Bloc{
     private Variable var;
 
     public BlocVariable(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Variable var, Controleur ctrl) {
         super(typeBloc, couleur, blocGraph, ctrl);
-        this.var = var;
+        initialisation(var);
     }
 
     public BlocVariable(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Variable var, Controleur ctrl) {
         super(id, typeBloc, couleur, blocGraph, ctrl);
+        initialisation(var);
+    }
+    
+    private void initialisation(Variable var)
+    {
         this.var = var;
     }
     

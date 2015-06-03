@@ -19,20 +19,20 @@ public class BlocAttendre extends Bloc {
 
     public BlocAttendre(int delai, Controleur ctrl) {
         super(TypeBloc.programmation, Color.gray, new BlocAttendreGraphique(), ctrl);
-        init(delai);
+        initialisation(delai);
         init();
     }
     
     
     public BlocAttendre(int id, int delai, Controleur ctrl) {
         super(id, TypeBloc.programmation, Color.MAGENTA,  new BlocAttendreGraphique(), ctrl);
-        init(delai);
+        initialisation(delai);
         init();
     }
     
     
     
-    private void init(int delai)
+    private void initialisation(int delai)
     {
         this.delai = delai;
     }

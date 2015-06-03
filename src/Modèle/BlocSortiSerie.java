@@ -20,17 +20,24 @@ public class BlocSortiSerie extends Bloc{
     public BlocSortiSerie(String message, Controleur ctrl)
     {
         super(TypeBloc.programmation, Color.RED, new BlocSortiSerieGraphique(), ctrl);
-        this.message = message;
+        initialisation(message);
         init();
     }
     
-        public BlocSortiSerie(int id, String message, Controleur ctrl)
+    public BlocSortiSerie(int id, String message, Controleur ctrl)
     {
         super(id, TypeBloc.programmation, Color.RED, new BlocSortiSerieGraphique(), ctrl);
-        this.message = message;
+        initialisation(message);
         init();
     }
 
+    
+    private void initialisation(String message)
+    {
+        this.message = message;
+    }
+        
+        
     @Override
     public void mettreAjourCode() {
        sonCodeDebut = tab()+"Serial.println(\""+message+"\");\n";

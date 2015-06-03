@@ -20,12 +20,17 @@ public abstract class BlocComposant extends Bloc{
 
     public BlocComposant(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Composant composant, Controleur ctrl) {
         super(typeBloc, couleur, blocGraph, ctrl);
-        this.composant = composant;
-        acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
+        initialisation(composant);
     }
     
-        public BlocComposant(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Composant composant, Controleur ctrl) {
+    public BlocComposant(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Composant composant, Controleur ctrl) {
         super(id, typeBloc, couleur, blocGraph, ctrl);
+        initialisation(composant);
+    }
+        
+    
+    private void initialisation(Composant composant)
+    {
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }
