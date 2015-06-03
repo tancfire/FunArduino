@@ -18,10 +18,14 @@ public class BlocConditionsGraphique extends BlocGraphique {
     public BlocConditionsGraphique() {
         super(new ImageIcon("src/images/BlocConditions.png"));
     }
-    
+
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("Si "+((BlocConditions)bloc).getParam1(), ((BlocConditions)bloc).getComparateur().getFormule()+" "+((BlocConditions)bloc).getParam2());
+    protected String getTexte1() {
+        return "Si "+((BlocConditions)bloc).getParam1();
     }
-    
+
+    @Override
+    protected String getTexte2() {
+        return ((BlocConditions)bloc).getComparateur().getFormule()+" "+((BlocConditions)bloc).getParam2();
+    }
 }

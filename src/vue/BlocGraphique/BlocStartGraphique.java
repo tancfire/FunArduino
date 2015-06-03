@@ -18,9 +18,14 @@ public class BlocStartGraphique extends BlocGraphique {
     public BlocStartGraphique() {
         super(new ImageIcon("src/images/BlocStart.png"));
     }
-    
+
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("Start", "");
+    protected String getTexte1() {
+        return "Start";
+    }
+
+    @Override
+    protected String getTexte2() {
+        return "";
     }
 }

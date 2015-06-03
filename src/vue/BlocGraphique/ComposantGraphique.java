@@ -7,7 +7,6 @@
 package vue.BlocGraphique;
 
 import Modèle.Composant;
-import Modèle.SimulateurArduino;
 import java.awt.event.MouseEvent;
 import static java.awt.event.MouseEvent.BUTTON1;
 import java.awt.event.MouseListener;
@@ -107,8 +106,6 @@ public class ComposantGraphique extends JLabel {
             }
         });
          
-         
-        
         mettreAJour();
     }
     

@@ -20,8 +20,15 @@ public class BlocAllumerPinGraphique extends BlocGraphique {
     }
 
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte(((BlocAllumerPin)bloc).getEtatPin(), "");
+    protected String getTexte1() {
+        return ((BlocAllumerPin)bloc).getEtatPin();
     }
+
+    @Override
+    protected String getTexte2() {
+        return "";
+    }
+    
+    
     
 }

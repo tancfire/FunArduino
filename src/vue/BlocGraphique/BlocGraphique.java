@@ -54,8 +54,6 @@ public abstract class BlocGraphique extends JLabel{
         // position "par défaut"
         position = 0;
         
-      //  mettreAjour();
-        
         
         
         /*
@@ -189,12 +187,13 @@ public abstract class BlocGraphique extends JLabel{
         });
     }
     
-    
+    /**
+     * Permet d'ajouter le bloc au bloc graphique
+     * @param bloc le bloc
+     */
     public void setBloc(Bloc bloc)
     {
         this.bloc = bloc;
-        
-        System.out.println("bloc: "+bloc.getClass().getSimpleName());
         
         if(bloc.autoriseLesFils()){
             labelCroixAjout.setVisible(true);
@@ -204,30 +203,35 @@ public abstract class BlocGraphique extends JLabel{
         mettreAjour();
     }
       
+    /**
+     * Mettre à jour la position vertical
+     * @param position la nouvelle position
+     */
     public void setPosition(int position)
     {
         this.position = position;
         mettreAjour();
     }
     
-    
+    /**
+     * Mettre à jour la position en x et y, ainsi que mettre à jour le texte
+     */
     public void mettreAjour()
     {
-        mettreAjourTexte();
         setLocation(bloc.getNiveau()*40, position*45);
         label.setLocation((bloc.getNiveau()*40), (position*45)-10);
         label2.setLocation((bloc.getNiveau()*40)+10, (position*45)+10);
         labelCroix.setLocation((bloc.getNiveau()*40)+90, (position*45)+3);
         labelCroixAjout.setLocation((bloc.getNiveau()*40)+115, (position*45)+15);
+        
+        this.label.setText(getTexte1());
+        this.label2.setText(getTexte2());
     }
     
-    protected abstract void mettreAjourTexte();
+   // protected abstract void mettreAjourTexte();
     
-    protected void setTexte(String txt1, String txt2)
-    {
-        this.label.setText(txt1);
-        this.label2.setText(txt2);
-    }
+    protected abstract String getTexte1();
+    protected abstract String getTexte2();
     
     
     public void attacher(JPanel panel)

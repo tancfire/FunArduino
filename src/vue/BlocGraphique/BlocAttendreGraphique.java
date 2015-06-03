@@ -19,9 +19,13 @@ public class BlocAttendreGraphique extends BlocGraphique{
         super(new ImageIcon("src/images/BlocAttendre.png"));
     }
     
-        @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("Attendre",((BlocAttendre)bloc).getDelai()+" ms");
+    @Override
+    protected String getTexte1() {
+        return "Attendre";
     }
-    
+
+    @Override
+    protected String getTexte2() {
+        return ((BlocAttendre)bloc).getDelai()+" ms";
+    }   
 }

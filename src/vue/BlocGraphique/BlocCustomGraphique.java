@@ -17,10 +17,14 @@ public class BlocCustomGraphique extends BlocGraphique{
     public BlocCustomGraphique() {
         super(new ImageIcon("src/images/BlocInit.png"));
     }
-    
+
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("code", "personnalisé");
+    protected String getTexte1() {
+        return "code";
     }
-    
+
+    @Override
+    protected String getTexte2() {
+        return "personnalisé";
+    }
 }

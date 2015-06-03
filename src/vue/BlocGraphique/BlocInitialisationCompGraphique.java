@@ -18,10 +18,15 @@ public class BlocInitialisationCompGraphique extends BlocGraphique {
     public BlocInitialisationCompGraphique() {
         super(new ImageIcon("src/images/BlocInitComp.png"));
     }
-    
+
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("Composant", ((BlocInitialisationComp)bloc).getEntreeSortie());
+    protected String getTexte1() {
+        return "Composant";
+    }
+
+    @Override
+    protected String getTexte2() {
+        return ((BlocInitialisationComp)bloc).getEntreeSortie();
     }
     
 }

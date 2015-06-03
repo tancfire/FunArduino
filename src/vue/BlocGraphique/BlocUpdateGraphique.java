@@ -18,10 +18,15 @@ public class BlocUpdateGraphique extends BlocGraphique {
     public BlocUpdateGraphique() {
         super(new ImageIcon("src/images/BlocUpdate.png"));
     }
-    
+
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("Update", "");
+    protected String getTexte1() {
+        return "Update";
+    }
+
+    @Override
+    protected String getTexte2() {
+        return "";
     }
     
 }

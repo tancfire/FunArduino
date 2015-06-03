@@ -6,7 +6,6 @@
 
 package vue.BlocGraphique;
 
-import Modèle.BlocInit;
 import javax.swing.ImageIcon;
 
 /**
@@ -18,10 +17,15 @@ public class BlocInitGraphique extends BlocGraphique{
     public BlocInitGraphique() {
         super(new ImageIcon("src/images/BlocInit.png"));
     }
-    
+
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte("Initialisation", "");
+    protected String getTexte1() {
+        return "Initialisation";
+    }
+
+    @Override
+    protected String getTexte2() {
+        return "";
     }
     
 }

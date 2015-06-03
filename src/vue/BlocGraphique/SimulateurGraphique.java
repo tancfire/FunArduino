@@ -29,9 +29,9 @@ public class SimulateurGraphique extends JLabel{
         setLocation(x,y);
         setSize(294,197);
         
-        /*=======================================
-        ---------GESTION SIMULATEUR--------
-        ========================================*/
+        /*========================================
+        --------- Clic sur le simulateur ---------
+        =========================================*/
          this.addMouseListener(new MouseListener() {
 
             @Override

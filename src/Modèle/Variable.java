@@ -46,9 +46,6 @@ public class Variable {
 
     }
      
-     
-     
-    
 
     public TypeVariable getTypeVariable() {
         return type;

@@ -20,8 +20,13 @@ public class BlocLibrairiesGraphique extends BlocGraphique{
     }
 
     @Override
-    protected void mettreAjourTexte() {
-        setTexte("Librairies", "");
+    protected String getTexte1() {
+        return "Librairies";
+    }
+
+    @Override
+    protected String getTexte2() {
+        return "";
     }
     
 }

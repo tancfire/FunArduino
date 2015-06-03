@@ -202,10 +202,15 @@ public abstract class Bloc {
         code+=(sonCodeDebut);
         code+="[/color]";
         
+        try{
             for(Map.Entry<Integer,Bloc> blocs : sesBlocs.entrySet()) 
             {
                 code+=blocs.getValue().getCode();
             }
+        }catch(java.util.ConcurrentModificationException e)
+        {
+            System.err.println("Warning: Une modification de la liste a eu lieu.");
+        }
         
         code+="[color r"+this.couleur.getRed()+" b"+this.couleur.getBlue()+" g"+this.couleur.getGreen() +"]";
         code+=(sonCodeFin);

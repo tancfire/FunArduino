@@ -19,10 +19,14 @@ public class BlocChangerVariableGraphique extends BlocGraphique {
     public BlocChangerVariableGraphique() {
         super(new ImageIcon("src/images/BlocChangerVariable.png"));
     }
-    
+       
     @Override
-    protected void mettreAjourTexte() {
-        this.setTexte(((BlocChangerVariable)bloc).getVariable().getNom()+":", ((BlocChangerVariable)bloc).getValeur());
+    protected String getTexte1() {
+        return ((BlocChangerVariable)bloc).getVariable().getNom()+":";
     }
-    
+
+    @Override
+    protected String getTexte2() {
+        return ((BlocChangerVariable)bloc).getValeur();
+    } 
 }
