@@ -6,7 +6,6 @@
 
 package vue.BlocGraphique;
 
-import Modèle.BlocLibrairies;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,7 +15,7 @@ import javax.swing.ImageIcon;
 public class BlocLibrairiesGraphique extends BlocGraphique{
 
     public BlocLibrairiesGraphique() {
-        super(new ImageIcon("src/images/BlocStart.png"));
+        super(new ImageIcon("src/images/BlocLibrairies.png"));
     }
 
     @Override

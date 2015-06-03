@@ -11,5 +11,5 @@ package Modèle;
  * @author tancfire
  */
 public enum TypeBloc {
-    initialisation, initStart, programmation;
+    librairie, initialisation, initStart, programmation;
 }

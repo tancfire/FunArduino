@@ -18,13 +18,13 @@ public class BlocLibrairies extends Bloc{
 
     
     public BlocLibrairies(Controleur ctrl) {
-        super(TypeBloc.programmation, Color.pink, new BlocLibrairiesGraphique(), ctrl);
+        super(TypeBloc.programmation, Color.DARK_GRAY, new BlocLibrairiesGraphique(), ctrl);
         initialisation();
         init();
     }
 
     public BlocLibrairies(int id, Controleur ctrl) {
-        super(id, TypeBloc.programmation, Color.pink, new BlocLibrairiesGraphique(), ctrl);
+        super(id, TypeBloc.programmation, Color.DARK_GRAY, new BlocLibrairiesGraphique(), ctrl);
         initialisation();
         init();
     }
@@ -32,6 +32,7 @@ public class BlocLibrairies extends Bloc{
     private void initialisation()
     {
         setSupprimable(false);
+        setAutoriserFils(true);
     }
     
 

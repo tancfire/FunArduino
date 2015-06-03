@@ -168,6 +168,7 @@ public class Controleur {
     {
         composants.add(composant);
         vue.ajouterComposantGraphique(composant.getCompGraph());
+        mettreAjourCode();
     }
     
     
@@ -430,8 +431,8 @@ public class Controleur {
         
           for(int i=0; i<composants.size();i++) 
           {
-              if(composants.get(id).getId()==id)
-                  comp = composants.get(id);
+              if(composants.get(i).getId()==id)
+                  comp = composants.get(i);
           }
           
         return comp;
@@ -449,8 +450,8 @@ public class Controleur {
         
           for(int i=0; i<variables.size();i++) 
           {
-              if(variables.get(id).getId()==id)
-                  var = variables.get(id);
+              if(variables.get(i).getId()==id)
+                  var = variables.get(i);
           }
           
         return var;

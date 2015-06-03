@@ -58,7 +58,7 @@ public abstract class BlocGraphique extends JLabel{
         
         /*
         ========================================================================
-        ------------------------- Actions du bloc ------------------------------
+        ------------------------- Clic sur le bloc -----------------------------
         ========================================================================
         */
         
@@ -228,7 +228,6 @@ public abstract class BlocGraphique extends JLabel{
         this.label2.setText(getTexte2());
     }
     
-   // protected abstract void mettreAjourTexte();
     
     protected abstract String getTexte1();
     protected abstract String getTexte2();

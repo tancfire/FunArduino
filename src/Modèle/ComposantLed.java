@@ -25,7 +25,6 @@ public class ComposantLed extends Composant {
         ctrl.getAcces().setSlot(id, TypePin.Digital.toString(), Color.YELLOW.toString().substring(14), sesSlots.get(1).getPinConnectee().getNom());
         
         ctrl.ajouterAuSetup(new BlocInitialisationComp(this, ctrl));
-        
         compGraph = new ComposantLedGraphique(this,ctrl.getSimulateur().getSimuGraph());
     }
     
@@ -33,8 +32,8 @@ public class ComposantLed extends Composant {
     {
         super(id, "led", ctrl);
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
+        
         ctrl.ajouterAuSetup(new BlocInitialisationComp(id, this, ctrl));
-         
         compGraph = new ComposantLedGraphique(this,ctrl.getSimulateur().getSimuGraph());
     }
 

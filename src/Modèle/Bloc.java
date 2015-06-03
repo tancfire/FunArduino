@@ -41,6 +41,7 @@ public abstract class Bloc {
      * l'accès XML.
      * @param typeBloc
      * @param couleur La couleur qui apparaitra dans le texte
+     * @param blocGraph
      * @param ctrl 
      */
     public Bloc(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Controleur ctrl)
@@ -55,6 +56,7 @@ public abstract class Bloc {
      * @param id
      * @param typeBloc
      * @param couleur
+     * @param blocGraph
      * @param ctrl 
      */
         public Bloc(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Controleur ctrl)
@@ -311,7 +313,10 @@ public abstract class Bloc {
                             && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(1))) //Bloc init
                        ||(this.typeBloc == TypeBloc.initStart
                             && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(2))) //Bloc start
-                            ){
+                       ||(this.typeBloc == TypeBloc.librairie
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(0))) //Bloc librairie
+                            )
+                        {
                         getParent().supprimerBloc(this);
                         blocPapa.ajouterBlocALaFin(this);
                         ctrl.mettreAjourCode();  
@@ -342,11 +347,14 @@ public abstract class Bloc {
                             && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(1))) //Bloc init
                        ||(this.typeBloc == TypeBloc.initStart
                             && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(2))) //Bloc start
-                            ){
+                       ||(this.typeBloc == TypeBloc.librairie
+                            && (blocPapa == ctrl.getAssemblage().getSesBlocs().get(0))) //Bloc librairie
+                            )
+                        {
                             getParent().supprimerBloc(this);
                             blocPapa.ajouterBlocALaFin(this);
                             ctrl.mettreAjourCode();
-                            }
+                        }
                 }
             }
         }

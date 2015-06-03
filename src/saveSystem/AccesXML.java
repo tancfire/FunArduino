@@ -500,7 +500,7 @@ public class AccesXML {
                     {
                         etat = EtatPin.HAUT;
                     }
-                 bloc = new BlocAllumerPin(id, ctrl.getComposantById(id2),  etat, ctrl);
+                 bloc = new BlocAllumerPin(id, ctrl.getComposantById(id2),  etat, ctrl); //Problème: si le composant est supprimé
                  
            }else if (e.getAttribute("label").equals("BlocConditions")){
                  Element param1 = getParamByNom(id, "param1");

@@ -16,6 +16,7 @@ import Modèle.ComposantLed;
 import Modèle.TypeVariable;
 import Modèle.Variable;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -632,7 +633,10 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1024, 600));
         setPreferredSize(new java.awt.Dimension(1028, 600));
 
+        scrollPanelGraphique.setDoubleBuffered(true);
+
         panelGraphique.setBackground(new java.awt.Color(255, 255, 255));
+        panelGraphique.setDoubleBuffered(false);
 
         javax.swing.GroupLayout panelGraphiqueLayout = new javax.swing.GroupLayout(panelGraphique);
         panelGraphique.setLayout(panelGraphiqueLayout);
@@ -642,7 +646,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         );
         panelGraphiqueLayout.setVerticalGroup(
             panelGraphiqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
+            .addGap(0, 981, Short.MAX_VALUE)
         );
 
         scrollPanelGraphique.setViewportView(panelGraphique);
@@ -740,10 +744,10 @@ public class KitArduinoFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(paneHistorique, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollEditCode, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollEditCode, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
                     .addComponent(btnTeleverser, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
@@ -751,13 +755,13 @@ public class KitArduinoFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollEditCode)
-                    .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                     .addComponent(paneHistorique))
                 .addGap(18, 18, 18)
                 .addComponent(btnTeleverser)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -826,11 +830,13 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     
     private void btnBlocChangerVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocChangerVarActionPerformed
         // TODO add your handling code here:
-        if((ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeVariable()== TypeVariable.texte) 
-                ||(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeVariable()== TypeVariable.nombreEntier && isInteger(editValeurChangerVar.getText()))){
-        ctrl.ajouterBloc(blocCaller, new BlocChangerVariable(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()), editValeurChangerVar.getText(), ctrl));
-        modifierBlocChangerVariable.setVisible(false);
-        blocCaller = null;
+        if(!ctrl.getVariables().isEmpty()){
+            if((ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeVariable()== TypeVariable.texte) 
+                     ||(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeVariable()== TypeVariable.nombreEntier && isInteger(editValeurChangerVar.getText()))){
+                ctrl.ajouterBloc(blocCaller, new BlocChangerVariable(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()), editValeurChangerVar.getText(), ctrl));
+                modifierBlocChangerVariable.setVisible(false);
+                blocCaller = null;
+            }
         }
     }//GEN-LAST:event_btnBlocChangerVarActionPerformed
 
