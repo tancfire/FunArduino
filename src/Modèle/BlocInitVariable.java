@@ -18,16 +18,14 @@ public class BlocInitVariable extends BlocVariable{
 
     
     public BlocInitVariable(Variable var, Controleur ctrl) {
-        super(TypeBloc.initialisation, new Color(255,242,0), var, ctrl);
-        
-        this.blocGraph = new BlocInitVariableGraphique(this);
+        super(TypeBloc.initialisation, new Color(255,242,0), new BlocInitVariableGraphique(), var, ctrl);
+        init();
     }
     
         public BlocInitVariable(int id, Variable var, Controleur ctrl) {
-        super(id, TypeBloc.initialisation, new Color(255,242,0), var, ctrl);
+        super(id, TypeBloc.initialisation, new Color(255,242,0),  new BlocInitVariableGraphique(), var, ctrl);
         this.setSupprimable(false);
-        
-        this.blocGraph = new BlocInitVariableGraphique(this);
+        init();
     }
 
           

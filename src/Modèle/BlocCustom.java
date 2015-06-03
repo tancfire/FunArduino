@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import saveSystem.AccesXML;
+import vue.BlocGraphique.BlocCustomGraphique;
 
 /**
  * Ce bloc permet de créer son propre code.
@@ -18,13 +18,15 @@ public class BlocCustom extends Bloc{
     String code;
 
     public BlocCustom(String code, Controleur ctrl) {
-        super(TypeBloc.programmation, Color.PINK, ctrl);
+        super(TypeBloc.programmation, Color.PINK, new BlocCustomGraphique(), ctrl);
         this.code = code;
+        init();
     }
     
         public BlocCustom(int id, String code, Controleur ctrl) {
-        super(id, TypeBloc.programmation, Color.PINK, ctrl);
+        super(id, TypeBloc.programmation, Color.PINK, new BlocCustomGraphique(), ctrl);
         this.code = code;
+        init();
     }
 
     @Override

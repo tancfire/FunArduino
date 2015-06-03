@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocGraphique;
 
 /**
  *
@@ -16,13 +17,13 @@ import java.awt.Color;
 public class BlocVariable extends Bloc{
     private Variable var;
 
-    public BlocVariable(TypeBloc typeBloc, Color couleur, Variable var, Controleur ctrl) {
-        super(typeBloc, couleur, ctrl);
+    public BlocVariable(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Variable var, Controleur ctrl) {
+        super(typeBloc, couleur, blocGraph, ctrl);
         this.var = var;
     }
 
-    public BlocVariable(int id, TypeBloc typeBloc, Color couleur, Variable var, Controleur ctrl) {
-        super(id, typeBloc, couleur, ctrl);
+    public BlocVariable(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Variable var, Controleur ctrl) {
+        super(id, typeBloc, couleur, blocGraph, ctrl);
         this.var = var;
     }
     

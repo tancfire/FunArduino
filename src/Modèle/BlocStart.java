@@ -18,11 +18,10 @@ public class BlocStart extends Bloc{
     
     public BlocStart(Controleur ctrl)
     {
-        super(TypeBloc.programmation, Color.ORANGE, ctrl);
+        super(TypeBloc.programmation, Color.ORANGE, new BlocStartGraphique(), ctrl);
         setSupprimable(false);
         setAutoriserFils(true);
-        
-        blocGraph= new BlocStartGraphique(this);
+        init();
     }
     
     

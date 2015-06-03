@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocGraphique;
 
 /**
  * Le BlocComposant est un bloc lié à un composant. Cela permettra aux classes filles
@@ -17,14 +18,14 @@ import java.awt.Color;
 public abstract class BlocComposant extends Bloc{
     protected Composant composant;
 
-    public BlocComposant(TypeBloc typeBloc, Color couleur, Composant composant, Controleur ctrl) {
-        super(typeBloc, couleur, ctrl);
+    public BlocComposant(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Composant composant, Controleur ctrl) {
+        super(typeBloc, couleur, blocGraph, ctrl);
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }
     
-        public BlocComposant(int id, TypeBloc typeBloc, Color couleur, Composant composant, Controleur ctrl) {
-        super(id, typeBloc, couleur, ctrl);
+        public BlocComposant(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Composant composant, Controleur ctrl) {
+        super(id, typeBloc, couleur, blocGraph, ctrl);
         this.composant = composant;
         acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }
@@ -33,7 +34,7 @@ public abstract class BlocComposant extends Bloc{
     @Override
     public void mettreAjourCode()
     {
-        if(ctrl.getComposantById(composant.getId())==null)
+       if(ctrl.getComposantById(composant.getId())==null && getParent()!=null)
             {
                 this.delete();
             }

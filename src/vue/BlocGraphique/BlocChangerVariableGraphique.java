@@ -16,8 +16,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocChangerVariableGraphique extends BlocGraphique {
 
-    public BlocChangerVariableGraphique(BlocChangerVariable bloc) {
-        super(bloc, bloc.getVariable().getNom()+":", bloc.getValeur(), new ImageIcon("src/images/BlocChangerVariable.png"));
+    public BlocChangerVariableGraphique() {
+        super(new ImageIcon("src/images/BlocChangerVariable.png"));
     }
     
     @Override

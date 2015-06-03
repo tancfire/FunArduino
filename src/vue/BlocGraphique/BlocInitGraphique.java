@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocInitGraphique extends BlocGraphique{
 
-    public BlocInitGraphique(BlocInit bloc) {
-        super(bloc, "Initialisation", "", new ImageIcon("src/images/BlocInit.png"));
+    public BlocInitGraphique() {
+        super(new ImageIcon("src/images/BlocInit.png"));
     }
     
     @Override

@@ -12,6 +12,7 @@ import Modèle.BlocAllumerPin;
 import Modèle.BlocAttendre;
 import Modèle.BlocConditions;
 import Modèle.BlocInit;
+import Modèle.BlocLibrairies;
 import Modèle.BlocStart;
 import Modèle.BlocUpdate;
 import Modèle.Comparateur;
@@ -19,8 +20,10 @@ import Modèle.Composant;
 import Modèle.ComposantLed;
 import Modèle.EtatPin;
 import Modèle.SimulateurArduino;
+import Modèle.TypeBloc;
 import Modèle.TypeVariable;
 import Modèle.Variable;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,7 +52,7 @@ public class Controleur {
     AssemblageBlocs assemblage;
     SimulateurArduino simulateur;
     
-    
+    BlocLibrairies blocLibrairies;
     BlocInit blocInit;
     BlocStart blocStart;
     BlocUpdate blocUpdate;
@@ -115,10 +118,12 @@ public class Controleur {
        vue.ajouterSimulateur(this.simulateur.getSimuGraph());
        
         assemblage = new AssemblageBlocs(acces);
+        blocLibrairies = new BlocLibrairies(this);
         blocStart = new BlocStart(this);
         blocUpdate = new BlocUpdate(this);
         blocInit = new BlocInit(this);
         
+        assemblage.ajouterBloc(0, blocLibrairies);
         assemblage.ajouterBloc(1, blocInit);
         assemblage.ajouterBloc(2, blocStart);
         assemblage.ajouterBloc(3, blocUpdate);

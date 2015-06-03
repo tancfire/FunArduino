@@ -22,14 +22,16 @@ public class BlocConditions extends Bloc{
     String param2;
 
     public BlocConditions(Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
-        super(TypeBloc.programmation, Color.decode("#4D589A"), ctrl);
+        super(TypeBloc.programmation, Color.decode("#4D589A"), new BlocConditionsGraphique(), ctrl);
         init(objet1, objet2, comparateur);
+        init();
     }
     
     
      public BlocConditions(int id, Object objet1, Object objet2, Comparateur comparateur, Controleur ctrl) {
-        super(id, TypeBloc.programmation, Color.decode("#4D589A"), ctrl);
+        super(id, TypeBloc.programmation, Color.decode("#4D589A"), new BlocConditionsGraphique(), ctrl);
         init(objet1, objet2, comparateur);
+        init();
     }
      
      
@@ -42,8 +44,7 @@ public class BlocConditions extends Bloc{
         param2 = "";
         
         this.setAutoriserFils(true);
-        mettreAjourCode();
-        this.blocGraph = new BlocConditionsGraphique(this);
+
      }
 
      

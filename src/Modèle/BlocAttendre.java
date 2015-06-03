@@ -18,14 +18,16 @@ public class BlocAttendre extends Bloc {
     private int delai;
 
     public BlocAttendre(int delai, Controleur ctrl) {
-        super(TypeBloc.programmation, Color.gray, ctrl);
+        super(TypeBloc.programmation, Color.gray, new BlocAttendreGraphique(), ctrl);
         init(delai);
+        init();
     }
     
     
     public BlocAttendre(int id, int delai, Controleur ctrl) {
-        super(id, TypeBloc.programmation, Color.MAGENTA, ctrl);
+        super(id, TypeBloc.programmation, Color.MAGENTA,  new BlocAttendreGraphique(), ctrl);
         init(delai);
+        init();
     }
     
     
@@ -33,9 +35,6 @@ public class BlocAttendre extends Bloc {
     private void init(int delai)
     {
         this.delai = delai;
-        
-        mettreAjourCode();
-        blocGraph= new BlocAttendreGraphique(this);
     }
 
     

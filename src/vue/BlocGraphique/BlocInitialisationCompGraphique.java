@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocInitialisationCompGraphique extends BlocGraphique {
 
-    public BlocInitialisationCompGraphique(BlocInitialisationComp bloc) {
-        super(bloc, "Composant", bloc.getEntreeSortie(), new ImageIcon("src/images/BlocInitComp.png"));
+    public BlocInitialisationCompGraphique() {
+        super(new ImageIcon("src/images/BlocInitComp.png"));
     }
     
     @Override

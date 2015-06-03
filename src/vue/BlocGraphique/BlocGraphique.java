@@ -29,17 +29,17 @@ public abstract class BlocGraphique extends JLabel{
     private int position;
  //   private JPanel panel;
     
-    public BlocGraphique(final Bloc bloc, String texte, String texte2, ImageIcon image)
+    public BlocGraphique(ImageIcon image)
     {
         super(image);
-        this.bloc = bloc;
+       // this.bloc = bloc;
         setSize(120,45);
         
-        label = new JLabel(texte);
+        label = new JLabel();
         label.setSize(120, 45);
         label.setHorizontalAlignment(CENTER);
         
-        label2 = new JLabel(texte2);
+        label2 = new JLabel();
         label2.setSize(100, 45);
         label2.setHorizontalAlignment(CENTER);
         
@@ -49,17 +49,12 @@ public abstract class BlocGraphique extends JLabel{
         
         labelCroixAjout = new JLabel(new ImageIcon("src/images/croixAjout.png"));
         labelCroixAjout.setSize(20, 20);
-        if(bloc.autoriseLesFils()){
-            labelCroixAjout.setVisible(true);
-        }else{
-            labelCroixAjout.setVisible(false);
-        }
 
         
         // position "par défaut"
         position = 0;
         
-        mettreAjour();
+      //  mettreAjour();
         
         
         
@@ -195,6 +190,19 @@ public abstract class BlocGraphique extends JLabel{
     }
     
     
+    public void setBloc(Bloc bloc)
+    {
+        this.bloc = bloc;
+        
+        System.out.println("bloc: "+bloc.getClass().getSimpleName());
+        
+        if(bloc.autoriseLesFils()){
+            labelCroixAjout.setVisible(true);
+        }else{
+            labelCroixAjout.setVisible(false);
+        }
+        mettreAjour();
+    }
       
     public void setPosition(int position)
     {

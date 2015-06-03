@@ -6,21 +6,22 @@
 
 package vue.BlocGraphique;
 
-import Modèle.BlocStart;
+import Modèle.BlocLibrairies;
 import javax.swing.ImageIcon;
 
 /**
- * C'est le bloc graphique qui représentera le blocStart.
+ *
  * @author tancfire
  */
-public class BlocStartGraphique extends BlocGraphique {
+public class BlocLibrairiesGraphique extends BlocGraphique{
 
-    public BlocStartGraphique() {
+    public BlocLibrairiesGraphique() {
         super(new ImageIcon("src/images/BlocStart.png"));
     }
-    
+
     @Override
     protected void mettreAjourTexte() {
-        this.setTexte("Start", "");
+        setTexte("Librairies", "");
     }
+    
 }

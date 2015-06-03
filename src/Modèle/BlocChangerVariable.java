@@ -18,22 +18,16 @@ public class BlocChangerVariable extends BlocVariable {
     String valeur;
 
     public BlocChangerVariable(Variable var, String valeur, Controleur ctrl) {
-        super(TypeBloc.programmation, new Color(197,1,1), var, ctrl);
+        super(TypeBloc.programmation, new Color(197,1,1), new BlocChangerVariableGraphique(), var, ctrl);
         this.valeur = valeur;
-        
-        this.blocGraph = new BlocChangerVariableGraphique(this);
-       
-        mettreAjourCode();
+        init();
     }
     
     
     public BlocChangerVariable(int id, Variable var, String valeur, Controleur ctrl) {
-        super(id, TypeBloc.programmation, new Color(197,1,1), var, ctrl);
+        super(id, TypeBloc.programmation, new Color(197,1,1), new BlocChangerVariableGraphique(), var, ctrl);
         this.valeur = valeur;
-       
-        this.blocGraph = new BlocChangerVariableGraphique(this);
-        
-        mettreAjourCode();
+        init();
     }
 
     @Override

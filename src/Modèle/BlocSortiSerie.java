@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocSortiSerieGraphique;
 
 /**
  * Permet d'afficher du texte sur le port série.
@@ -18,14 +19,16 @@ public class BlocSortiSerie extends Bloc{
     
     public BlocSortiSerie(String message, Controleur ctrl)
     {
-        super(TypeBloc.programmation, Color.RED, ctrl);
+        super(TypeBloc.programmation, Color.RED, new BlocSortiSerieGraphique(), ctrl);
         this.message = message;
+        init();
     }
     
         public BlocSortiSerie(int id, String message, Controleur ctrl)
     {
-        super(id, TypeBloc.programmation, Color.RED, ctrl);
+        super(id, TypeBloc.programmation, Color.RED, new BlocSortiSerieGraphique(), ctrl);
         this.message = message;
+        init();
     }
 
     @Override

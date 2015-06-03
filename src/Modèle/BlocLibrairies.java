@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BlocGraphique.BlocLibrairiesGraphique;
 
 /**
  *
@@ -16,19 +17,23 @@ import java.awt.Color;
 public class BlocLibrairies extends Bloc{
 
     
-    public BlocLibrairies(TypeBloc typeBloc, Color couleur, Controleur ctrl) {
-        super(typeBloc, couleur, ctrl);
+    public BlocLibrairies(Controleur ctrl) {
+        super(TypeBloc.programmation, Color.pink, new BlocLibrairiesGraphique(), ctrl);
+        setSupprimable(false);
+        init();
     }
 
-    public BlocLibrairies(int id, TypeBloc typeBloc, Color couleur, Controleur ctrl) {
-        super(id, typeBloc, couleur, ctrl);
+    public BlocLibrairies(int id, Controleur ctrl) {
+        super(id, TypeBloc.programmation, Color.pink, new BlocLibrairiesGraphique(), ctrl);
+        setSupprimable(false);
+        init();
     }
     
     
 
     @Override
     public void mettreAjourCode() {
-        sonCodeDebut = "//Les librairies:";
+        sonCodeDebut = "//Les librairies:\n";
     }
     
 }

@@ -19,24 +19,23 @@ public class BlocAllumerPin extends BlocComposant {
     
     public BlocAllumerPin(Composant composant, EtatPin etatPin, Controleur ctrl)
     {
-        super(TypeBloc.programmation, Color.BLUE, composant, ctrl);
+        super(TypeBloc.programmation, Color.BLUE, new BlocAllumerPinGraphique(), composant, ctrl);
         init(etatPin);
+        init();
     }
     
     
     public BlocAllumerPin(int id, Composant composant, EtatPin etatPin, Controleur ctrl)
     {
-        super(id, TypeBloc.programmation, Color.BLUE, composant, ctrl);
+        super(id, TypeBloc.programmation, Color.BLUE, new BlocAllumerPinGraphique(), composant, ctrl);
         init(etatPin);
+        init();
     }
     
     
     private void init(EtatPin etatPin)
     {
         this.etatPin = etatPin;
-        
-        mettreAjourCode();
-        blocGraph= new BlocAllumerPinGraphique(this);
     }
     
     

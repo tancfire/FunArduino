@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  */
 public class BlocConditionsGraphique extends BlocGraphique {
 
-    public BlocConditionsGraphique(BlocConditions bloc) {
-        super(bloc, "Si "+bloc.getParam1(), bloc.getComparateur().getFormule()+" "+bloc.getParam2(), new ImageIcon("src/images/BlocConditions.png"));
+    public BlocConditionsGraphique() {
+        super(new ImageIcon("src/images/BlocConditions.png"));
     }
     
     @Override

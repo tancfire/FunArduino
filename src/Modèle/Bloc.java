@@ -43,9 +43,9 @@ public abstract class Bloc {
      * @param couleur La couleur qui apparaitra dans le texte
      * @param ctrl 
      */
-    public Bloc(TypeBloc typeBloc, Color couleur, Controleur ctrl)
+    public Bloc(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Controleur ctrl)
     {
-        this(nbID++, typeBloc, couleur, ctrl);
+        this(nbID++, typeBloc, couleur, blocGraph, ctrl);
         acces.creerBloc(id, getClass().getSimpleName()); //permet de sauvegarder le bloc directement
     }
     
@@ -57,7 +57,7 @@ public abstract class Bloc {
      * @param couleur
      * @param ctrl 
      */
-        public Bloc(int id, TypeBloc typeBloc, Color couleur, Controleur ctrl)
+        public Bloc(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Controleur ctrl)
     {
         sesBlocs = new HashMap<>();
         this.couleur = couleur;
@@ -70,12 +70,17 @@ public abstract class Bloc {
         this.arborecence = false;
         this.supprimable = true;
         this.typeBloc = typeBloc;
+        this.blocGraph = blocGraph;
 
         this.acces = ctrl.getAcces();
     }
         
         
-       // public abstract void init();
+        protected void init()
+        {
+            blocGraph.setBloc(this);
+            mettreAjourCode();
+        }
         
         
   

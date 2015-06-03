@@ -15,12 +15,13 @@ import javax.swing.ImageIcon;
  */
 public class BlocInitVariableGraphique extends BlocGraphique{
 
-    public BlocInitVariableGraphique(BlocInitVariable bloc) {
-        super(bloc, "Variable:", bloc.getVariable().getNom()+" à "+bloc.getVariable().getValeurDepart(), new ImageIcon("src/images/BlocInitVariable.png"));
+    public BlocInitVariableGraphique() {
+        super(new ImageIcon("src/images/BlocInitVariable.png"));
     }
     
     @Override
     protected void mettreAjourTexte() {
+        System.out.println("variable: "+((BlocInitVariable)bloc).getVariable());
         this.setTexte("Variable:", ((BlocInitVariable)bloc).getVariable().getNom()+" à "+((BlocInitVariable)bloc).getVariable().getValeurDepart());
     }
 }
