@@ -1030,6 +1030,12 @@ public class KitArduinoFrame extends javax.swing.JFrame {
        panelGraphique.add(simuGraph);
        panelGraphique.repaint();
     }
+    
+   public void supprimerSimulateur(SimulateurGraphique simuGraph) {
+       panelGraphique.remove(simuGraph);
+       panelGraphique.repaint();
+    }
+
 
     public void mettreAJourBranchements(ArrayList<Composant> listeComp) {
         for(int i=0; i<listeComp.size();i++)

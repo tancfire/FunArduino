@@ -114,7 +114,10 @@ public class Controleur {
      */
     public void remettreAZero()
     {  
-       simulateur = new SimulateurArduino(this);
+       if(this.simulateur!=null)
+       vue.supprimerSimulateur(this.simulateur.getSimuGraph());
+       
+       this.simulateur = new SimulateurArduino(this);
        vue.ajouterSimulateur(this.simulateur.getSimuGraph());
        
         assemblage = new AssemblageBlocs(acces);
@@ -167,6 +170,7 @@ public class Controleur {
     public void ajouterComposant(Composant composant)
     {
         composants.add(composant);
+        if(composant.getCompGraph()!=null)
         vue.ajouterComposantGraphique(composant.getCompGraph());
         mettreAjourCode();
     }
@@ -175,6 +179,7 @@ public class Controleur {
     public void supprimerComposant(Composant composant)
     {
         composants.remove(composant);
+        if(composant.getCompGraph()!=null)
         vue.supprimerComposantGraphique(composant.getCompGraph());
         mettreAjourCode();
     }

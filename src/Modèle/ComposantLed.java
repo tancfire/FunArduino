@@ -22,8 +22,13 @@ public class ComposantLed extends Composant {
     {
         super("led", ctrl);
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
+        try{
         ctrl.getAcces().setSlot(id, TypePin.Digital.toString(), Color.YELLOW.toString().substring(14), sesSlots.get(1).getPinConnectee().getNom());
-        
+        }catch(NullPointerException e)
+        {
+            this.delete();
+            return; //L'empêcher de continuer dans le programme
+        }
         ctrl.ajouterAuSetup(new BlocInitialisationComp(this, ctrl));
         compGraph = new ComposantLedGraphique(this,ctrl.getSimulateur().getSimuGraph());
     }
