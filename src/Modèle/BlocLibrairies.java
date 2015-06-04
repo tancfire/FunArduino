@@ -38,7 +38,8 @@ public class BlocLibrairies extends Bloc{
 
     @Override
     public void mettreAjourCode() {
-        sonCodeDebut = "//Les librairies:\n";
+        sonCodeDebut = "// Les librairies:\n";
+        sonCodeFin = "\n";
     }
     
 }

@@ -52,6 +52,7 @@ public class BlocAllumerPin extends BlocComposant {
         super.mettreAjourCode();
     }
 
+    
     public String getEtatPin() {
          if(etatPin == EtatPin.BAS)
         {

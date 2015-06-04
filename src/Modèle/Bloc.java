@@ -22,7 +22,7 @@ public abstract class Bloc {
     private final TypeBloc typeBloc;
     private final Color couleur;
     private HashMap<Integer,Bloc> sesBlocs;
-    private static int nbID=-1;
+    private static int nbID=0;
     protected final int id;
     protected int niveau;
     protected String sonCodeDebut;

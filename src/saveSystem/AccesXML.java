@@ -68,6 +68,7 @@ public class AccesXML {
       
       public void creerBloc(int id, String label)
      { 
+         System.out.println("id:"+id+", label: "+label);
            if(!blocExiste(id)){ //si le bloc n'existe pas
          Element e = saSave.createElement("bloc");
          e.setAttribute("id", Integer.toString(id));

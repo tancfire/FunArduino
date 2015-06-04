@@ -32,13 +32,13 @@ public abstract class BlocComposant extends Bloc{
     private void initialisation(Composant composant)
     {
         this.composant = composant;
-        acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
     }
 
 
     @Override
     public void mettreAjourCode()
     {
+       acces.setParametre(id, "int", "idComposant", String.valueOf(composant.getId()));
        if(ctrl.getComposantById(composant.getId())==null && getParent()!=null)
             {
                 this.delete();
