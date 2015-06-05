@@ -53,6 +53,7 @@ public abstract class Composant {
             sesSlots.get(i).getPinConnectee().setOccupee(false);
         }
         ctrl.supprimerComposant(this);
+        ctrl.getAcces().supprimerComposant(id);
     }
     
     

@@ -117,6 +117,17 @@ public class Controleur {
        if(this.simulateur!=null)
        vue.supprimerSimulateur(this.simulateur.getSimuGraph());
        
+       //On supprime toutes les variables
+       for(int i=0; i<variables.size();i++)
+       {
+           supprimerVariable(variables.get(i));
+       }
+       
+       //On supprime tout les composants
+       for(int i=0; i<composants.size();i++)
+       {
+           supprimerComposant(composants.get(i));
+       }
        this.simulateur = new SimulateurArduino(this);
        vue.ajouterSimulateur(this.simulateur.getSimuGraph());
        
@@ -329,8 +340,23 @@ public class Controleur {
             
             
             //charger le fichier .xml (.fun)
-            acces.recupererVariables(this);
-            acces.recupererComposants(this);
+            
+            //Avant de charger les blocs, on charge les variables et les composants,
+            //car certains blocs dépendantes de ces derniers.
+            
+            //On ajoute les variables
+            ArrayList<Variable> vars = acces.recupererVariables(this);
+            for(int i=0; i<vars.size();i++)
+            {
+                ajouterVariable(vars.get(i));
+            }
+            
+            //On ajoute les composants
+            ArrayList<Composant> comps = acces.recupererComposants(this);
+            for(int i=0; i<comps.size();i++)
+            {
+                ajouterComposant(comps.get(i));
+            }
             
             //On récupère tout les blocs à ajouter au BlocStart
             HashMap<Integer,Bloc> blocs2 = acces.recupererFilsBlocsByLabel("BlocStart",this);

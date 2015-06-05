@@ -68,12 +68,11 @@ public class AccesXML {
       
       public void creerBloc(int id, String label)
      { 
-         System.out.println("id:"+id+", label: "+label);
-           if(!blocExiste(id)){ //si le bloc n'existe pas
-         Element e = saSave.createElement("bloc");
-         e.setAttribute("id", Integer.toString(id));
-         e.setAttribute("label", label);
-         saSave.getDocumentElement().appendChild(e);
+         if(!blocExiste(id)){ //si le bloc n'existe pas
+            Element e = saSave.createElement("bloc");
+            e.setAttribute("id", Integer.toString(id));
+            e.setAttribute("label", label);
+            saSave.getDocumentElement().appendChild(e);
          }
      }
      
@@ -411,6 +410,26 @@ public class AccesXML {
         }
          return desVariables;
      }
+     
+     
+          public void supprimerVariable(int id)
+     {
+         NodeList lesNoeuds = saSave.getElementsByTagName("variable");
+         if(lesNoeuds != null){
+            for(int i=0; i<lesNoeuds.getLength();i++)
+            {
+                if(lesNoeuds.item(i) instanceof Element){
+                    Element e3 = (Element)lesNoeuds.item(i);
+                    if(e3.getAttribute("id").equals(Integer.toString(id)))
+                    {
+                        e3.getParentNode().removeChild(e3); //On supprime le composant du fichier
+                    }else{
+                        System.err.println("Variable n°"+id+" non trouvé dans la sauvegarde !");
+                    }
+                }
+            }
+         }
+     }
          
         
      
@@ -431,6 +450,27 @@ public class AccesXML {
             }}
         }
          return desComposants;
+     }
+     
+     
+     
+     public void supprimerComposant(int id)
+     {
+         NodeList lesNoeuds = saSave.getElementsByTagName("composant");
+         if(lesNoeuds != null){
+            for(int i=0; i<lesNoeuds.getLength();i++)
+            {
+                if(lesNoeuds.item(i) instanceof Element){
+                    Element e3 = (Element)lesNoeuds.item(i);
+                    if(e3.getAttribute("id").equals(Integer.toString(id)))
+                    {
+                        e3.getParentNode().removeChild(e3); //On supprime le composant du fichier
+                    }else{
+                        System.err.println("Composant n°"+id+" non trouvé dans la sauvegarde !");
+                    }
+                }
+            }
+         }
      }
      
      
@@ -479,6 +519,27 @@ public class AccesXML {
             }
         }
          return desBlocs;
+     }
+     
+     
+     
+     public void supprimerBloc(int id)
+     {
+         NodeList lesNoeuds = saSave.getElementsByTagName("bloc");
+         if(lesNoeuds != null){
+            for(int i=0; i<lesNoeuds.getLength();i++)
+            {
+                if(lesNoeuds.item(i) instanceof Element){
+                    Element e3 = (Element)lesNoeuds.item(i);
+                    if(e3.getAttribute("id").equals(Integer.toString(id)))
+                    {
+                        e3.getParentNode().removeChild(e3); //On supprime le composant du fichier
+                    }else{
+                        System.err.println("Bloc n°"+id+" non trouvé dans la sauvegarde !");
+                    }
+                }
+            }
+         }
      }
      
     

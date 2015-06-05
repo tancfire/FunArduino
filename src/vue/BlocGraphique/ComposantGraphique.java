@@ -59,7 +59,6 @@ public class ComposantGraphique extends JLabel {
             @Override
             public void mouseReleased(MouseEvent e) {
                  comp.changerSlot(e.getX()+simu.getX()-5, e.getY()+simu.getY());
-                 System.out.println("souris: "+e.getX()+" comp: "+simu.getX());
             }
 
             @Override

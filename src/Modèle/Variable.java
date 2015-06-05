@@ -65,6 +65,7 @@ public class Variable {
 
     void delete() {
         ctrl.supprimerVariable(this);
+        ctrl.getAcces().supprimerVariable(id);
     }
       
 }
