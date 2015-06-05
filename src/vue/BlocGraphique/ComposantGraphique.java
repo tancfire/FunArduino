@@ -113,10 +113,22 @@ public class ComposantGraphique extends JLabel {
     {
         int longueur = comp.getPin().getX()+simu.getX()-this.getX()-20;
         int hauteur = comp.getPin().getY()+simu.getY()-this.getY();
-        labelLigne.setLocation(this.getX()+15, this.getY()+45);
-        labelLigne.setSize(longueur, 5);
-        labelLigneVert.setLocation(this.getX()+longueur+15, this.getY()+45);
-        labelLigneVert.setSize(5, hauteur);
+        
+        if(longueur>0){
+            labelLigne.setLocation(this.getX()+15, this.getY()+45);
+            labelLigne.setSize(longueur, 5);
+        }else{
+            labelLigne.setLocation(this.getX()+15+longueur, this.getY()+45);
+            labelLigne.setSize(longueur*-1, 5);
+        }
+        
+        if(hauteur>0){
+            labelLigneVert.setLocation(this.getX()+longueur+15, this.getY()+45);
+            labelLigneVert.setSize(5, hauteur);
+        }else{
+            labelLigneVert.setLocation(this.getX()+longueur+15, this.getY()+50+hauteur);
+            labelLigneVert.setSize(5, hauteur*-1); 
+        }
         
         labelCroix.setLocation(this.getX()+this.getWidth()-5, this.getY());
     }
