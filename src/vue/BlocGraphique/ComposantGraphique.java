@@ -39,6 +39,40 @@ public class ComposantGraphique extends JLabel {
         labelCroix.setSize(20, 19);
         labelCroix.setVisible(false);
         
+        
+        /*========================================
+        -----------GESTION SOURIS LIGNE-----------
+        ========================================*/
+        
+        labelLigneVert.addMouseListener(new MouseListener(){
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                 comp.changerSlot(e.getX()+simu.getX()-5, e.getY()+simu.getY());
+                 System.out.println("souris: "+e.getX()+" comp: "+simu.getX());
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+        });
+        
         /*========================================
         -----------GESTION SOURIS CROIX-----------
         ========================================*/

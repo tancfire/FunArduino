@@ -69,6 +69,11 @@ public abstract class Composant {
         return compGraph;
     }
 
+    public void changerSlot(int x, int y) {
+        sesSlots.get(1).changerPin(x, y);
+        ctrl.mettreAJourBranchements();
+    }
+
     
     
 }
