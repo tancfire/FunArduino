@@ -167,7 +167,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     }
     
     
-    
     public void actualiserTitre()
     {
       this.setTitle("FunArduino ("+ctrl.getNomProjet()+")");
@@ -283,6 +282,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     {
         menuModifier.setLocation(x-scrollPanelGraphique.getHorizontalScrollBar().getValue()+this.getX(), y-scrollPanelGraphique.getVerticalScrollBar().getValue()+this.getY());
         menuModifier.setVisible(true);
+        menuAjoutVarComp.setVisible(false);
         this.blocCaller = blocCaller;
     }
     
@@ -632,6 +632,11 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         setTitle("FunArduino Project");
         setMinimumSize(new java.awt.Dimension(1024, 600));
         setPreferredSize(new java.awt.Dimension(1028, 600));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                formComponentMoved(evt);
+            }
+        });
 
         scrollPanelGraphique.setDoubleBuffered(true);
 
@@ -919,16 +924,20 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         ajoutComposant.setVisible(false);
     }//GEN-LAST:event_btnAjouterCompActionPerformed
 
+    private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
+        // TODO add your handling code here:
+        menuModifier.setVisible(false);
+        menuAjoutVarComp.setVisible(false);
+    }//GEN-LAST:event_formComponentMoved
+
     
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
-
             if (button.isSelected()) {
                 return button.getText();
             }
         }
-
         return null;
     }
     

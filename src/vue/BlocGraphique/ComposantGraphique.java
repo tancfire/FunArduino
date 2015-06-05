@@ -31,7 +31,7 @@ public class ComposantGraphique extends JLabel {
         this.comp = comp;
         this.simu = simulateur;
         setSize(20,50);
-        setLocation(400,10);
+        setLocation((int) (400+(Math.random()*20)), (int) (10+(Math.random()*5)));
         
         this.labelLigne = new JLabel(new ImageIcon("src/images/ligneJaune.png"));
         this.labelLigneVert = new JLabel(new ImageIcon("src/images/ligneJauneVertical.png"));
