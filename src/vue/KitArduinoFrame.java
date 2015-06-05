@@ -19,6 +19,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
 import static java.awt.event.MouseEvent.BUTTON1;
 import static java.awt.event.MouseEvent.BUTTON3;
@@ -68,7 +70,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     public KitArduinoFrame() {
             initComponents();
             modifier = true;
-                       
+                                 
             nouveauFichier.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -97,6 +99,26 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                     ctrl.charger(ouvrirFichier.getSelectedFile().getPath().substring(0, ouvrirFichier.getSelectedFile().getPath().length()-ouvrirFichier.getSelectedFile().getName().length()), ouvrirFichier.getSelectedFile().getName());
                     actualiserTitre();
                  }
+                }
+            });
+            
+            /*=================================
+            ---- Scroll du panel graphique ----
+            =================================*/
+            
+           scrollPanelGraphique.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+                @Override
+                public void adjustmentValueChanged(AdjustmentEvent e) {
+                  menuAjoutVarComp.setVisible(false);
+                  menuModifier.setVisible(false);
+                }
+            });
+           
+          scrollPanelGraphique.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+                @Override
+                public void adjustmentValueChanged(AdjustmentEvent e) {
+                  menuAjoutVarComp.setVisible(false);
+                  menuModifier.setVisible(false);
                 }
             });
             
