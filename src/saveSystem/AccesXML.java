@@ -83,7 +83,6 @@ public class AccesXML {
          Element e = saSave.createElement("composant");
          e.setAttribute("id", Integer.toString(id));
          e.setAttribute("label", label);
-         
          saSave.getDocumentElement().appendChild(e);
          }
      }
@@ -97,8 +96,7 @@ public class AccesXML {
          e.setAttribute("type", type);
          e.setAttribute("nom", nom);
          e.setAttribute("valeur", valeur);
-         
-         saSave.getDocumentElement().appendChild(e);
+         saSave.getDocumentElement().appendChild(e);;
          }
      }
      
@@ -638,7 +636,7 @@ public class AccesXML {
        * Permet d'écrire dans le fichier toutes les modifications effectuées
        */
       public void sauvegarde()
-    {
+    {        
         try{
          // on sauvegarde
          OutputFormat leFormat = new OutputFormat(saSave);

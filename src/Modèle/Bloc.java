@@ -67,6 +67,8 @@ public abstract class Bloc {
         sonCodeFin = "";
         niveau = 0; // c'est le nombre de tabulation qu'il faudra faire.
         this.id = id;
+        if(id>nbID)
+            nbID = id;
         this.ctrl = ctrl;
         this.blocParent = null;
         this.arborecence = false;

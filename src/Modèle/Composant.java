@@ -38,6 +38,9 @@ public abstract class Composant {
         sesSlots.add(new Slot(TypePin.GND, Color.BLACK, ctrl.getSimulateur())); // on ajoute la masse
         this.nom = nom;
         this.id = id;
+        
+        if(id>nbID)
+            nbID = id;
         this.ctrl = ctrl;
     }
     

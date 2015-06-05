@@ -42,6 +42,8 @@ public class Variable {
         this.ctrl = ctrl;
         
         this.id= id;
+        if(id>nbID)
+            nbID = id;
         ctrl.ajouterAuInitSansSauvegarde(ctrl.getAcces().recupererBlocInitVariable(this, ctrl));
 
     }
