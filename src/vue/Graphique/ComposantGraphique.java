@@ -25,10 +25,9 @@ public class ComposantGraphique extends JLabel {
     private JLabel labelLigne;
     private JLabel labelLigneVert;
    
-    public ComposantGraphique(final Composant comp, ImageIcon image, SimulateurGraphique simulateur)
+    public ComposantGraphique(ImageIcon image, SimulateurGraphique simulateur)
     {
         super(image);
-        this.comp = comp;
         this.simu = simulateur;
         setSize(20,50);
         setLocation((int) (400+(Math.random()*20)), (int) (10+(Math.random()*5)));
@@ -139,11 +138,18 @@ public class ComposantGraphique extends JLabel {
             }
         });
          
+        //mettreAJour();
+    }
+    
+    public void setComposant(Composant comp)
+    {
+        this.comp = comp;
         mettreAJour();
     }
     
     public void mettreAJour()
     {
+        if(comp!=null){ //Pour être sûr
         int longueur = comp.getPin().getX()+simu.getX()-this.getX()-20;
         int hauteur = comp.getPin().getY()+simu.getY()-this.getY();
         
@@ -166,6 +172,7 @@ public class ComposantGraphique extends JLabel {
         labelCroix.setLocation(this.getX()+this.getWidth()-5, this.getY());
         
         comp.mettreAJourBlocsGraphiques();
+        }
     }
     
      public void attacher(JPanel panel)

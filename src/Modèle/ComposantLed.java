@@ -8,8 +8,6 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import javax.swing.ImageIcon;
-import vue.Graphique.ComposantGraphique;
 import vue.Graphique.ComposantLedGraphique;
 
 /**
@@ -20,8 +18,9 @@ public class ComposantLed extends Composant {
     
     public ComposantLed(Controleur ctrl)
     {
-        super("led", ctrl);
+        super("led",new ComposantLedGraphique(ctrl.getSimulateur().getSimuGraph()), ctrl);
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
+        //==> Solution à trouver pour cette partie:
         try{
         ctrl.getAcces().setSlot(id, TypePin.Digital.toString(), Color.YELLOW.toString().substring(14), sesSlots.get(1).getPinConnectee().getNom());
         }catch(NullPointerException e)
@@ -30,18 +29,17 @@ public class ComposantLed extends Composant {
             return; //L'empêcher de continuer dans le programme
         }
         ctrl.ajouterAuSetup(new BlocInitialisationComp(this, ctrl));
-        compGraph = new ComposantLedGraphique(this,ctrl.getSimulateur().getSimuGraph());
+        init();
     }
     
         public ComposantLed(int id, Controleur ctrl)
     {
-        super(id, "led", ctrl);
+        super(id, "led", new ComposantLedGraphique(ctrl.getSimulateur().getSimuGraph()), ctrl);
         sesSlots.add(new Slot(TypePin.Digital, Color.YELLOW, ctrl.getSimulateur()));
-        
         ctrl.ajouterAuSetup(new BlocInitialisationComp(id, this, ctrl));
-        compGraph = new ComposantLedGraphique(this,ctrl.getSimulateur().getSimuGraph());
+        init();
     }
-
+        
     @Override
     public Pin getPin() {
          return sesSlots.get(1).getPinConnectee();

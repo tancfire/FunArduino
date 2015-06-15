@@ -13,10 +13,10 @@ import javax.swing.ImageIcon;
  *
  * @author tancfire
  */
-public class BlocInitialisationCompGraphique extends BlocGraphique {
+public class BlocInitialisationCompGraphique extends BlocComposantGraphique {
 
-    public BlocInitialisationCompGraphique() {
-        super(new ImageIcon("src/images/BlocInitComp.png"));
+    public BlocInitialisationCompGraphique(ComposantGraphique compGraph) {
+        super(new ImageIcon("src/images/BlocInitComp.png"), compGraph);
     }
 
     @Override

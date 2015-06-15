@@ -49,7 +49,7 @@ public abstract class BlocComposantGraphique extends BlocGraphique{
     public void mettreAjour()
     {
         super.mettreAjour();
-        
+              
         int longueur = compGraph.getX()-this.getX()-120;
         int hauteur = compGraph.getY()-this.getY()-22+compGraph.getHeight();
         
@@ -68,7 +68,7 @@ public abstract class BlocComposantGraphique extends BlocGraphique{
             labelLigneVert.setLocation(this.getX()+longueur+120, this.getY()+hauteur+22);
             labelLigneVert.setSize(5, hauteur*-1); 
         }
-       
+        
     }
 
     
