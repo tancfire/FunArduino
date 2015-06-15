@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocAttendreGraphique;
+import vue.Graphique.BlocAttendreGraphique;
 
 /**
  * Le bloc attendre permet de faire une pause dans le programme.
@@ -23,28 +23,22 @@ public class BlocAttendre extends Bloc {
         init();
     }
     
-    
     public BlocAttendre(int id, int delai, Controleur ctrl) {
         super(id, TypeBloc.programmation, Color.MAGENTA,  new BlocAttendreGraphique(), ctrl);
         initialisation(delai);
         init();
     }
     
-    
-    
     private void initialisation(int delai)
     {
         this.delai = delai;
     }
-
-    
 
     @Override
     public void mettreAjourCode() {
         sonCodeDebut = tab()+"delay("+delai+");\n";
         acces.setParametre(id, "int", "delai", String.valueOf(delai));
     }
-    
     
     public void setDelai(int delai) {
         this.delai = delai;

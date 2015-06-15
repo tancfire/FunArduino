@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
 import javax.swing.ImageIcon;
 
@@ -12,9 +12,9 @@ import javax.swing.ImageIcon;
  *
  * @author tancfire
  */
-public class BlocSortiSerieGraphique extends BlocGraphique{
+public class BlocCustomGraphique extends BlocGraphique{
 
-    public BlocSortiSerieGraphique() {
+    public BlocCustomGraphique() {
         super(new ImageIcon("src/images/BlocInit.png"));
     }
 
@@ -27,5 +27,4 @@ public class BlocSortiSerieGraphique extends BlocGraphique{
     protected String getTexte2() {
         return "personnalisé";
     }
-    
 }

@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocSortiSerieGraphique;
+import vue.Graphique.BlocSortiSerieGraphique;
 
 /**
  * Permet d'afficher du texte sur le port série.

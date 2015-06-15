@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocBoucleGraphique;
+import vue.Graphique.BlocBoucleGraphique;
 
 /**
  *

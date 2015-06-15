@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocInitGraphique;
+import vue.Graphique.BlocInitGraphique;
 
 /**
  * C'est un bloc racine qui regroupe toutes les initialisations de variables globales.

@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocChangerVariableGraphique;
+import vue.Graphique.BlocChangerVariableGraphique;
 
 /**
  * Permet de changer la valeur d'une variable (c'est une affectation).

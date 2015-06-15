@@ -32,7 +32,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- *  AccesXML permet de gérer le fichier xml de  sauvegarde (ici, c'est le fichier
+ *  AccesXML permet de gérer le fichier xml de sauvegarde (ici, c'est le fichier
  * project.fun).
  * 
  * Note: Améliorations et optimisations prévues.

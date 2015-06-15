@@ -4,29 +4,29 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
-import Modèle.BlocUpdate;
+import Modèle.BlocInitialisationComp;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author tancfire
  */
-public class BlocUpdateGraphique extends BlocGraphique {
+public class BlocInitialisationCompGraphique extends BlocGraphique {
 
-    public BlocUpdateGraphique() {
-        super(new ImageIcon("src/images/BlocUpdate.png"));
+    public BlocInitialisationCompGraphique() {
+        super(new ImageIcon("src/images/BlocInitComp.png"));
     }
 
     @Override
     protected String getTexte1() {
-        return "Update";
+        return "Composant";
     }
 
     @Override
     protected String getTexte2() {
-        return "";
+        return ((BlocInitialisationComp)bloc).getEntreeSortie();
     }
     
 }

@@ -9,7 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import vue.BlocGraphique.SimulateurGraphique;
+import vue.Graphique.SimulateurGraphique;
 
 /**
  *Représente une simulation de l'Arduino, en prenant en compte les branchements

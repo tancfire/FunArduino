@@ -4,28 +4,31 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
+import Modèle.BlocAllumerPin;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * C'est le bloc graphique qui représentera le blocAllumerPin.
  * @author tancfire
  */
-public class BlocInitGraphique extends BlocGraphique{
+public class BlocAllumerPinGraphique extends BlocComposantGraphique {
 
-    public BlocInitGraphique() {
-        super(new ImageIcon("src/images/BlocInit.png"));
+    public BlocAllumerPinGraphique(ComposantGraphique compGraph) {
+        super(new ImageIcon("src/images/BlocAllumerPin.png"), compGraph);
     }
 
     @Override
     protected String getTexte1() {
-        return "Initialisation";
+        return ((BlocAllumerPin)bloc).getEtatPin();
     }
 
     @Override
     protected String getTexte2() {
         return "";
     }
+    
+    
     
 }

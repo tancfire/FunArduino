@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocStartGraphique;
+import vue.Graphique.BlocStartGraphique;
 
 /**
  * Permet de lancer du code au démarrage.

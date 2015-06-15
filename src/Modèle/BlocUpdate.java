@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocUpdateGraphique;
+import vue.Graphique.BlocUpdateGraphique;
 
 /**
  * Ce bloc est appelé en permanence tout au long du programme Arduino (représente

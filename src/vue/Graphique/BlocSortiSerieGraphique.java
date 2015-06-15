@@ -4,28 +4,28 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
-import Modèle.BlocAttendre;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author tancfire
  */
-public class BlocAttendreGraphique extends BlocGraphique{
+public class BlocSortiSerieGraphique extends BlocGraphique{
 
-    public BlocAttendreGraphique() {
-        super(new ImageIcon("src/images/BlocAttendre.png"));
+    public BlocSortiSerieGraphique() {
+        super(new ImageIcon("src/images/BlocInit.png"));
     }
-    
+
     @Override
     protected String getTexte1() {
-        return "Attendre";
+        return "code";
     }
 
     @Override
     protected String getTexte2() {
-        return ((BlocAttendre)bloc).getDelai()+" ms";
-    }   
+        return "personnalisé";
+    }
+    
 }

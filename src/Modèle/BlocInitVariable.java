@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocInitVariableGraphique;
+import vue.Graphique.BlocInitVariableGraphique;
 
 /**
  * Permet d'initialiser une variable dans le code.

@@ -109,6 +109,12 @@ public class Controleur {
         vue.mettreAJourBlocsGraphiques(assemblage.getBlocsGraphiques());
     }
     
+    
+    
+    public void mettreAJourBlocsGraphiques() {
+        vue.mettreAJourBlocsGraphiques(assemblage.getBlocsGraphiques());
+    }
+    
     /**
      * Cette méthode permet de (re)mettre à zéro tout ce qui est nécessaire.
      */
@@ -490,6 +496,7 @@ public class Controleur {
 
     public void supprimerVariable(Variable var) {
         variables.remove(var);
+        mettreAjourCode();
     }
-        
+    
 }

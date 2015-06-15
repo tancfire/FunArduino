@@ -4,28 +4,28 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
-import Modèle.BlocStart;
 import javax.swing.ImageIcon;
 
 /**
- * C'est le bloc graphique qui représentera le blocStart.
+ *
  * @author tancfire
  */
-public class BlocStartGraphique extends BlocGraphique {
+public class BlocInitGraphique extends BlocGraphique{
 
-    public BlocStartGraphique() {
-        super(new ImageIcon("src/images/BlocStart.png"));
+    public BlocInitGraphique() {
+        super(new ImageIcon("src/images/BlocInit.png"));
     }
 
     @Override
     protected String getTexte1() {
-        return "Start";
+        return "Initialisation";
     }
 
     @Override
     protected String getTexte2() {
         return "";
     }
+    
 }

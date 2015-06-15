@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocCustomGraphique;
+import vue.Graphique.BlocCustomGraphique;
 
 /**
  * Ce bloc permet de créer son propre code.

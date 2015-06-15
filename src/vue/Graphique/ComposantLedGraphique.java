@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
 import Modèle.ComposantLed;
 import Modèle.SimulateurArduino;

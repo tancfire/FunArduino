@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
 import Modèle.Composant;
 import java.awt.event.MouseEvent;
@@ -164,6 +164,8 @@ public class ComposantGraphique extends JLabel {
         }
         
         labelCroix.setLocation(this.getX()+this.getWidth()-5, this.getY());
+        
+        comp.mettreAJourBlocsGraphiques();
     }
     
      public void attacher(JPanel panel)

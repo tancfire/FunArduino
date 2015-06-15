@@ -9,7 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
-import vue.BlocGraphique.ComposantGraphique;
+import vue.Graphique.ComposantGraphique;
 
 /**
  * Le Composant est tout le matériel que l'on pourra brancher sur le kit.
@@ -76,6 +76,11 @@ public abstract class Composant {
     public void changerSlot(int x, int y) {
         sesSlots.get(1).changerPin(x, y);
         ctrl.mettreAJourBranchements();
+    }
+
+    public void mettreAJourBlocsGraphiques()
+    {
+        ctrl.mettreAJourBlocsGraphiques();
     }
 
     

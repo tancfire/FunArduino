@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import saveSystem.AccesXML;
-import vue.BlocGraphique.BlocGraphique;
+import vue.Graphique.BlocGraphique;
 
 /**
  * L'assemblage des blocs contient tout les blocs à la racine.

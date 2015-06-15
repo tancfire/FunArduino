@@ -4,23 +4,24 @@
  * and open the template in the editor.
  */
 
-package vue.BlocGraphique;
+package vue.Graphique;
 
+import Modèle.BlocUpdate;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author tancfire
  */
-public class BlocBoucleGraphique extends BlocGraphique {
+public class BlocUpdateGraphique extends BlocGraphique {
 
-    public BlocBoucleGraphique() {
-        super(new ImageIcon("src/images/BlocAttendre.png"));
+    public BlocUpdateGraphique() {
+        super(new ImageIcon("src/images/BlocUpdate.png"));
     }
 
     @Override
     protected String getTexte1() {
-        return "Boucle";
+        return "Update";
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import saveSystem.AccesXML;
-import vue.BlocGraphique.BlocGraphique;
+import vue.Graphique.BlocGraphique;
 
 /**
  * Le bloc est un bloc de code.
@@ -191,8 +191,8 @@ public abstract class Bloc {
      * est appelé à chaque fois que nous avons besoin de mettre à jour le code du bloc.
      */
     public abstract void mettreAjourCode();
-
     
+     
     /**
      * Permet de récupérer le code arduino généré par le bloc.
      * @return Le code arduino généré par le bloc.

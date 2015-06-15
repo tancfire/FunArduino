@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocConditionsGraphique;
+import vue.Graphique.BlocConditionsGraphique;
 
 /**
  * Permet d'ajouter des conditions (ex: si a>b).
@@ -70,6 +70,11 @@ public class BlocConditions extends Bloc{
                 break;
             case "variable":
                 acces.setParametre(id, "variable", "param1", String.valueOf(((Variable)objet1).getId()));
+                if(ctrl.getVariableById(((Variable)objet1).getId())==null) //On vérifie que la variable existe
+                    delete(); //si elle ne l'ai pas, on détruit ce bloc
+                break;
+            case "string":
+                 acces.setParametre(id, "string", "param2", objet1.toString());
                 break;
         }
         switch (trad2.getType()) {
@@ -81,6 +86,8 @@ public class BlocConditions extends Bloc{
                 break;
             case "variable":
                 acces.setParametre(id, "variable", "param2", String.valueOf(((Variable)objet2).getId()));
+                 if(ctrl.getVariableById(((Variable)objet2).getId())==null) //On vérifie que la variable existe
+                    delete(); //si elle ne l'ai pas, on détruit ce bloc
                 break;
             case "string":
                  acces.setParametre(id, "string", "param2", objet2.toString());

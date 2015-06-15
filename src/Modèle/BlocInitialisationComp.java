@@ -8,7 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
-import vue.BlocGraphique.BlocInitialisationCompGraphique;
+import vue.Graphique.BlocInitialisationCompGraphique;
 
 /**
  * Ce bloc permet d'initialiser un composant.

@@ -9,8 +9,8 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import javax.swing.ImageIcon;
-import vue.BlocGraphique.ComposantGraphique;
-import vue.BlocGraphique.ComposantLedGraphique;
+import vue.Graphique.ComposantGraphique;
+import vue.Graphique.ComposantLedGraphique;
 
 /**
  * Ce composant initialise une Led.

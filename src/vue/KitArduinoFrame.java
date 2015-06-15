@@ -6,7 +6,7 @@
 
 package vue;
 
-import vue.BlocGraphique.BlocGraphique;
+import vue.Graphique.BlocGraphique;
 import Controleur.Controleur;
 import Modèle.Bloc;
 import Modèle.BlocAttendre;
@@ -47,9 +47,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
-import vue.BlocGraphique.ComposantGraphique;
-import vue.BlocGraphique.SimulateurGraphique;
-import vue.BlocGraphique.StockCouleurTexte;
+import vue.Graphique.ComposantGraphique;
+import vue.Graphique.SimulateurGraphique;
+import vue.Graphique.StockCouleurTexte;
 
 
 /**
