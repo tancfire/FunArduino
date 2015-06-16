@@ -9,10 +9,12 @@ package vue;
 import vue.Graphique.BlocGraphique;
 import Controleur.Controleur;
 import Modèle.Bloc;
+import Modèle.BlocAllumerPin;
 import Modèle.BlocAttendre;
 import Modèle.BlocChangerVariable;
 import Modèle.Composant;
 import Modèle.ComposantLed;
+import Modèle.EtatPin;
 import Modèle.TypeVariable;
 import Modèle.Variable;
 import java.awt.Color;
@@ -359,6 +361,12 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listeCompAAjouter = new javax.swing.JList();
         btnAjouterComp = new javax.swing.JButton();
+        modifierBlocAllumerPin = new javax.swing.JDialog();
+        btnBlocAllumerPin = new javax.swing.JButton();
+        listCompAllumerPin = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        listeEtatAllumerPin = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         scrollEditCode = new javax.swing.JScrollPane();
@@ -399,7 +407,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         });
 
         listeBlocsAAjouter.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Attendre", "Changer la valeur d'une variable" };
+            String[] strings = { "Attendre", "Changer la valeur d'une variable", "Allumer/Eteindre un composant" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -650,10 +658,63 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        modifierBlocAllumerPin.setTitle("Choisir un Bloc");
+        modifierBlocAllumerPin.setAlwaysOnTop(true);
+        modifierBlocAllumerPin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        modifierBlocAllumerPin.setMinimumSize(new java.awt.Dimension(480, 180));
+
+        btnBlocAllumerPin.setText("valider");
+        btnBlocAllumerPin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBlocAllumerPinActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("etat:");
+
+        listeEtatAllumerPin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Allumer", "Eteindre" }));
+
+        jLabel8.setText("composant:");
+
+        javax.swing.GroupLayout modifierBlocAllumerPinLayout = new javax.swing.GroupLayout(modifierBlocAllumerPin.getContentPane());
+        modifierBlocAllumerPin.getContentPane().setLayout(modifierBlocAllumerPinLayout);
+        modifierBlocAllumerPinLayout.setHorizontalGroup(
+            modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocAllumerPinLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modifierBlocAllumerPinLayout.createSequentialGroup()
+                        .addComponent(listeEtatAllumerPin, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(btnBlocAllumerPin))
+                    .addGroup(modifierBlocAllumerPinLayout.createSequentialGroup()
+                        .addComponent(listCompAllumerPin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        modifierBlocAllumerPinLayout.setVerticalGroup(
+            modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocAllumerPinLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listCompAllumerPin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(16, 16, 16)
+                .addGroup(modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(modifierBlocAllumerPinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBlocAllumerPin)
+                        .addComponent(listeEtatAllumerPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FunArduino Project");
         setMinimumSize(new java.awt.Dimension(1024, 600));
-        setPreferredSize(new java.awt.Dimension(1028, 600));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 formComponentMoved(evt);
@@ -784,7 +845,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollEditCode)
-                    .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(scrollPanelGraphique, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                     .addComponent(paneHistorique))
                 .addGap(18, 18, 18)
                 .addComponent(btnTeleverser)
@@ -850,6 +911,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                     }
                     modifierBlocChangerVariable.setVisible(true);
                     break;
+                case "Allumer/Eteindre un composant":
+                    listCompAllumerPin.removeAllItems();
+                    for(int i=0; i<ctrl.getComposants().size();i++)
+                    {
+                        listCompAllumerPin.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
+                    }
+                    modifierBlocAllumerPin.setVisible(true);
+                    break;
             }
              }
     }//GEN-LAST:event_btnAjouterBlocActionPerformed
@@ -860,9 +929,16 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         if(!ctrl.getVariables().isEmpty()){
             if((ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeVariable()== TypeVariable.texte) 
                      ||(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()).getTypeVariable()== TypeVariable.nombreEntier && isInteger(editValeurChangerVar.getText()))){
-                ctrl.ajouterBloc(blocCaller, new BlocChangerVariable(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()), editValeurChangerVar.getText(), ctrl));
-                modifierBlocChangerVariable.setVisible(false);
-                blocCaller = null;
+                     
+                     if(!modifier){
+                    ctrl.ajouterBloc(blocCaller, new BlocChangerVariable(ctrl.getVariables().get(listeVariablesBlocChangerVar.getSelectedIndex()), editValeurChangerVar.getText(), ctrl));
+                     }else{
+                        ((BlocChangerVariable)blocCaller).setValeur(editValeurChangerVar.getText());
+                        ctrl.mettreAjourCode();
+                     }
+                    modifierBlocChangerVariable.setVisible(false);
+                    blocCaller = null;
+                    
             }
         }
     }//GEN-LAST:event_btnBlocChangerVarActionPerformed
@@ -906,6 +982,19 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         if(blocCaller instanceof BlocAttendre)
         {
              modifierBlocAttendre.setVisible(true);
+             editDelais.setValue(((BlocAttendre)blocCaller).getDelai());
+        } else if (blocCaller instanceof BlocChangerVariable)
+        {
+            modifierBlocChangerVariable.setVisible(true);
+            editValeurChangerVar.setText(((BlocChangerVariable)blocCaller).getValeur());
+        } else if (blocCaller instanceof BlocAllumerPin)
+        {
+            modifierBlocAllumerPin.setVisible(true);
+            listCompAllumerPin.removeAllItems();
+            for(int i=0; i<ctrl.getComposants().size();i++)
+            {
+                listCompAllumerPin.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
+            }
         }
     }//GEN-LAST:event_itemModifierActionPerformed
 
@@ -951,6 +1040,28 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         menuModifier.setVisible(false);
         menuAjoutVarComp.setVisible(false);
     }//GEN-LAST:event_formComponentMoved
+
+    private void btnBlocAllumerPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocAllumerPinActionPerformed
+        // TODO add your handling code here:
+            if(listCompAllumerPin.getSelectedItem()!=null){
+                Composant comp = ctrl.getComposants().get(listCompAllumerPin.getSelectedIndex());
+                EtatPin etat = EtatPin.BAS;
+                if(listeEtatAllumerPin.getSelectedItem().equals("Allumer")){
+                    etat = EtatPin.HAUT;
+                }
+                
+                if(!modifier){
+                    ctrl.ajouterBloc(blocCaller, new BlocAllumerPin(comp,etat,ctrl));
+                }else{
+                    ((BlocAllumerPin) blocCaller).setEtatPin(etat);
+                    //On change de composant pour celui choisi
+                    ((BlocAllumerPin) blocCaller).changerComposant(comp);
+                }
+            }
+                ctrl.mettreAjourCode();
+                blocCaller = null;
+                modifierBlocAllumerPin.setVisible(false);
+    }//GEN-LAST:event_btnBlocAllumerPinActionPerformed
 
     
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -1005,6 +1116,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAjoutVariable;
     private javax.swing.JButton btnAjouterBloc;
     private javax.swing.JButton btnAjouterComp;
+    private javax.swing.JButton btnBlocAllumerPin;
     private javax.swing.JButton btnBlocAttendre;
     private javax.swing.JButton btnBlocChangerVar;
     private javax.swing.JButton btnTeleverser;
@@ -1032,10 +1144,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox listCompAllumerPin;
     private javax.swing.JList listeBlocsAAjouter;
     private javax.swing.JList listeCompAAjouter;
+    private javax.swing.JComboBox listeEtatAllumerPin;
     private javax.swing.JList listeHistorique;
     private javax.swing.JComboBox listeTypeVarAjout;
     private javax.swing.JComboBox listeVariablesBlocChangerVar;
@@ -1046,6 +1162,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuFichier;
     private javax.swing.JPopupMenu menuModifier;
     private javax.swing.JMenu menuOutils;
+    private javax.swing.JDialog modifierBlocAllumerPin;
     private javax.swing.JDialog modifierBlocAttendre;
     private javax.swing.JDialog modifierBlocChangerVariable;
     private javax.swing.JFileChooser nouveauFichier;

@@ -15,7 +15,7 @@ import vue.Graphique.BlocGraphique;
  * @author tancfire
  */
 public abstract class BlocVariable extends Bloc{
-    private Variable var;
+    protected Variable var;
 
     public BlocVariable(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Variable var, Controleur ctrl) {
         super(typeBloc, couleur, blocGraph, ctrl);

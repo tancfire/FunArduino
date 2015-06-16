@@ -498,5 +498,11 @@ public class Controleur {
         variables.remove(var);
         mettreAjourCode();
     }
+
+    public ArrayList<Composant> getComposants() {
+        return composants;
+    }
+    
+    
     
 }

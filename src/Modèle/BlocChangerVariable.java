@@ -39,12 +39,24 @@ public class BlocChangerVariable extends BlocVariable {
     public void mettreAjourCode() {
         sonCodeDebut= tab()+getVariable().getNom()+"="+valeur+";\n";
          acces.setParametre(id, "variable", "id", String.valueOf(getVariable().getId()));
-         acces.setParametre(id, "String", "valeur", valeur);
+         if(var.getTypeVariable()==TypeVariable.texte){
+            acces.setParametre(id, "String", "valeur", valeur);
+         }else if (var.getTypeVariable()==TypeVariable.nombreEntier)
+         {
+             acces.setParametre(id, "Integer", "valeur", valeur);
+         }else if (var.getTypeVariable()==TypeVariable.nombreAVirgule)
+         {
+              acces.setParametre(id, "Float", "valeur", valeur);
+         }
     }
     
     public String getValeur()
     {
         return valeur;
+    }
+
+    public void setValeur(String valeur) {
+        this.valeur = valeur;
     }
     
     

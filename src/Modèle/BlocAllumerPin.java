@@ -61,6 +61,12 @@ public class BlocAllumerPin extends BlocComposant {
             return "Allumer";
         }
     }
+    
+    
+    public void setEtatPin(EtatPin etatPin)
+    {
+        this.etatPin = etatPin;
+    }
 
     
     
