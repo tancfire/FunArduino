@@ -1037,7 +1037,19 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                     mettreDansListeComposants(listCompAllumerPin);
                     modifierBlocAllumerPin.setVisible(true);
                     break;
-            }
+                 case "Ajouter des conditions":
+                    modifierBlocConditions.setVisible(true);
+                    listeTypeValeur1.setSelectedIndex(0);
+                    listeTypeValeur2.setSelectedIndex(0);
+                    mettreDansListeVariables(listeValeurs1);
+                    mettreDansListeVariables(listeValeurs2);
+                    listeComparateur.removeAllItems();
+                    for(int i=0; i<Comparateur.values().length;i++)
+                    {
+                        listeComparateur.addItem(Comparateur.values()[i].getFormule());
+                    }
+                    break;
+                }
              }
     }//GEN-LAST:event_btnAjouterBlocActionPerformed
 
@@ -1192,34 +1204,42 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     
     private void btnBlocConditionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocConditionsActionPerformed
         // TODO add your handling code here:
-        if(!modifier) //Si c'est une création
-        {
-            
-        }else{ // Si c'est une modification
-            //Premier paramètre:
+        Object objet1 = null;
+        Object objet2 = null;
+        Comparateur comparateur = Comparateur.egal; //valeur par défaut
+        
+        //Premier paramtère
             if(listeTypeValeur1.getSelectedItem().equals("Variable"))
             {
-                ((BlocConditions)blocCaller).setParam1(ctrl.getVariables().get(listeValeurs1.getSelectedIndex()));
+                objet1 = ctrl.getVariables().get(listeValeurs1.getSelectedIndex());
             } else if (listeTypeValeur1.getSelectedItem().equals("Composant"))
             {
-                ((BlocConditions)blocCaller).setParam1(ctrl.getComposants().get(listeValeurs1.getSelectedIndex()));
+                objet1 = ctrl.getComposants().get(listeValeurs1.getSelectedIndex());
             } else if (listeTypeValeur1.getSelectedItem().equals("Valeur"))
             {
-                ((BlocConditions)blocCaller).setParam1(editValeur1.getText());
+                objet1 = editValeur1.getText();
             }
             //Second paramètre:
             if(listeTypeValeur2.getSelectedItem().equals("Variable"))
             {
-                ((BlocConditions)blocCaller).setParam2(ctrl.getVariables().get(listeValeurs2.getSelectedIndex()));
+                objet2 = ctrl.getVariables().get(listeValeurs2.getSelectedIndex());
             } else if (listeTypeValeur2.getSelectedItem().equals("Composant"))
             {
-                ((BlocConditions)blocCaller).setParam2(ctrl.getComposants().get(listeValeurs2.getSelectedIndex()));
+                objet2 = ctrl.getComposants().get(listeValeurs2.getSelectedIndex());
             } else if (listeTypeValeur2.getSelectedItem().equals("Valeur"))
             {
-                ((BlocConditions)blocCaller).setParam2(editValeur2.getText());
+                objet2 = editValeur2.getText();
             }
             //Le comparateur:
             ((BlocConditions)blocCaller).setComparateur(Comparateur.values()[listeComparateur.getSelectedIndex()]);
+            
+        if(!modifier) //Si c'est une création
+        {
+            blocCaller.ajouterBlocALaFin(new BlocConditions(objet1,objet2,comparateur,ctrl));
+        }else{ // Si c'est une modification
+            ((BlocConditions)blocCaller).setParam1(objet1);
+            ((BlocConditions)blocCaller).setParam2(objet2);
+            ((BlocConditions)blocCaller).setComparateur(comparateur);
         }
         modifierBlocConditions.setVisible(false); //On ferme la fenêtre
         ctrl.mettreAjourCode(); //On met à jour le code
