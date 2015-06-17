@@ -98,6 +98,21 @@ public class BlocConditions extends Bloc{
         }
         
     }
+    
+    public void setParam1(Object objet1) //en fait, ici, on ne définit pas le paramètre, mais l'objet
+    {
+        this.objet1 = objet1;
+    }
+    
+    public void setParam2(Object objet2)
+    {
+        this.objet2 = objet2;
+    }
+
+    public void setComparateur(Comparateur comparateur) {
+        this.comparateur = comparateur;
+    }
+    
 
     public Object getParam1() {
         return param1;

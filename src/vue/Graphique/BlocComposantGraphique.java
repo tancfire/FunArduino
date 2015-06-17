@@ -55,18 +55,18 @@ public abstract class BlocComposantGraphique extends BlocGraphique{
         
         if(longueur>0){
             labelLigne.setLocation(this.getX()+120, this.getY()+22);
-            labelLigne.setSize(longueur, 5);
+            labelLigne.setSize(longueur, 2);
         }else{
             labelLigne.setLocation(this.getX()+120+longueur, this.getY()+22);
-            labelLigne.setSize(longueur*-1, 5);
+            labelLigne.setSize(longueur*-1, 2);
         }
         
         if(hauteur>0){
             labelLigneVert.setLocation(this.getX()+longueur+120, this.getY()+22);
-            labelLigneVert.setSize(5, hauteur);
+            labelLigneVert.setSize(2, hauteur);
         }else{
             labelLigneVert.setLocation(this.getX()+longueur+120, this.getY()+hauteur+22);
-            labelLigneVert.setSize(5, hauteur*-1); 
+            labelLigneVert.setSize(2, hauteur*-1); 
         }
         
     }

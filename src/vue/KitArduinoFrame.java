@@ -12,6 +12,8 @@ import Modèle.Bloc;
 import Modèle.BlocAllumerPin;
 import Modèle.BlocAttendre;
 import Modèle.BlocChangerVariable;
+import Modèle.BlocConditions;
+import Modèle.Comparateur;
 import Modèle.Composant;
 import Modèle.ComposantLed;
 import Modèle.EtatPin;
@@ -38,6 +40,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
@@ -367,6 +370,19 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         listeEtatAllumerPin = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
+        modifierBlocConditions = new javax.swing.JDialog();
+        btnBlocConditions = new javax.swing.JButton();
+        listeTypeValeur1 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        listeComparateur = new javax.swing.JComboBox();
+        listeTypeValeur2 = new javax.swing.JComboBox();
+        listeValeurs1 = new javax.swing.JComboBox();
+        editValeur1 = new javax.swing.JTextField();
+        listeValeurs2 = new javax.swing.JComboBox();
+        editValeur2 = new javax.swing.JTextField();
         scrollPanelGraphique = new javax.swing.JScrollPane();
         panelGraphique = new javax.swing.JPanel();
         scrollEditCode = new javax.swing.JScrollPane();
@@ -407,7 +423,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         });
 
         listeBlocsAAjouter.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Attendre", "Changer la valeur d'une variable", "Allumer/Eteindre un composant" };
+            String[] strings = { "Attendre", "Changer la valeur d'une variable", "Allumer/Eteindre un composant", "Ajouter des conditions" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -438,7 +454,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        modifierBlocAttendre.setTitle("Choisir un Bloc");
         modifierBlocAttendre.setAlwaysOnTop(true);
         modifierBlocAttendre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         modifierBlocAttendre.setMinimumSize(new java.awt.Dimension(480, 180));
@@ -481,7 +496,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        modifierBlocChangerVariable.setTitle("Choisir un Bloc");
         modifierBlocChangerVariable.setAlwaysOnTop(true);
         modifierBlocChangerVariable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         modifierBlocChangerVariable.setMinimumSize(new java.awt.Dimension(480, 180));
@@ -658,7 +672,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        modifierBlocAllumerPin.setTitle("Choisir un Bloc");
         modifierBlocAllumerPin.setAlwaysOnTop(true);
         modifierBlocAllumerPin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         modifierBlocAllumerPin.setMinimumSize(new java.awt.Dimension(480, 180));
@@ -710,6 +723,118 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                         .addComponent(listeEtatAllumerPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7))
                 .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        modifierBlocConditions.setAlwaysOnTop(true);
+        modifierBlocConditions.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        modifierBlocConditions.setMinimumSize(new java.awt.Dimension(550, 180));
+
+        btnBlocConditions.setText("valider");
+        btnBlocConditions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBlocConditionsActionPerformed(evt);
+            }
+        });
+
+        listeTypeValeur1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Variable", "Composant", "Valeur" }));
+        listeTypeValeur1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listeTypeValeur1ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Valeur1:");
+
+        jLabel10.setText("Valeur2:");
+
+        jLabel11.setText("si:");
+
+        jLabel12.setText("est:");
+
+        listeComparateur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "égal à", "différent de", "supérieur à", "inférieur à" }));
+
+        listeTypeValeur2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Variable", "Composant", "Valeur" }));
+        listeTypeValeur2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listeTypeValeur2ActionPerformed(evt);
+            }
+        });
+
+        editValeur1.setEnabled(false);
+
+        editValeur2.setEnabled(false);
+
+        javax.swing.GroupLayout modifierBlocConditionsLayout = new javax.swing.GroupLayout(modifierBlocConditions.getContentPane());
+        modifierBlocConditions.getContentPane().setLayout(modifierBlocConditionsLayout);
+        modifierBlocConditionsLayout.setHorizontalGroup(
+            modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBlocConditions))
+                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                        .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12))
+                                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(listeTypeValeur1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(listeComparateur, 0, 115, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifierBlocConditionsLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(listeTypeValeur2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(listeValeurs1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifierBlocConditionsLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(listeValeurs2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(editValeur1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifierBlocConditionsLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(editValeur2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 157, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        modifierBlocConditionsLayout.setVerticalGroup(
+            modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listeTypeValeur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(listeValeurs1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editValeur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(listeComparateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(modifierBlocConditionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(listeTypeValeur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(listeValeurs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editValeur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(modifierBlocConditionsLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(btnBlocConditions)))
+                .addGap(14, 14, 14))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -904,19 +1029,12 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                     modifierBlocAttendre.setVisible(true);
                     break;
                 case "Changer la valeur d'une variable":
-                    listeVariablesBlocChangerVar.removeAllItems();
-                     for(int i=0; i<ctrl.getVariables().size();i++)
-                     {
-                          listeVariablesBlocChangerVar.addItem(ctrl.getVariables().get(i).getNom());
-                    }
+                    mettreDansListeVariables(listeVariablesBlocChangerVar);
                     modifierBlocChangerVariable.setVisible(true);
                     break;
                 case "Allumer/Eteindre un composant":
                     listCompAllumerPin.removeAllItems();
-                    for(int i=0; i<ctrl.getComposants().size();i++)
-                    {
-                        listCompAllumerPin.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
-                    }
+                    mettreDansListeComposants(listCompAllumerPin);
                     modifierBlocAllumerPin.setVisible(true);
                     break;
             }
@@ -990,10 +1108,18 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         } else if (blocCaller instanceof BlocAllumerPin)
         {
             modifierBlocAllumerPin.setVisible(true);
-            listCompAllumerPin.removeAllItems();
-            for(int i=0; i<ctrl.getComposants().size();i++)
+            mettreDansListeComposants(listCompAllumerPin);
+        } else if (blocCaller instanceof BlocConditions)
+        {
+            modifierBlocConditions.setVisible(true);
+            listeTypeValeur1.setSelectedIndex(0);
+            listeTypeValeur2.setSelectedIndex(0);
+            mettreDansListeVariables(listeValeurs1);
+            mettreDansListeVariables(listeValeurs2);
+            listeComparateur.removeAllItems();
+            for(int i=0; i<Comparateur.values().length;i++)
             {
-                listCompAllumerPin.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
+                listeComparateur.addItem(Comparateur.values()[i].getFormule());
             }
         }
     }//GEN-LAST:event_itemModifierActionPerformed
@@ -1064,6 +1190,84 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBlocAllumerPinActionPerformed
 
     
+    private void btnBlocConditionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBlocConditionsActionPerformed
+        // TODO add your handling code here:
+        if(!modifier) //Si c'est une création
+        {
+            
+        }else{ // Si c'est une modification
+            //Premier paramètre:
+            if(listeTypeValeur1.getSelectedItem().equals("Variable"))
+            {
+                ((BlocConditions)blocCaller).setParam1(ctrl.getVariables().get(listeValeurs1.getSelectedIndex()));
+            } else if (listeTypeValeur1.getSelectedItem().equals("Composant"))
+            {
+                ((BlocConditions)blocCaller).setParam1(ctrl.getComposants().get(listeValeurs1.getSelectedIndex()));
+            } else if (listeTypeValeur1.getSelectedItem().equals("Valeur"))
+            {
+                ((BlocConditions)blocCaller).setParam1(editValeur1.getText());
+            }
+            //Second paramètre:
+            if(listeTypeValeur2.getSelectedItem().equals("Variable"))
+            {
+                ((BlocConditions)blocCaller).setParam2(ctrl.getVariables().get(listeValeurs2.getSelectedIndex()));
+            } else if (listeTypeValeur2.getSelectedItem().equals("Composant"))
+            {
+                ((BlocConditions)blocCaller).setParam2(ctrl.getComposants().get(listeValeurs2.getSelectedIndex()));
+            } else if (listeTypeValeur2.getSelectedItem().equals("Valeur"))
+            {
+                ((BlocConditions)blocCaller).setParam2(editValeur2.getText());
+            }
+            //Le comparateur:
+            ((BlocConditions)blocCaller).setComparateur(Comparateur.values()[listeComparateur.getSelectedIndex()]);
+        }
+        modifierBlocConditions.setVisible(false); //On ferme la fenêtre
+        ctrl.mettreAjourCode(); //On met à jour le code
+    }//GEN-LAST:event_btnBlocConditionsActionPerformed
+
+    private void listeTypeValeur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listeTypeValeur1ActionPerformed
+        // TODO add your handling code here:
+        if(listeTypeValeur1.getSelectedItem().equals("Variable"))
+        {
+            listeValeurs1.setEnabled(true);
+            editValeur1.setEnabled(false);
+            editValeur1.setText("");
+            mettreDansListeVariables(listeValeurs1);
+        }else if (listeTypeValeur1.getSelectedItem().equals("Composant")){
+            listeValeurs1.setEnabled(true);
+            editValeur1.setEnabled(false);
+            editValeur1.setText("");
+            mettreDansListeComposants(listeValeurs1);
+        }else if(listeTypeValeur1.getSelectedItem().equals("Valeur"))
+        {
+            listeValeurs1.setEnabled(false);
+            listeValeurs1.removeAllItems();
+            editValeur1.setEnabled(true);
+        }
+    }//GEN-LAST:event_listeTypeValeur1ActionPerformed
+
+    private void listeTypeValeur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listeTypeValeur2ActionPerformed
+        // TODO add your handling code here:
+        if(listeTypeValeur2.getSelectedItem().equals("Variable"))
+        {
+            listeValeurs2.setEnabled(true);
+            editValeur2.setEnabled(false);
+            editValeur2.setText("");
+            mettreDansListeVariables(listeValeurs2);
+        }else if (listeTypeValeur2.getSelectedItem().equals("Composant")){
+            listeValeurs2.setEnabled(true);
+            editValeur2.setEnabled(false);
+            editValeur2.setText("");
+            mettreDansListeComposants(listeValeurs2);
+        }else if(listeTypeValeur2.getSelectedItem().equals("Valeur"))
+        {
+            listeValeurs2.setEnabled(false);
+            listeValeurs2.removeAllItems();
+            editValeur2.setEnabled(true);
+        }
+    }//GEN-LAST:event_listeTypeValeur2ActionPerformed
+
+    
      private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -1119,12 +1323,15 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnBlocAllumerPin;
     private javax.swing.JButton btnBlocAttendre;
     private javax.swing.JButton btnBlocChangerVar;
+    private javax.swing.JButton btnBlocConditions;
     private javax.swing.JButton btnTeleverser;
     private javax.swing.ButtonGroup choixArduinoGroupe;
     private javax.swing.JDialog choixBlocsAAjouter;
     private javax.swing.JTextField editAjouterVariable;
     private javax.swing.JTextPane editCode;
     private javax.swing.JSpinner editDelais;
+    private javax.swing.JTextField editValeur1;
+    private javax.swing.JTextField editValeur2;
     private javax.swing.JTextField editValeurChangerVar;
     private javax.swing.JTextField editValeurDefautVariable;
     private javax.swing.JFileChooser enregistrerFichier;
@@ -1139,6 +1346,9 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSauvegarderSous;
     private javax.swing.JRadioButtonMenuItem itemUno;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1146,14 +1356,20 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox listCompAllumerPin;
     private javax.swing.JList listeBlocsAAjouter;
     private javax.swing.JList listeCompAAjouter;
+    private javax.swing.JComboBox listeComparateur;
     private javax.swing.JComboBox listeEtatAllumerPin;
     private javax.swing.JList listeHistorique;
+    private javax.swing.JComboBox listeTypeValeur1;
+    private javax.swing.JComboBox listeTypeValeur2;
     private javax.swing.JComboBox listeTypeVarAjout;
+    private javax.swing.JComboBox listeValeurs1;
+    private javax.swing.JComboBox listeValeurs2;
     private javax.swing.JComboBox listeVariablesBlocChangerVar;
     private javax.swing.JPopupMenu menuAjoutVarComp;
     private javax.swing.JMenuBar menuBarre;
@@ -1165,6 +1381,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JDialog modifierBlocAllumerPin;
     private javax.swing.JDialog modifierBlocAttendre;
     private javax.swing.JDialog modifierBlocChangerVariable;
+    private javax.swing.JDialog modifierBlocConditions;
     private javax.swing.JFileChooser nouveauFichier;
     private javax.swing.JFileChooser ouvrirFichier;
     private javax.swing.JTabbedPane paneHistorique;
@@ -1189,6 +1406,25 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         for(int i=0; i<listeComp.size();i++)
         {
             listeComp.get(i).getCompGraph().mettreAJour();
+        }
+    }
+    
+    
+    private void mettreDansListeVariables(JComboBox comboBox)
+    {
+        comboBox.removeAllItems();
+        for(int i=0; i <ctrl.getVariables().size();i++)
+        {
+            comboBox.addItem(ctrl.getVariables().get(i).getNom());
+        }
+    }
+    
+    private void mettreDansListeComposants(JComboBox comboBox)
+    {
+        comboBox.removeAllItems();
+        for(int i=0; i <ctrl.getComposants().size();i++)
+        {
+            comboBox.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
         }
     }
 }
