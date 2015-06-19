@@ -39,10 +39,10 @@ public abstract class Bloc {
     /**
      * C'est le constructeur qui permet de créer un Bloc et de le sauvegarder dans
      * l'accès XML.
-     * @param typeBloc
+     * @param typeBloc Le type de bloc du bloc
      * @param couleur La couleur qui apparaitra dans le texte
-     * @param blocGraph
-     * @param ctrl 
+     * @param blocGraph Le bloc graphique associé à ce bloc
+     * @param ctrl Le controleur
      */
     public Bloc(TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Controleur ctrl)
     {
@@ -53,11 +53,11 @@ public abstract class Bloc {
     
      /**
      * C'est le constructeur qui permet de créer un Bloc à partir du fichier de sauvegarde.
-     * @param id
-     * @param typeBloc
-     * @param couleur
-     * @param blocGraph
-     * @param ctrl 
+     * @param id L'identifiant du bloc (récupéré dans le fichier xml)
+     * @param typeBloc le type de bloc du bloc
+     * @param couleur La couleur qui apparaitra dans le texte
+     * @param blocGraph le bloc graphique associé à ce bloc
+     * @param ctrl le controleur
      */
         public Bloc(int id, TypeBloc typeBloc, Color couleur, BlocGraphique blocGraph, Controleur ctrl)
     {
@@ -79,7 +79,10 @@ public abstract class Bloc {
         this.acces = ctrl.getAcces();
     }
         
-        
+        /**
+         * Permet d'initialiser le bloc correctement (Voir dans les blocs enfants
+         * pour savoir où l'appeler).
+         */
         protected void init()
         {
             blocGraph.setBloc(this);

@@ -20,7 +20,6 @@ import Modèle.EtatPin;
 import Modèle.TypeVariable;
 import Modèle.Variable;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -30,12 +29,8 @@ import static java.awt.event.MouseEvent.BUTTON1;
 import static java.awt.event.MouseEvent.BUTTON3;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.AbstractButton;
@@ -58,9 +53,7 @@ import vue.Graphique.StockCouleurTexte;
 
 
 /**
- * 
- * Prochaines améliorations: faire une liste des blocs graphiques et créer des
- * méthodes pour pouvoir la gérer (Pour le positionnement en Y).
+ * Prochaines amélioration: ré-organisation du code
  * @author tancfire
  */
 public class KitArduinoFrame extends javax.swing.JFrame {
@@ -73,8 +66,8 @@ public class KitArduinoFrame extends javax.swing.JFrame {
      * Creates new form KitArduinoFrame
      */
     public KitArduinoFrame() {
-            initComponents();
-            modifier = true;
+            initComponents(); //initialise les composants par défauts
+            modifier = true; //cette varaible sert à savoir si l'on souahaiter créer ou modifier un bloc.
                                  
             nouveauFichier.addActionListener(new ActionListener(){
                 @Override
@@ -172,11 +165,14 @@ public class KitArduinoFrame extends javax.swing.JFrame {
             ctrl = new Controleur(this);
             ctrl.mettreAjourCode();
             
-            
-            actualiserTitre();
+            actualiserTitre();// on met à jour le titre
     }
     
     
+    /**
+     * Permet de mettre à jour les blocs graphiques
+     * @param blocsGraphs 
+     */
     public void mettreAJourBlocsGraphiques(ArrayList<BlocGraphique> blocsGraphs)
     {
         //effacer tout les anciens blocs graphiques
@@ -194,12 +190,20 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     }
     
     
+    /**
+     * Peret d'actualiser le titre en fonction du nom du projet.
+     */
     public void actualiserTitre()
     {
       this.setTitle("FunArduino ("+ctrl.getNomProjet()+")");
     }
     
-    // A mettre dans le controleur
+    
+    /**
+     * (Sera déplacé dans le controleur) Permet de définir le code généré à mettre
+     * dans la vue (avec les couleurs).
+     * @param code le code (avec les balises de couleurs).
+     */
     public void setCode(String code)
     {
      ArrayList<StockCouleurTexte> stock = new ArrayList<StockCouleurTexte>();
@@ -279,52 +283,130 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     -------------------------------Fin pour la couleur dans le texte------------------------------
     ============================================================================================*/
     
+    /**
+     * Permet d'ajouter un composant graphique à la vue
+     * @param compGraph le composant graphique que l'on souhaite ajouter
+     */
     public void ajouterComposantGraphique(ComposantGraphique compGraph)
     {
         compGraph.attacher(panelGraphique);
         panelGraphique.repaint();
     }
     
-        public void supprimerComposantGraphique(ComposantGraphique compGraph)
+    /**
+     * Permet de supprimer un composant graphique de la vue
+     * @param compGraph le composant graphique que l'on souhaite supprimer
+     */
+    public void supprimerComposantGraphique(ComposantGraphique compGraph)
     {
         compGraph.detacher(panelGraphique);
         panelGraphique.repaint();
     }
     
-    
+    /**
+     * Permet d'ajouter un bloc graphique à la vue
+     * @param blocGraph le bloc graphique que l'on souhaite ajouter
+     */
     private void ajouterBlocGraphique(BlocGraphique blocGraph)
     {
         blocGraph.attacher(panelGraphique);
         panelGraphique.repaint();
     }
     
+    /**
+     * Permet de supprimer un bloc graphique de la vue
+     * @param blocGraph le bloc graphique que l'on souhaite supprimer
+     */
     private void supprimerBlocGraphique(BlocGraphique blocGraph)
     {
         blocGraph.detacher(panelGraphique);
        panelGraphique.repaint();
     }
     
-    
+    /**
+     * Ouvre le menu déroulant pour modifier un bloc
+     * @param blocCaller le bloc sur lequel on a cliqué
+     * @param x l'emplacement x du curseur
+     * @param y l'emplacement y du curseur
+     */
     public void ouvrirMenuModifier(Bloc blocCaller, int x, int y)
     {
         menuModifier.setLocation(x-scrollPanelGraphique.getHorizontalScrollBar().getValue()+this.getX(), y-scrollPanelGraphique.getVerticalScrollBar().getValue()+this.getY());
         menuModifier.setVisible(true);
         menuAjoutVarComp.setVisible(false);
-        this.blocCaller = blocCaller;
+        this.blocCaller = blocCaller; //On le définit comme le bloc qui a appelé. On le ré-utilisera par la suite
     }
     
-    
+    /**
+     * Permet d'ouvrir le menu qui propose le choix du bloc à ajouter
+     * @param blocCaller le bloc parent auquel on souhaite ajouter un bloc
+     */
     public void ouvrirChoixBlocsAAjouter(Bloc blocCaller)
     {
         choixBlocsAAjouter.setVisible(true);
         this.blocCaller = blocCaller;
     }
-        
+    
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * Permet d'ajouter un simulateur graphique à la vue
+     * @param simuGraph le simulateur graphique qui sera ajouté à la vue
      */
+    public void ajouterSimulateur(SimulateurGraphique simuGraph) {
+       panelGraphique.add(simuGraph);
+       panelGraphique.repaint();
+    }
+    
+    /**
+     * Permet de supprimer un simulateur graphique de la vue
+     * @param simuGraph le simulateur graphique qui sera supprimer de la vue
+     */
+   public void supprimerSimulateur(SimulateurGraphique simuGraph) {
+       panelGraphique.remove(simuGraph);
+       panelGraphique.repaint();
+    }
+
+   /**
+    * Met à jour les branchements
+    * @param listeComp la listes des composants (ceux avec qui ont souhaite actualiser
+    * leurs branchements).
+    */
+    public void mettreAJourBranchements(ArrayList<Composant> listeComp) {
+        for(int i=0; i<listeComp.size();i++)
+        {
+            listeComp.get(i).getCompGraph().mettreAJour();
+        }
+    }
+    
+    /**
+     * Permet de mettre dans une combobox la liste des variables
+     * @param comboBox la combobox dans laquelle on souhaite mettre la liste des varaibles.
+     */
+    private void mettreDansListeVariables(JComboBox comboBox)
+    {
+        comboBox.removeAllItems();
+        for(int i=0; i <ctrl.getVariables().size();i++)
+        {
+            comboBox.addItem(ctrl.getVariables().get(i).getNom());
+        }
+    }
+    
+    /**
+     * Permet de mettre dans une combobox la listes des composants
+     * @param comboBox la comboboc dans laquelle on souhaite mettre la liste des composants.
+     */
+    private void mettreDansListeComposants(JComboBox comboBox)
+    {
+        comboBox.removeAllItems();
+        for(int i=0; i <ctrl.getComposants().size();i++)
+        {
+            comboBox.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
+        }
+    }
+        
+    /*=========================================================================
+    -----------------METHODES GENEREES(A REORGANISER) -------------------------
+    =========================================================================*/
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -982,11 +1064,11 @@ public class KitArduinoFrame extends javax.swing.JFrame {
 
     private void itemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemQuitterActionPerformed
         // TODO add your handling code here:
+        System.exit(0); // 0 signifie qu'on a quitté l'application correctement
     }//GEN-LAST:event_itemQuitterActionPerformed
 
     private void btnTeleverserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTeleverserActionPerformed
-      ctrl.compilerEtTeleverser(editCode.getText(), getSelectedButtonText(choixArduinoGroupe));
-            
+      ctrl.compilerEtTeleverser(editCode.getText(), getSelectedButtonText(choixArduinoGroupe));      
     }//GEN-LAST:event_btnTeleverserActionPerformed
 
     private void itemLeonardoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLeonardoActionPerformed
@@ -998,6 +1080,8 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         ctrl.sauvegarder();
     }//GEN-LAST:event_itemSauvegarderActionPerformed
 
+// =================== BOITES DE DIALOGUES POUR LA SAUVEGARDE ===================
+    
     private void itemOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOuvrirActionPerformed
         // TODO add your handling code here:
        ouvrirFichier.setCurrentDirectory(new File("./saves"));
@@ -1015,35 +1099,36 @@ public class KitArduinoFrame extends javax.swing.JFrame {
        nouveauFichier.showSaveDialog(this);
     }//GEN-LAST:event_itemNouveauActionPerformed
 
-    
+    //============================================================================ 
     
     
     private void btnAjouterBlocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterBlocActionPerformed
-        // TODO add your handling code here:
-        if(blocCaller!=null){ 
-            modifier = false;
+        // Appelé lorsque qu'on appui sur le bouton "Valider" de la boite de dialogue
+        //pour ajouter un bloc.
+        if(blocCaller!=null){  //si le bloc appelant existe
+            modifier = false; //On passe en mode création
             String selection = (String) listeBlocsAAjouter.getSelectedValue();
-            choixBlocsAAjouter.setVisible(false);
-            switch (selection) {
+            choixBlocsAAjouter.setVisible(false); //On ferme la boite de dialogue pour sélectionner plusieurs blocs
+            switch (selection) { // A ORGANISER via des intialisations
                 case "Attendre":
                     modifierBlocAttendre.setVisible(true);
                     break;
                 case "Changer la valeur d'une variable":
                     mettreDansListeVariables(listeVariablesBlocChangerVar);
-                    modifierBlocChangerVariable.setVisible(true);
+                    modifierBlocChangerVariable.setVisible(true);//On ouvre la boite de dialogue
                     break;
                 case "Allumer/Eteindre un composant":
                     listCompAllumerPin.removeAllItems();
                     mettreDansListeComposants(listCompAllumerPin);
-                    modifierBlocAllumerPin.setVisible(true);
+                    modifierBlocAllumerPin.setVisible(true); //On ouvre la boite de dialogue
                     break;
                  case "Ajouter des conditions":
-                    modifierBlocConditions.setVisible(true);
+                    modifierBlocConditions.setVisible(true); //On ouvre la boite de dialogue
                     listeTypeValeur1.setSelectedIndex(0);
                     listeTypeValeur2.setSelectedIndex(0);
                     mettreDansListeVariables(listeValeurs1);
                     mettreDansListeVariables(listeValeurs2);
-                    listeComparateur.removeAllItems();
+                    listeComparateur.removeAllItems(); //(re)-initialisation de la liste des comparateurs
                     for(int i=0; i<Comparateur.values().length;i++)
                     {
                         listeComparateur.addItem(Comparateur.values()[i].getFormule());
@@ -1073,7 +1158,11 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBlocChangerVarActionPerformed
 
-    
+    /**
+     * Permet de savoir si un texte est integer
+     * @param s le texte sur lequel on souhaite savoir si c'est un integer.
+     * @return si la valeur est un integer
+     */
     private static boolean isInteger(String s) {
     return isInteger(s,10);
     }
@@ -1231,7 +1320,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
                 objet2 = editValeur2.getText();
             }
             //Le comparateur:
-            ((BlocConditions)blocCaller).setComparateur(Comparateur.values()[listeComparateur.getSelectedIndex()]);
+            comparateur = Comparateur.values()[listeComparateur.getSelectedIndex()];
             
         if(!modifier) //Si c'est une création
         {
@@ -1411,40 +1500,4 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPanelGraphique;
     // End of variables declaration//GEN-END:variables
 
-    public void ajouterSimulateur(SimulateurGraphique simuGraph) {
-       panelGraphique.add(simuGraph);
-       panelGraphique.repaint();
-    }
-    
-   public void supprimerSimulateur(SimulateurGraphique simuGraph) {
-       panelGraphique.remove(simuGraph);
-       panelGraphique.repaint();
-    }
-
-
-    public void mettreAJourBranchements(ArrayList<Composant> listeComp) {
-        for(int i=0; i<listeComp.size();i++)
-        {
-            listeComp.get(i).getCompGraph().mettreAJour();
-        }
-    }
-    
-    
-    private void mettreDansListeVariables(JComboBox comboBox)
-    {
-        comboBox.removeAllItems();
-        for(int i=0; i <ctrl.getVariables().size();i++)
-        {
-            comboBox.addItem(ctrl.getVariables().get(i).getNom());
-        }
-    }
-    
-    private void mettreDansListeComposants(JComboBox comboBox)
-    {
-        comboBox.removeAllItems();
-        for(int i=0; i <ctrl.getComposants().size();i++)
-        {
-            comboBox.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
-        }
-    }
 }

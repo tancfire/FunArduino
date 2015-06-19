@@ -21,7 +21,7 @@ public class BlocUpdateGraphique extends BlocGraphique {
 
     @Override
     protected String getTexte1() {
-        return "Update";
+        return "Tout le temps";
     }
 
     @Override

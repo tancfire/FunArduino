@@ -24,7 +24,7 @@ public class BlocAttendre extends Bloc {
     }
     
     public BlocAttendre(int id, int delai, Controleur ctrl) {
-        super(id, TypeBloc.programmation, Color.MAGENTA,  new BlocAttendreGraphique(), ctrl);
+        super(id, TypeBloc.programmation, Color.gray,  new BlocAttendreGraphique(), ctrl);
         initialisation(delai);
         init();
     }

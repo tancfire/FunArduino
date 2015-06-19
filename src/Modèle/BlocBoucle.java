@@ -39,6 +39,7 @@ public class BlocBoucle extends Bloc {
 
     @Override
     public void mettreAjourCode() {
+        //A modifier: Si jamais il a un parent de type boucle, la variable s'apellera i2, i3, ....
         sonCodeDebut = "for(int i=0; i<"+max+";i++){";
         sonCodeFin = "}";
     }

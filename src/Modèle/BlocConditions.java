@@ -49,7 +49,6 @@ public class BlocConditions extends Bloc{
 
      
 
-
     @Override
     public void mettreAjourCode(){
         TraductionParametre trad1 = new TraductionParametre(objet1);

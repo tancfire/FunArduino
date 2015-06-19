@@ -38,12 +38,17 @@ public class Slot {
        }
     }
     
-    
+    /**
+     * Permet de changer de pin.
+     * @param x la coordonnée x du curseur
+     * @param y la coordonnée y du curseur
+     */
     public void changerPin(int x, int y)
     {
         Pin unePin = pin;
         pin.setOccupee(false);
         
+        //Algorithme permettant de la pin la plus proche du curseur (x et y).
         for(int i=0; i<simulateur.getSesPins().size();i++)
         {
             if(simulateur.getSesPins().get(i).getTypePin()==typePinCompatible)

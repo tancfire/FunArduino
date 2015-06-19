@@ -48,7 +48,11 @@ public class TraductionParametre {
         return trad;
     }
 
-    
+    /**
+     * Permet de savoir si le texte est un integer
+     * @param s le texte
+     * @return true si c'est un integer, false si ça ne l'est pas.
+     */
     private static boolean isInteger(String s) {
     return isInteger(s,10);
     }

@@ -29,7 +29,6 @@ public class AssemblageBlocs {
     public void ajouterBloc(int position, Bloc unBloc)
     {
         sesBlocs.put(position, unBloc);
-       // unBloc.getBlocGraphique().setPosition(position); //On donne la position au bloc graphique
         acces.setPositionToBloc(unBloc.getId(), position);
     }
     
@@ -39,7 +38,10 @@ public class AssemblageBlocs {
         sesBlocs.remove(position);
     }
     
-    
+    /**
+     * Récupère le code Arduino, avec les balises de couleurs
+     * @return le code généré avec les balises de couleurs
+     */
     public String getCode()
     {
         String code = "/* fichier généré par FunArduino v.bétâ 0.1 */\n\n";
@@ -48,7 +50,7 @@ public class AssemblageBlocs {
             {
                 code+=blocs.getValue().getCode();
             }
-        
+        //System.out.println(code); //A dé-commenter si vous voulez voir à quoi ressemble le code avec les balises
         return code;
     }
 

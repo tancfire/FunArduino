@@ -21,7 +21,7 @@ public class BlocStartGraphique extends BlocGraphique {
 
     @Override
     protected String getTexte1() {
-        return "Start";
+        return "Départ";
     }
 
     @Override
