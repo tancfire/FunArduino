@@ -32,8 +32,12 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JDialog;
 import javax.xml.parsers.DocumentBuilderFactory;
 import saveSystem.AccesXML;
+import vue.BoiteDialogue.BlocAllumerPinBoiteDialogue;
+import vue.BoiteDialogue.BlocAttendreBoiteDialogue;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.KitArduinoFrame;
 
 /**
@@ -51,14 +55,14 @@ public class Controleur {
     ArrayList<Variable> variables;
     AssemblageBlocs assemblage;
     SimulateurArduino simulateur;
-    
+       
     BlocLibrairies blocLibrairies;
     BlocInit blocInit;
     BlocStart blocStart;
     BlocUpdate blocUpdate;
     
     private final DocumentBuilderFactory factory;
-    
+       
     public Controleur(KitArduinoFrame vue)
     {
       //  System.out.println(System.getProperty("os.name"));
@@ -69,9 +73,14 @@ public class Controleur {
         
         acces = new AccesXML();
         
-        creerProjet(new File("saves").getAbsolutePath(), "GenerateByFunArduino"); //Création du projet par défaut
-       
+        //Ajout des blocs dans les menus:
+        ajouterListeAjoutBloc(new BlocAllumerPinBoiteDialogue(this), "Allumer/Eteindre un composant");
+        ajouterListeAjoutBloc(new BlocAttendreBoiteDialogue(this), "Attendre");
         
+        //création du projet par défaut
+        creerProjet(new File("saves").getAbsolutePath(), "GenerateByFunArduino");
+        
+          
         //On initialise tout à zéro
         remettreAZero();
         
@@ -368,7 +377,7 @@ public class Controleur {
             out.close();
           
        //Compilation et Téléversement à partir de l'IDE Arduino
-            Process p1 = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Arduino\\arduino --board arduino:avr:"+arduino+" --port COM12 --upload "+chemin+"\\"+nomProjet+"\\"+nomProjet+".ino");
+            Process p1 = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Arduino\\arduino --board arduino:avr:"+arduino+" --port COM10 --upload "+chemin+"\\"+nomProjet+"\\"+nomProjet+".ino");
             
             p1.waitFor();
             int v = p1.exitValue();
@@ -563,6 +572,9 @@ public class Controleur {
         return composants;
     }
     
-    
-    
+    public void ajouterListeAjoutBloc(BlocBoiteDialogue boiteDialogue, String texte)
+    {
+       vue.ajouterListeAjoutBloc(boiteDialogue, texte);
+    }
+     
 }

@@ -3,6 +3,7 @@
 // Les librairies:
 
 // Déclaration des variables
+	int etat=0;
 
 
 void setup(){
@@ -11,8 +12,8 @@ void setup(){
 
 void loop(){
 	digitalWrite(2,HIGH);
-	delay(2000);
+	delay(1000);
 	digitalWrite(2,LOW);
-	delay(2000);
+	delay(1000);
 }
 

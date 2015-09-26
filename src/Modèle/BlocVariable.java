@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocGraphique;
 
 /**
@@ -46,4 +47,6 @@ public abstract class BlocVariable extends Bloc{
         return var;
     }
     
+    @Override
+    public abstract BlocBoiteDialogue getBoiteDialogue();
 }

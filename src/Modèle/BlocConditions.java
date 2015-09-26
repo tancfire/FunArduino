@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocConditionsGraphique;
 
 /**
@@ -48,6 +49,7 @@ public class BlocConditions extends Bloc{
      }
 
      
+
 
     @Override
     public void mettreAjourCode(){
@@ -125,6 +127,9 @@ public class BlocConditions extends Bloc{
         return comparateur;
     }
     
-    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }    
     
 }

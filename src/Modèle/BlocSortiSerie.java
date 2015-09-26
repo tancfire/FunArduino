@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocSortiSerieGraphique;
 
 /**
@@ -44,5 +45,8 @@ public class BlocSortiSerie extends Bloc{
        acces.setParametre(id, "String", "message", message);
     }
     
-    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }
 }

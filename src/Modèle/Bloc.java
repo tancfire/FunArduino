@@ -11,14 +11,16 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JDialog;
 import saveSystem.AccesXML;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocGraphique;
 
 /**
  * Le bloc est un bloc de code.
  * @author tancfire
  */
-public abstract class Bloc {
+public abstract class Bloc {   
     private final TypeBloc typeBloc;
     private final Color couleur;
     private HashMap<Integer,Bloc> sesBlocs;
@@ -75,7 +77,7 @@ public abstract class Bloc {
         this.supprimable = true;
         this.typeBloc = typeBloc;
         this.blocGraph = blocGraph;
-
+        
         this.acces = ctrl.getAcces();
     }
         
@@ -195,7 +197,7 @@ public abstract class Bloc {
      */
     public abstract void mettreAjourCode();
     
-     
+    
     /**
      * Permet de récupérer le code arduino généré par le bloc.
      * @return Le code arduino généré par le bloc.
@@ -547,5 +549,8 @@ public abstract class Bloc {
     {
         return this.blocGraph;
     }
+    
+    
+    public abstract BlocBoiteDialogue getBoiteDialogue();
     
 }

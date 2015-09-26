@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocCustomGraphique;
 
 /**
@@ -40,4 +41,9 @@ public class BlocCustom extends Bloc{
         acces.setParametre(id, "String", "code", code);
     }
     
+    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }
 }

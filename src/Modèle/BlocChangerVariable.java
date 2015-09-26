@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocChangerVariableGraphique;
 
 /**
@@ -59,5 +60,8 @@ public class BlocChangerVariable extends BlocVariable {
         this.valeur = valeur;
     }
     
-    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }    
 }

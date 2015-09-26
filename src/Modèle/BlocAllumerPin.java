@@ -8,6 +8,8 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocAllumerPinBoiteDialogue;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocAllumerPinGraphique;
 
 /**
@@ -68,7 +70,11 @@ public class BlocAllumerPin extends BlocComposant {
         this.etatPin = etatPin;
     }
 
-    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return new BlocAllumerPinBoiteDialogue(ctrl);
+    }
+
     
     
 }

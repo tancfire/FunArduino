@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocUpdateGraphique;
 
 /**
@@ -31,5 +32,10 @@ public class BlocUpdate extends Bloc {
     {
         sonCodeDebut = "\nvoid loop(){\n";
         sonCodeFin = "}\n";
+    }
+    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
     }
 }

@@ -8,6 +8,8 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocAllumerPinBoiteDialogue;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocInitVariableGraphique;
 
 /**
@@ -26,7 +28,6 @@ public class BlocInitVariable extends BlocVariable{
         super(id, TypeBloc.initialisation, new Color(255,242,0),  new BlocInitVariableGraphique(), var, ctrl);
         init();
     }
-        
            
     @Override
     public void mettreAjourCode() {
@@ -45,5 +46,11 @@ public class BlocInitVariable extends BlocVariable{
         super.delete();
         getVariable().delete();
     }
-    
+
+
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }
+        
 }

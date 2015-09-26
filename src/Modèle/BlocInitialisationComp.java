@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocInitialisationCompGraphique;
 
 /**
@@ -52,4 +53,9 @@ public class BlocInitialisationComp extends BlocComposant{
         return "sortie";
     }
     
+    
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }
 }

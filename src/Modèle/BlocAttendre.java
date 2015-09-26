@@ -8,6 +8,9 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocAllumerPinBoiteDialogue;
+import vue.BoiteDialogue.BlocAttendreBoiteDialogue;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocAttendreGraphique;
 
 /**
@@ -47,7 +50,9 @@ public class BlocAttendre extends Bloc {
     public int getDelai() {
         return delai;
     }
-    
-    
-    
+   
+        @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return new BlocAttendreBoiteDialogue(ctrl);
+    }
 }

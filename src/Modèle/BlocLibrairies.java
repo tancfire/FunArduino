@@ -8,6 +8,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import vue.BoiteDialogue.BlocBoiteDialogue;
 import vue.Graphique.BlocLibrairiesGraphique;
 
 /**
@@ -42,4 +43,8 @@ public class BlocLibrairies extends Bloc{
         sonCodeFin = "\n";
     }
     
+    @Override
+    public BlocBoiteDialogue getBoiteDialogue() {
+        return null;
+    }
 }

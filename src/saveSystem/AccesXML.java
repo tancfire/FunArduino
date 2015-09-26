@@ -96,7 +96,7 @@ public class AccesXML {
          e.setAttribute("type", type);
          e.setAttribute("nom", nom);
          e.setAttribute("valeur", valeur);
-         saSave.getDocumentElement().appendChild(e);;
+         saSave.getDocumentElement().appendChild(e);
          }
      }
      
