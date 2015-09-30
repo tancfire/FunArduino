@@ -9,6 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import vue.BoiteDialogue.BlocBoiteDialogue;
+import vue.BoiteDialogue.BlocChangerVariableBoiteDialogue;
 import vue.Graphique.BlocChangerVariableGraphique;
 
 /**
@@ -62,6 +63,6 @@ public class BlocChangerVariable extends BlocVariable {
     
     @Override
     public BlocBoiteDialogue getBoiteDialogue() {
-        return null;
+        return new BlocChangerVariableBoiteDialogue(ctrl);
     }    
 }

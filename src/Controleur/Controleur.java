@@ -38,6 +38,8 @@ import saveSystem.AccesXML;
 import vue.BoiteDialogue.BlocAllumerPinBoiteDialogue;
 import vue.BoiteDialogue.BlocAttendreBoiteDialogue;
 import vue.BoiteDialogue.BlocBoiteDialogue;
+import vue.BoiteDialogue.BlocChangerVariableBoiteDialogue;
+import vue.BoiteDialogue.BlocConditionsBoiteDialogue;
 import vue.KitArduinoFrame;
 
 /**
@@ -76,6 +78,8 @@ public class Controleur {
         //Ajout des blocs dans les menus:
         ajouterListeAjoutBloc(new BlocAllumerPinBoiteDialogue(this), "Allumer/Eteindre un composant");
         ajouterListeAjoutBloc(new BlocAttendreBoiteDialogue(this), "Attendre");
+        ajouterListeAjoutBloc(new BlocChangerVariableBoiteDialogue(this), "Changer la valeur d'une variable");
+        ajouterListeAjoutBloc(new BlocConditionsBoiteDialogue(this), "Ajouter une condition");
         
         //création du projet par défaut
         creerProjet(new File("saves").getAbsolutePath(), "GenerateByFunArduino");

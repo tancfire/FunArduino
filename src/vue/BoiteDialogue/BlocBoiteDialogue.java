@@ -63,10 +63,10 @@ public abstract class BlocBoiteDialogue extends JDialog{
     
     public void ouvrir(Bloc blocCaller, boolean modifier)
     {
-        onOuverture();
-        setVisible(true);
         this.blocCaller = blocCaller;
         this.modifier = modifier;
+        onOuverture();
+        setVisible(true);
     }
     
     
@@ -96,12 +96,10 @@ public abstract class BlocBoiteDialogue extends JDialog{
      */
     protected void mettreDansListeComposants(JComboBox comboBox)
     {
-        System.out.println("les comps: "+ctrl.getComposants());
         comboBox.removeAllItems();
         for(int i=0; i <ctrl.getComposants().size();i++)
         {
             comboBox.addItem(ctrl.getComposants().get(i).getNom()+" "+(i+1));
         }
     }
-    
 }

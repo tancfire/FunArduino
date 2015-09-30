@@ -49,6 +49,9 @@ public class BlocAttendreBoiteDialogue extends BlocBoiteDialogue {
     @Override
     public void onOuverture() {
         
+        if(modifier){
+            editTpsAttente.setValue(((BlocAttendre)blocCaller).getDelai());
+        }
     }
     
 }

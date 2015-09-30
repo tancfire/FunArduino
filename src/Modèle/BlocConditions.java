@@ -9,6 +9,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import vue.BoiteDialogue.BlocBoiteDialogue;
+import vue.BoiteDialogue.BlocConditionsBoiteDialogue;
 import vue.Graphique.BlocConditionsGraphique;
 
 /**
@@ -129,7 +130,7 @@ public class BlocConditions extends Bloc{
     
     @Override
     public BlocBoiteDialogue getBoiteDialogue() {
-        return null;
+        return new BlocConditionsBoiteDialogue(ctrl);
     }    
     
 }

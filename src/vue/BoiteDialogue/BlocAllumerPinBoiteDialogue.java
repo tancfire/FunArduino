@@ -57,6 +57,12 @@ public class BlocAllumerPinBoiteDialogue extends BlocBoiteDialogue{
     @Override
     public void onOuverture() {
         mettreDansListeComposants(cbComposants);
+        
+        if(modifier){
+             cbComposants.setEnabled(false);
+             cbComposants.setSelectedItem(((BlocAllumerPin)blocCaller).getComposant().getNom());
+             cbEtats.setSelectedItem(((BlocAllumerPin)blocCaller).getEtatPin());
+        }
     }
     
 }

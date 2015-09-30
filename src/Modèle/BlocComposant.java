@@ -51,5 +51,9 @@ public abstract class BlocComposant extends Bloc{
         ((BlocComposantGraphique) blocGraph).changerComposantGraphique(composant.getCompGraph());
     }
 
+    public Composant getComposant()
+    {
+        return composant;
+    }
     
 }

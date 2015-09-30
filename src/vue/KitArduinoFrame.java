@@ -33,14 +33,8 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JTextPane;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
-import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -871,7 +865,6 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private void itemModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemModifierActionPerformed
         // TODO add your handling code here:
         menuModifier.setVisible(false);
-        System.out.println("BlocCaller: "+blocCaller);
         
         if(blocCaller!=null){  //si le bloc appelant existe
             modifier = true; //On passe en mode modification
