@@ -384,6 +384,11 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="menuChoixPorts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ports"/>
+              </Properties>
+            </Menu>
           </SubComponents>
         </Menu>
       </SubComponents>

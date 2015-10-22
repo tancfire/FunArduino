@@ -9,7 +9,6 @@ package vue.BoiteDialogue;
 import Controleur.Controleur;
 import Modèle.BlocConditions;
 import Modèle.Comparateur;
-import Modèle.TraductionParametre;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

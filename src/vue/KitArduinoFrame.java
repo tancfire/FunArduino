@@ -462,6 +462,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
         menuChoixArduino = new javax.swing.JMenu();
         itemLeonardo = new javax.swing.JRadioButtonMenuItem();
         itemUno = new javax.swing.JRadioButtonMenuItem();
+        menuChoixPorts = new javax.swing.JMenu();
 
         nouveauFichier.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
 
@@ -746,6 +747,9 @@ public class KitArduinoFrame extends javax.swing.JFrame {
 
         menuOutils.add(menuChoixArduino);
 
+        menuChoixPorts.setText("Ports");
+        menuOutils.add(menuChoixPorts);
+
         menuBarre.add(menuOutils);
 
         setJMenuBar(menuBarre);
@@ -1001,6 +1005,7 @@ public class KitArduinoFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu menuAjoutVarComp;
     private javax.swing.JMenuBar menuBarre;
     private javax.swing.JMenu menuChoixArduino;
+    private javax.swing.JMenu menuChoixPorts;
     private javax.swing.JMenu menuEdition;
     private javax.swing.JMenu menuFichier;
     private javax.swing.JPopupMenu menuModifier;
